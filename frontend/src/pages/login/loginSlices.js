@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { Fetch } from '../../services/logic.js'
+import { UserServices } from '../../services/userServices.js'
 
 const initialState = {
     loading: false,
@@ -9,7 +9,7 @@ const initialState = {
 };
 
 export const login = createAsyncThunk('login/', async (data) => {
-    return Fetch.login(data).then(data => data)
+    return UserServices.login(data).then(data => data)
 })
 export const loginSlice = createSlice({
     name: 'login',

@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import RegisterImage from "../../register.png";
-import { Fetch } from "../../services/logic.js";
 import { fetchUser } from "./registerSlices.js"
 import React from 'react';
 import CircularProgress from '@mui/material/CircularProgress';

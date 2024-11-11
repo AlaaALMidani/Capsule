@@ -1,7 +1,7 @@
 const baseUrl = "http://localhost:3000/";
 const register = "register";
 const login = "login"
-export class Fetch {
+export class UserServices {
     static async register(data) {
         return fetch(`${baseUrl}${register}`, {
             method: "post",
