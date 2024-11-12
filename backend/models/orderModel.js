@@ -12,7 +12,7 @@ const orderSchema = new mongoose.Schema({
 
 const Order = mongoose.model("Order", orderSchema);
 
-class OrderRepo {
+class OrderRepo { 
   static create = async (orderData) => {
     const newOrder = new Order(orderData);
     return await newOrder.save();
