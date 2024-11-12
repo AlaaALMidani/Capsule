@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const OrderServices = require('../services/orderServices');
+const OrderServices = require('../services/orderService');
+const orderService = require('../services/orderService');
 
-router.post('/orders', async (req, res) => {
+router.post('/addOrder', async (req, res) => {
     const token = req.headers.authorization?.split(' ')[1];
     const result = await OrderServices.createOrder(req.body, token);
   
@@ -13,18 +14,18 @@ router.post('/orders', async (req, res) => {
     }
   });
   
-  router.delete('/orders/:id', async (req, res) => {
+  router.delete('/:orderId', async (req, res) => {
     const token = req.headers.authorization?.split(' ')[1];
-    const result = await OrderServices.deleteOrder(req.params.id, token);
-  
+    const result = await OrderServices.deleteOrder(req.params.orderId, token);
+
     if (result.success) {
-      return res.status(200).json(result);
+        return res.status(200).json(result);
     } else {
-      return res.status(400).json(result);
+        return res.status(400).json(result);
     }
-  });
+});
   
-  router.get('/orders/current', async (req, res) => {
+  router.get('/current', async (req, res) => {
     const token = req.headers.authorization?.split(' ')[1];
     const result = await OrderServices.currentOrders(token);
   
@@ -35,7 +36,7 @@ router.post('/orders', async (req, res) => {
     }
   });
 
-  router.get('/orders/previous', async (req, res) => {
+  router.get('/previous', async (req, res) => {
     const token = req.headers.authorization?.split(' ')[1];
     const result = await OrderServices.previousOrders(token);
   
@@ -46,7 +47,7 @@ router.post('/orders', async (req, res) => {
     }
   });
 
-  router.get('/orders/all', async (req, res) => {
+  router.get('/all', async (req, res) => {
     const token = req.headers.authorization?.split(' ')[1];
     const result = await OrderServices.getAllOrders(token);
   
@@ -57,10 +58,9 @@ router.post('/orders', async (req, res) => {
     }
   });
 
-  router.post('/orders/repeat/:orderId', async (req, res) => {
+  router.post('/repeat/:orderId', async (req, res) => {
     const token = req.headers.authorization?.split(' ')[1]; 
     const result = await OrderServices.repeatOrder(req.params.orderId, token);
-  
     if (result.success) {
       return res.status(201).json(result);
     } else {
@@ -68,4 +68,17 @@ router.post('/orders', async (req, res) => {
     }
   });
 
+  router.put('/update/:orderId', async (req, res) => {  
+    const token = req.headers.authorization?.split(' ')[1];   
+    const orderId = req.params.orderId; 
+    const updateData = req.body; 
+
+    const result = await OrderServices.updateOrder(orderId, updateData, token); 
+
+    if (result.success) {  
+        return res.status(200).json(result); 
+    } else {  
+        return res.status(400).json(result);
+    }  
+});
   module.exports = router;
