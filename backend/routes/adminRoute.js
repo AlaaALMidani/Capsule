@@ -5,8 +5,8 @@ const AdminServices = require('../services/adminService');
 
 
 router.post('/addUser', async (req, res) => {
-    const registered = await AdminServices.addUser(req.body);
-    return res.send(registered)
+  const registered = await AdminServices.addUser(req.body);
+  return res.send(registered)
 }
 )
 
