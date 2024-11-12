@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const orderSchema = new mongoose.Schema({
   id: { type: String, required: true, unique: true },
   senderId: { type: String, required: true },
-  status: { type: String, required: true, enum: ["pending", "completed"], default:"pending"},
+  status: { type: String, required: true, enum: ["pending", "completed","cancelled"], default:"pending"},
   createdAt: { type: Date, required: true, default: Date.now },
   message: { type: String, required: true, minlength: 5 },
   photo: { type: String },
@@ -26,7 +26,6 @@ class OrderRepo {
   static findBySenderId = async (senderId) => {
     return await Order.findOne({ senderId });
   };
-
   static deleteOne = async (id) => {
     return await Order.findByIdAndDelete(id);
   };
