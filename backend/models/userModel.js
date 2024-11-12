@@ -22,12 +22,10 @@ class UserRepo {
   static findById = async (id) => {
     return await User.findById(id);
   };
-  static findByEmail = async (email) => {
-    return await User.findOne({ email });
+  static findByPhoneNumber = async (phoneNumber) => {
+    return await User.findOne({ phoneNumber });
   };
-  static findByUsername = async (username) => {
-    return await User.findOne({ username });
-  };
+ 
   static findByRole = async (role) => {
     return await User.findOne({ role })
   }
