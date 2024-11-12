@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose'); 
 
-const connect = async () => {
+const connect = async () => {  
   try {
-    await mongoose.connect('mongodb+srv://alaaalmedane:a1HdKaiPT566ySIY@cluster0.2d4jl.mongodb.net/Capsule-App',
+    await mongoose.connect('mongodb://localhost:27017/capsule-app',
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,

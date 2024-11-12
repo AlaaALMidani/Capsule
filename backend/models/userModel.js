@@ -2,12 +2,13 @@ const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
   fullName: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  username: { type: String, required: true, unique:true },
+  phoneNumber: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  location: { type: String, },
+  active: { type: Boolean },
   token: { type: String },
+  roleID: { type: Number, required: true }
 });
-
 const User = mongoose.model("Users", userSchema);
 
 class UserRepo {
@@ -27,6 +28,9 @@ class UserRepo {
   static findByUsername = async (username) => {
     return await User.findOne({ username });
   };
+  static findByRole = async (role) => {
+    return await User.findOne({ role })
+  }
   static update = async (id, userData) => {
     return await User.findByIdAndUpdate(id, userData, { new: true }); //new:true returns the updated doc
   };
