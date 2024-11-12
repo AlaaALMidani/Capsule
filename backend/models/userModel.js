@@ -15,7 +15,7 @@ class UserRepo {
   static create = async (userData) => {
     const newUser = new User(userData);
     return await newUser.save();
-  };
+  };  
   static findAll = async () => {
     return await User.find();
   };
