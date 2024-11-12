@@ -17,14 +17,13 @@ const orderRoutes = require("./routes/orderRoute");
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use("/api/orders", orderRoutes);
+app.use("/api/users", usersRoutes);
+app.use("/api/admin", adminRoutes);
 app.use((req, res, next) => {
   console.log(req.method, req.url);
   next();
 });
-app.use("/api", orderRoutes);
-app.use("/api/users", usersRoutes);
-app.use("/api/admin", adminRoutes);
-
 
 
 
