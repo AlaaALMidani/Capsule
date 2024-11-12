@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const db = require("./models/db");
 const mongoose = require("mongoose");
+const orderRoutes = require("./routes/orderRoute");
 app.use(cors());
 
 // Middleware
@@ -13,8 +14,10 @@ app.use((req, res, next) => {
   console.log(req.method, req.url);
   next();
 });
-const port = 3000;
-const host = "http://localhost:";
+const port =process.env.PORT || 3000;
+const host = `http://localhost:${port}`;
+
+app.use("/api", orderRoutes);
 
 db.connect()
   .then(async () => {
@@ -27,3 +30,5 @@ db.connect()
     console.error("Failed to start server:", err);
     process.exit(1); // Exit with an error code
   });
+
+  
