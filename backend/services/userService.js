@@ -1,8 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { UserRepo } = require("../models/userModel");
-const {ColorPaletteService} = require('./paletteService');  
-    
+
 class UserServices {
 
   async hashPassword(password) {
@@ -33,6 +32,28 @@ class UserServices {
       return null;
     }
   }
+  isValidSyrianMobile(number) {
+    //This function is the same as the previous response
+    const cleanedNumber = number.replace(/\D/g, '');
+    const mtnPrefixes = ['099', '094', '095', '093'];
+    const syriatelPrefixes = ['098', '092', '091', '096'];
+
+    if (
+      (mtnPrefixes.some((prefix) => cleanedNumber.startsWith(prefix)) && cleanedNumber.length === 10) ||
+      (syriatelPrefixes.some((prefix) => cleanedNumber.startsWith(prefix)) && cleanedNumber.length === 10)
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  isValidInternationalMobile(number) {
+    // This is a more general check - adjust as needed for your requirements.
+    //  This example is basic and might need refinement depending on your needs.
+    return /^\+[1-9]\d{1,14}$/.test(number); // Checks for + followed by 1-15 digits
+  }
+
   async validate(user) {
     const errors = {};
 
@@ -47,30 +68,21 @@ class UserServices {
         "First name is required, must be a string, and between 2 and 50 characters.";
     }
 
-    //username
-    if (!user.username) {
-      errors.username = "Username is required.";
-    } else if (user.username.length < 5 || user.username.length > 20) {
-      errors.username = "Username must be between 5 and 20 characters long.";
-    } else if (!/^[a-zA-Z0-9._]+$/.test(user.username)) {
-      errors.username =
-        "Username can only contain alphanumeric characters, periods (.), and underscores (_).";
-    } else if (await UserRepo.findByUsername(user.username)) {
-      console.log(UserRepo.findByUsername(user.username))
-      errors.username = "Username is already exist";
-    }
 
-    //email
-    if (!user.email) {
-      errors.email = "Email is required.";
-    } else if (
-      !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(user.email)
-    ) {
-      errors.email = "Invalid email format.";
-    } else if (await UserRepo.findByEmail(user.email)) {
-      errors.email = "Email is already exist";
-    }
+    // Phone Number Validation (Syrian and International)
+    if (!user.phoneNumber) {
+      errors.phoneNumber = 'Phone number is required.';
+    } else {
+      const phoneNumber = user.phoneNumber.replace(/\D/g, ''); // Remove non-digits
 
+      if (this.isValidSyrianMobile(phoneNumber)) {
+        // Syrian number is valid
+      } else if (this.isValidInternationalMobile(phoneNumber)) {
+        // International number is valid (general check)
+      } else {
+        errors.phoneNumber = 'Invalid phone number format.  Please enter a valid Syrian or international number.';
+      }
+    }
     //password
     if (!user.password) {
       errors.password = "Password is required.";
@@ -86,16 +98,13 @@ class UserServices {
     if (Object.keys(validation).length > 0) {
       return { ok: false, validation: validation };
     }
-
     const hashedPassword = await this.hashPassword(user.password);
-    
     const newUser = await UserRepo.create({
       ...user,
       password: hashedPassword,
     });
 
     const token = this.generateToken(newUser);
-    await ColorPaletteService.addInitialState(newUser._id) ;
     return { ok: true, user: { ...newUser._doc, token } };
   }
   async login({ emailOrUsername, password }) {
@@ -111,7 +120,7 @@ class UserServices {
     if (user && await this.comparePassword(password, user.password)) {
       return { ok: true, user: { ...user._doc, token: this.generateToken(user) } };
     }
-   
+
     return { ok: false, message: "email or password isn't correct" };
   }
 }
