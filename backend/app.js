@@ -25,6 +25,7 @@ const postRoutes =require("./routes/postRoute")
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use("/api/orders", orderRoutes);
 app.use("/api/users", usersRoutes);
 app.use("/api/posts", postRoutes);

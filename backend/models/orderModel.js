@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
 
 const orderSchema = new mongoose.Schema({
-  id: { type: String, required: true, unique: true },
   senderId: { type: String, required: true },
-  status: { type: String, required: true, enum: ["pending", "completed","canceled"], default:"pending"},
+  status: { type: String, required: true, enum: ["pending","inProgress","completed","canceled"], default:"pending"},
   createdAt: { type: Date, required: true, default: Date.now },
   message: { type: String, required: true, minlength: 5 },
   photo: { type: String },
@@ -17,27 +16,31 @@ class OrderRepo {
     const newOrder = new Order(orderData);
     return await newOrder.save();
   };
+
   static findAll = async () => {
     return await Order.find();
   };
-  static findById = async (id) => {  
-    return await Order.findOne({ id }); 
+  static findById = async (_id) => {  
+    return await Order.findOne({ _id }); 
   };
+
   static findBySenderId = async (senderId) => {
     return await Order.findOne({ senderId });
   };
-  static deleteOne = async (id) => {
-    return await Order.findOneAndDelete({ id }); 
-};
+  static deleteOne = async (_id) => {
+    return await Order.findOneAndDelete({ _id }); 
+  };
+
   static findPending = async (senderId) => {
     return await Order.find({ senderId, status: "pending" });
   };
+
   static findCompleted = async (senderId) => {
     return await Order.find({ senderId, status: "completed" });
   };
-  static updateOne = async (id, updateData) => {  
+  static updateOne = async (_id, updateData) => {  
     try {  
-      const updatedOrder = await Order.findOneAndUpdate({ id }, updateData, {  
+      const updatedOrder = await Order.findOneAndUpdate({ _id }, updateData, {  
         new: true,  
         runValidators: true,  
       });  
@@ -49,8 +52,12 @@ class OrderRepo {
       return { success: false, error: error.message };  
     }  
   };
-  
 }
+
+module.exports = {
+  OrderRepo,
+};
+
 module.exports = {
   OrderRepo,
 };

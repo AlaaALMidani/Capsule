@@ -3,13 +3,13 @@ const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
 const { UserRepo } = require("../models/userModel");
-const { v4: uuidv4 } = require("uuid");
+
 
 class OrderServices {
   constructor() {
     this.storage = multer.diskStorage({
       destination: (req, file, cb) => {
-        cb(null, "uploads/");
+        cb(null, "uploads/"); 
       },
       filename: (req, file, cb) => {
         cb(null, Date.now() + path.extname(file.originalname));
@@ -38,39 +38,43 @@ class OrderServices {
   }
   async validateToken(token) {
     try {
+      if (token.startsWith("Bearer ")) {
+        token = token.slice(7, token.length);
+      }
       const decoded = await jwt.verify(token, "sdwe");
       return { success: true, userId: decoded.userID };
     } catch (error) {
       return { success: false, error: "Invalid or expired token" };
     }
   }
-  async createOrder(orderData, token) {
+  async createOrder(orderData, token, req) {
     try {
-      const { success, userId, error } = await this.validateToken(
-        token,
-        "sdwe"
-      );
-      console.log("Token Validation Result:", { success, userId, error });
+      const { success, userId, error } = await this.validateToken(token);
       if (!success) {
         return { success: false, error };
       }
-
       orderData.senderId = userId;
-      orderData.id = uuidv4(); 
-      if (orderData.photo && orderData.photo.path) {
-        orderData.photo = orderData.photo.path;
+      if (req.file) {
+        orderData.photo = req.file.path.replace(/\\/g, "/");
       }
       const errors = await this.validate(orderData);
       if (Object.keys(errors).length > 0) {
         return { success: false, errors };
       }
-     
       const newOrder = await OrderRepo.create(orderData);
-      return { success: true, order: newOrder };
+      const baseURL = "http://localhost:3002/";
+      return {
+        success: true,
+        order: {
+          ...newOrder.toObject(),
+          photo: newOrder.photo ? `${baseURL}${newOrder.photo}` : null,
+        },
+      };
     } catch (error) {
       return { success: false, error: error.message };
     }
   }
+  
   async deleteOrder(orderId, token) {
     try {
       const { success, error, userId } = await this.validateToken(
@@ -91,40 +95,51 @@ class OrderServices {
   }
   async currentOrders(token) {
     try {
-      const { success, error, userId } = await this.validateToken(
-        token,
-        "sdwe"
-      );
+      const { success, error, userId } = await this.validateToken(token);
       if (!success) {
         return { success: false, error };
       }
       const currentOrders = await OrderRepo.findPending(userId);
       if (!currentOrders || currentOrders.length === 0) {
-        return { success: false, error: "There are no orders" };
+        return { success: false, error: "There are no current orders" };
       }
-      return { success: true, orders: currentOrders };
+      const baseURL = "http://localhost:3002/";
+      const formattedOrders = currentOrders.map((order) => ({
+        ...order.toObject(),
+        photo: order.photo
+          ? `${baseURL}${order.photo.replace(/\\/g, "/")}`
+          : null,
+      }));
+
+      return { success: true, orders: formattedOrders };
     } catch (error) {
       return { success: false, error: error.message };
     }
   }
+
   async previousOrders(token) {
     try {
-      const { success, error, userId } = await this.validateToken(
-        token,
-        "sdwe"
-      );
+      const { success, error, userId } = await this.validateToken(token);
       if (!success) {
         return { success: false, error };
       }
       const previousOrders = await OrderRepo.findCompleted(userId);
       if (!previousOrders || previousOrders.length === 0) {
-        return { success: false, error: "There are no orders" };
+        return { success: false, error: "There are no previous orders" };
       }
-      return { success: true, orders: previousOrders };
+      const baseURL = "http://localhost:3002/";
+      const formattedOrders = previousOrders.map((order) => ({
+        ...order.toObject(),
+        photo: order.photo
+          ? `${baseURL}${order.photo.replace(/\\/g, "/")}`
+          : null,
+      }));
+      return { success: true, orders: formattedOrders };
     } catch (error) {
       return { success: false, error: error.message };
     }
   }
+
   async getAllOrders(token) {
     try {
       const { success, error, userId } = await this.validateToken(
@@ -139,15 +154,20 @@ class OrderServices {
       if (!user) {
         return { success: false, error: "User not found" };
       }
-      console.log(user.roleID);
       let orders;
+      const baseURL = "http://localhost:3002/";
       if (user.roleID == 3) {
         orders = await OrderRepo.findAll();
         const filteredOrders = await Promise.all(
           orders.map(async (order) => {
             const orderUser = await UserRepo.findById(order.senderId);
-            if (orderUser.roleID === 2) {
-              return order;
+            if (orderUser && orderUser.roleID == 2) {
+              return {
+                ...order.toObject(),
+                photo: order.photo
+                  ? `${baseURL}${order.photo.replace(/\\/g, "/")}`
+                  : null,
+              };
             }
           })
         );
@@ -158,8 +178,13 @@ class OrderServices {
         const filteredOrders = await Promise.all(
           orders.map(async (order) => {
             const orderUser = await UserRepo.findById(order.senderId);
-            if (orderUser.roleID === 3) {
-              return order;
+            if (orderUser && orderUser.roleID == 3) {
+              return {
+                ...order.toObject(),
+                photo: order.photo
+                  ? `${baseURL}${order.photo.replace(/\\/g, "/")}`
+                  : null,
+              };
             }
           })
         );
@@ -191,7 +216,6 @@ class OrderServices {
       }
 
       const newOrderData = {
-        id: uuidv4(),
         message: previousOrder.message,
         location: previousOrder.location,
         photo: previousOrder.photo,
@@ -205,7 +229,16 @@ class OrderServices {
       }
 
       const newOrder = await OrderRepo.create(newOrderData);
-      return { success: true, order: newOrder };
+      const baseURL = "http://localhost:3002/";
+      return {
+        success: true,
+        order: {
+          ...newOrder.toObject(),
+          photo: newOrder.photo
+            ? `${baseURL}${newOrder.photo.replace(/\\/g, "/")}`
+            : null,
+        },
+      };
     } catch (error) {
       return {
         success: false,
@@ -213,18 +246,18 @@ class OrderServices {
       };
     }
   }
-  async updateOrder(orderId, updateData, token) {
+  async updateOrder(orderId, updateData, token, req) {
     try {
-      const { success, error, userId } = await this.validateToken(
-        token,
-        "sdwe"
-      );
+      const { success, error, userId } = await this.validateToken(token);
       if (!success) {
         return { success: false, error };
       }
       const existingOrder = await OrderRepo.findById(orderId);
       if (!existingOrder) {
         return { success: false, error: "Order not found" };
+      }
+      if (req.file) {
+        updateData.photo = req.file.path.replace(/\\/g, "/");
       }
       const updatedData = {
         ...existingOrder.toObject(),
@@ -235,7 +268,16 @@ class OrderServices {
         return { success: false, errors };
       }
       const updatedOrder = await OrderRepo.updateOne(orderId, updatedData);
-      return { success: true, order: updatedOrder };
+      const baseURL = "http://localhost:3002/";
+      return {
+        success: true,
+        order: {
+          ...updatedOrder.order.toObject(),
+          photo: updatedOrder.order.photo
+            ? `${baseURL}${updatedOrder.order.photo}`
+            : null,
+        },
+      };
     } catch (error) {
       return { success: false, error: error.message };
     }
