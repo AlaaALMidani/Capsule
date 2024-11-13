@@ -15,7 +15,7 @@ class OrderServices {
         cb(null, Date.now() + path.extname(file.originalname));
       },
     });
-    this.upload = multer({ storage: this.storage });
+    this.upload = multer({ storage: this.storage }).single('photo');
   }
   async validate(order) {
     const errors = {};
@@ -30,6 +30,9 @@ class OrderServices {
     }
     if (!order.location) {
       errors.location = "The location is required";
+    }
+    if (order.photo && typeof order.photo !== "string") {
+      errors.photo = "Photo must be a valid string URL or file path.";
     }
     return errors;
   }
@@ -53,14 +56,15 @@ class OrderServices {
       }
 
       orderData.senderId = userId;
-      orderData.id = uuidv4();
+      orderData.id = uuidv4(); 
+      if (orderData.photo && orderData.photo.path) {
+        orderData.photo = orderData.photo.path;
+      }
       const errors = await this.validate(orderData);
       if (Object.keys(errors).length > 0) {
         return { success: false, errors };
       }
-      if (orderData.photo && orderData.photo.path) {
-        orderData.photo = orderData.photo.path;
-      }
+     
       const newOrder = await OrderRepo.create(orderData);
       return { success: true, order: newOrder };
     } catch (error) {
@@ -76,7 +80,7 @@ class OrderServices {
       if (!success) {
         return { success: false, error };
       }
-      const deleteOrder = await OrderRepo.deleteOne(orderId); 
+      const deleteOrder = await OrderRepo.deleteOne(orderId);
       if (!deleteOrder) {
         return { success: false, error: "Order not found" };
       }
@@ -130,12 +134,12 @@ class OrderServices {
       if (!success) {
         return { success: false, error };
       }
-      
+
       const user = await UserRepo.findById(userId);
       if (!user) {
         return { success: false, error: "User not found" };
       }
-     console.log(user.roleID)
+      console.log(user.roleID);
       let orders;
       if (user.roleID == 3) {
         orders = await OrderRepo.findAll();
@@ -210,28 +214,31 @@ class OrderServices {
     }
   }
   async updateOrder(orderId, updateData, token) {
-    try {  
-      const { success, error, userId } = await this.validateToken(token,"sdwe");  
-      if (!success) {  
-          return { success: false, error };  
-      }  
+    try {
+      const { success, error, userId } = await this.validateToken(
+        token,
+        "sdwe"
+      );
+      if (!success) {
+        return { success: false, error };
+      }
       const existingOrder = await OrderRepo.findById(orderId);
-      if (!existingOrder) {  
-          return { success: false, error: "Order not found" };  
-      }  
-      const updatedData = {  
-          ...existingOrder.toObject(), 
-          ...updateData, 
-      };  
-      const errors = await this.validate(updatedData);  
-      if (Object.keys(errors).length > 0) {  
-          return { success: false, errors };  
-      }  
-      const updatedOrder = await OrderRepo.updateOne(orderId, updatedData);  
-      return { success: true, order: updatedOrder };  
-  } catch (error) {  
-      return { success: false, error: error.message };  
-  }  
+      if (!existingOrder) {
+        return { success: false, error: "Order not found" };
+      }
+      const updatedData = {
+        ...existingOrder.toObject(),
+        ...updateData,
+      };
+      const errors = await this.validate(updatedData);
+      if (Object.keys(errors).length > 0) {
+        return { success: false, errors };
+      }
+      const updatedOrder = await OrderRepo.updateOne(orderId, updatedData);
+      return { success: true, order: updatedOrder };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
   }
 }
 module.exports = new OrderServices();

@@ -3,16 +3,19 @@ const router = express.Router();
 const OrderServices = require('../services/orderService');
 const orderService = require('../services/orderService');
 
-router.post('/addOrder', async (req, res) => {
-    const token = req.headers.authorization?.split(' ')[1];
-    const result = await OrderServices.createOrder(req.body, token);
-  
-    if (result.success) {
-      return res.status(201).json(result);
-    } else {
-      return res.status(400).json(result);
-    }
-  });
+router.post('/addOrder', orderService.upload, async (req, res) => {
+  const token = req.headers.authorization?.split(' ')[1];
+  const orderData = req.body;
+  if (req.file) {
+    orderData.photo = req.file.path;
+  }
+  const result = await OrderServices.createOrder(orderData, token);
+  if (result.success) {
+    return res.status(201).json(result);
+  } else {
+    return res.status(400).json(result);
+  }
+});
   
   router.delete('/:orderId', async (req, res) => {
     const token = req.headers.authorization?.split(' ')[1];

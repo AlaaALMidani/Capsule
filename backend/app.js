@@ -5,11 +5,19 @@ const cors = require("cors");
 const db = require("./models/db");
 const mongoose = require("mongoose");
 app.use(cors());
+const fs = require('fs');
+const path = require('path');
 
+const uploadsDir = path.join(__dirname, 'uploads');
+
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
 //routes 
 const usersRoutes =require('./routes/usersRoute') 
 const adminRoutes = require('./routes/adminRoute')
 const orderRoutes = require("./routes/orderRoute");
+const postRoutes =require("./routes/postRoute")
 
 
 
@@ -19,6 +27,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/api/orders", orderRoutes);
 app.use("/api/users", usersRoutes);
+app.use("/api/posts", postRoutes);
 app.use("/api/admin", adminRoutes);
 app.use((req, res, next) => {
   console.log(req.method, req.url);
