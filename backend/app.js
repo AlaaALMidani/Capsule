@@ -6,7 +6,7 @@ const db = require("./models/db");
 const mongoose = require("mongoose");
 
 //routes 
-const usersRoutes =require('./routes/usersRoute') 
+const usersRoutes = require('./routes/usersRoute') 
 const adminRoutes = require('./routes/adminRoute')
 const orderRoutes = require("./routes/orderRoute");
 
