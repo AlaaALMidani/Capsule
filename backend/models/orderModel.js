@@ -38,6 +38,7 @@ class OrderRepo {
     return await Order.find({ status });
   };
   static findByIDAndStatus = async (senderId, status) => {
+    console.log(senderId, status);
     return await Order.find({ senderId, status });
   };
   static findPending = async (senderId) => {

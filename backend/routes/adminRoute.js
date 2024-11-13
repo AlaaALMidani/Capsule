@@ -54,7 +54,7 @@ router.get("/profiles/userInfo", async (req, res) => {
 
 router.get("/profiles/orders", async (req, res) => {
   console.log(req.query);
-  const orders = await AdminServices.getUserOrders(req.query.id,req.query.status);
+  const orders = await AdminServices.getUserOrders(req.query.userID,req.query.status);
   return res.send(orders);
 });
 
