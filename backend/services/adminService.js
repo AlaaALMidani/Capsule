@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { UserRepo } = require("../models/userModel");
+const { OrderRepo} = require("../models/orderModel")
 
 class AdminServices {
 
@@ -14,6 +15,7 @@ class AdminServices {
         return isMatch;
     }
     secretKey = "sdwe";
+
     generateToken(user) {
         const payload = {
             userID: user._id,
@@ -32,7 +34,9 @@ class AdminServices {
             return null;
         }
     }
+
     isValidSyrianMobile(number) {
+
         //This function is the same as the previous response
         const cleanedNumber = number.replace(/\D/g, '');
         const mtnPrefixes = ['099', '094', '095', '093'];
@@ -70,7 +74,10 @@ class AdminServices {
         // Phone Number Validation (Syrian and International)
         if (!user.phoneNumber) {
             errors.phoneNumber = 'Phone number is required.';
-        } else {
+        } else if (await UserRepo.findByPhoneNumber(user.phoneNumber)) {
+            errors.phoneNumber = 'Phone number is already exist';
+        }
+        else {
             const phoneNumber = user.phoneNumber.replace(/\D/g, ''); // Remove non-digits
 
             if (this.isValidSyrianMobile(phoneNumber)) {
@@ -98,6 +105,7 @@ class AdminServices {
         return errors;
     }
 
+    //users
     async addUser(user) {
         const validation = await this.validate(user);
 
@@ -115,6 +123,21 @@ class AdminServices {
         const token = this.generateToken(newUser);
 
         return { ok: true, user: { ...newUser._doc, token } };
+    }
+
+    async getAllUsers()
+    {
+        return await UserRepo.findAll();
+    }
+    async getUsers(roleID)
+    {
+        
+        return await UserRepo.findByRole(Number(roleID))
+    } 
+    //orders
+    async getAllOrders()
+    {
+        return await OrderRepo.findAll()
     }
 
 }

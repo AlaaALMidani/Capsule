@@ -15,19 +15,21 @@ class UserRepo {
   static create = async (userData) => {
     const newUser = new User(userData);
     return await newUser.save();
-  };  
+  };
   static findAll = async () => {
     return await User.find();
   };
   static findById = async (id) => {
     return await User.findById(id);
   };
-  static findByPhoneNumber = async (phoneNumber) => {
-    return await User.findOne({ phoneNumber });
+  static findByEmail = async (email) => {
+    return await User.findOne({ email });
   };
- 
-  static findByRole = async (role) => {
-    return await User.findOne({ role })
+  static findByUsername = async (username) => {
+    return await User.findOne({ username });
+  };
+  static findByRole = async (roleID) => {
+    return await User.find({ roleID })
   }
   static update = async (id, userData) => {
     return await User.findByIdAndUpdate(id, userData, { new: true }); //new:true returns the updated doc

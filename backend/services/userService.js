@@ -123,5 +123,6 @@ class UserServices {
 
     return { ok: false, message: "email or password isn't correct" };
   }
+ 
 }
 module.exports = new UserServices();

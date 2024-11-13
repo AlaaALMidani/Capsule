@@ -4,14 +4,11 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const db = require("./models/db");
 const mongoose = require("mongoose");
-app.use(cors());
 
 //routes 
 const usersRoutes =require('./routes/usersRoute') 
 const adminRoutes = require('./routes/adminRoute')
 const orderRoutes = require("./routes/orderRoute");
-
-
 
 // Middleware
 app.use(cors());
@@ -24,9 +21,6 @@ app.use((req, res, next) => {
   console.log(req.method, req.url);
   next();
 });
-
-
-
 
 
 const port = 3002;
