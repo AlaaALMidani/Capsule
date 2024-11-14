@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
+import { Register } from "./pages/register/register.jsx";
+import { Login } from "./pages/login/Login.jsx";
 import Topbar from "./scenes/global/Topbar.jsx";
 // import Sidebar from "./scenes/global/Sidebar.jsx";
 import Dashboard from "./scenes/dashboard/index.jsx";
@@ -32,6 +34,9 @@ function App() {
             {/* <Topbar setIsSidebar={setIsSidebar} /> */}
             <main className="p-4">
               <Routes>
+              <Route path="/register" element={<Register />}></Route>
+            <Route path="/login" element={<Login/>}></Route>
+            <Route path="/home" element={<div>home </div>}></Route>
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/team" element={<Team />} />
                 <Route path="/contacts" element={<Contacts />} />
@@ -50,5 +55,6 @@ function App() {
     </ColorModeContext.Provider>
   );
 }
+
 
 export default App;

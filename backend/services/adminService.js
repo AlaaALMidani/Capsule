@@ -4,7 +4,6 @@ const { UserRepo } = require("../models/userModel");
 const { OrderRepo} = require("../models/orderModel")
 
 class AdminServices {
-
     async hashPassword(password) {
         const saltRounds = 9; // Number of salt rounds (higher is more secure, but slower)
         const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -36,7 +35,6 @@ class AdminServices {
     }
 
     isValidSyrianMobile(number) {
-
         //This function is the same as the previous response
         const cleanedNumber = number.replace(/\D/g, '');
         const mtnPrefixes = ['099', '094', '095', '093'];
@@ -126,7 +124,7 @@ class AdminServices {
     }
 
     async getAllUsers()
-    {
+     {
         return await UserRepo.findAll();
     }
     async getUsers(roleID)
@@ -135,10 +133,40 @@ class AdminServices {
         return await UserRepo.findByRole(Number(roleID))
     } 
     //orders
-    async getAllOrders()
-    {
-        return await OrderRepo.findAll()
-    }
+    async getAllOrders() {
+        try {
+          return await OrderRepo.findAll();
+        } catch (error) {
+          return { ok: false, error: "Something went wrong" };
+        }
+      }
+      async getOrders(status) {
+        console.log(status)
+        try {
+          return await OrderRepo.findByStatus(status);
+        } catch (error) {
+          return { ok: false, error: "Invalid status" };
+        }
+      }
+    
+      //profiles
+      async getProfile(userID) {
+        try {
+          const user = await UserRepo.findByID(userID);
+          return { ok: true, user: { ...user._doc, password: undefined } };
+        } catch (error) {
+          return { ok: false, error: "User not found" };
+        }
+      }
+    
+      async getUserOrders(userID , status) {
+        try {
+          const orders = await OrderRepo.findByIDAndStatus(userID , status);
+          return { ok: true, orders: orders };
+        } catch (error) {
+          return { ok: false, error: "something went wrong" };
+        }
+      }
 
 }
 module.exports = new AdminServices();

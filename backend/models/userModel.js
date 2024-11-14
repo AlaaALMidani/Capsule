@@ -18,15 +18,15 @@ class UserRepo {
   };
   static findAll = async () => {
     return await User.find();
-  };
-  static findById = async (id) => {
+  }; 
+  static findByID = async (id) => {
     return await User.findById(id);
   };
   static findByEmail = async (email) => {
     return await User.findOne({ email });
   };
-  static findByUsername = async (username) => {
-    return await User.findOne({ username });
+  static findByPhoneNumber = async (phoneNumber) => {
+    return await User.findOne({ phoneNumber });
   };
   static findByRole = async (roleID) => {
     return await User.find({ roleID })
