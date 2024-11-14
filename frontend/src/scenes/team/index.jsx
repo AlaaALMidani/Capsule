@@ -19,10 +19,15 @@ const Team = () => {
   useEffect(() => {
     const fetchTeamData = async () => {
       try {
-        const response = await fetch('https://5de5-188-133-56-0.ngrok-free.app/api/admin/allUsers');
+        const response = await fetch('http://localhost:3002/api/admin/allUsers',  {
+    
+          headers: {
+              'Cache-Control': 'no-cache' // Disable caching for this request
+          }
+      });
         // const response = await fetch('/mockData.json');
         const data = await response.json();
-          console.log(response)
+          console.log(data)
         // if (data && data.users) {
         //   const formattedData = data.users.map((item) => ({
         //     id: item._id,

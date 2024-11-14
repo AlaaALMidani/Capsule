@@ -8,7 +8,7 @@ router.post("/addUser", async (req, res) => {
 });
 router.get("/allUsers", async (req, res) => {
   const allUsers = await AdminServices.getAllUsers(req.body);
- 
+  res.set('Cache-Control', 'no-store');
   return res.send(allUsers);
 });
 
