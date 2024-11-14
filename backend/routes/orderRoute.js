@@ -20,7 +20,7 @@ router.post('/addOrder', OrderServices.upload, async (req, res) => {
   router.delete('/:orderId', async (req, res) => {
     const token = req.headers.authorization?.split(' ')[1];
     const result = await OrderServices.deleteOrder(req.params.orderId, token);
-
+ 
     if (result.success) {
         return res.status(200).json(result);
     } else {
@@ -36,7 +36,7 @@ router.post('/addOrder', OrderServices.upload, async (req, res) => {
       return res.status(200).json(result);
     } else {
       return res.status(400).json(result);
-    }
+    } 
   });
 
   router.get('/previous', async (req, res) => {

@@ -1,9 +1,9 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { UserRepo } = require("../models/userModel");
+const { OrderRepo} = require("../models/orderModel")
 
 class AdminServices {
-
     async hashPassword(password) {
         const saltRounds = 9; // Number of salt rounds (higher is more secure, but slower)
         const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -14,6 +14,7 @@ class AdminServices {
         return isMatch;
     }
     secretKey = "sdwe";
+
     generateToken(user) {
         const payload = {
             userID: user._id,
@@ -32,6 +33,7 @@ class AdminServices {
             return null;
         }
     }
+
     isValidSyrianMobile(number) {
         //This function is the same as the previous response
         const cleanedNumber = number.replace(/\D/g, '');
@@ -70,7 +72,10 @@ class AdminServices {
         // Phone Number Validation (Syrian and International)
         if (!user.phoneNumber) {
             errors.phoneNumber = 'Phone number is required.';
-        } else {
+        } else if (await UserRepo.findByPhoneNumber(user.phoneNumber)) {
+            errors.phoneNumber = 'Phone number is already exist';
+        }
+        else {
             const phoneNumber = user.phoneNumber.replace(/\D/g, ''); // Remove non-digits
 
             if (this.isValidSyrianMobile(phoneNumber)) {
@@ -98,6 +103,7 @@ class AdminServices {
         return errors;
     }
 
+    //users
     async addUser(user) {
         const validation = await this.validate(user);
 
@@ -116,6 +122,50 @@ class AdminServices {
 
         return { ok: true, user: { ...newUser._doc, token } };
     }
+
+    async getAllUsers()
+     {
+        return await UserRepo.findAll();
+    }
+    async getUsers(roleID)
+    {
+        
+        return await UserRepo.findByRole(Number(roleID))
+    } 
+    //orders
+    async getAllOrders() {
+        try {
+          return await OrderRepo.findAll();
+        } catch (error) {
+          return { ok: false, error: "Something went wrong" };
+        }
+      }
+      async getOrders(status) {
+        try {
+          return await OrderRepo.findByStatus(status);
+        } catch (error) {
+          return { ok: false, error: "Invalid status" };
+        }
+      }
+    
+      //profiles
+      async getProfile(userID) {
+        try {
+          const user = await UserRepo.findByID(userID);
+          return { ok: true, user: { ...user._doc, password: undefined } };
+        } catch (error) {
+          return { ok: false, error: "User not found" };
+        }
+      }
+    
+      async getUserOrders(userID , status) {
+        try {
+          const orders = await OrderRepo.findByIDAndStatus(userID , status);
+          return { ok: true, orders: orders };
+        } catch (error) {
+          return { ok: false, error: "something went wrong" };
+        }
+      }
 
 }
 module.exports = new AdminServices();

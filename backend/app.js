@@ -14,12 +14,10 @@ if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
 //routes 
-const usersRoutes =require('./routes/usersRoute') 
+const usersRoutes = require('./routes/usersRoute') 
 const adminRoutes = require('./routes/adminRoute')
 const orderRoutes = require("./routes/orderRoute");
 const postRoutes =require("./routes/postRoute")
-
-
 
 // Middleware
 app.use(cors());
@@ -34,9 +32,6 @@ app.use((req, res, next) => {
   console.log(req.method, req.url);
   next();
 });
-
-
-
 
 
 const port = 3002;
