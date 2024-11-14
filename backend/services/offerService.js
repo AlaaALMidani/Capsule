@@ -163,5 +163,29 @@ class OfferServices {
     }
   }
 
+  async getOfferById(id, token) {  
+    const { success, error, userId } = await this.validateToken(token);  
+    if (!success) {  
+      return { success: false, error };  
+    }  
+    try {  
+      const offer = await OfferRepo.findById(id);  
+      if (!offer) {  
+        return { success: false, error: "Offer not found" };  
+      }  
+      if (offer.senderID !== userId && offer.receiverID !== userId) {  
+        return { success: false, error: "Unauthorized to view this offer" };  
+      }  
+      const order = await OrderRepo.findById(offer.orderID);  
+      if (!order) {  
+        return { success: false, error: "Order associated with this offer not found" };
+      }  
+      return { success: true, offer, order };  
+    } catch (err) {  
+      console.error("Error retrieving offer:", err); 
+      return { success: false, error: "Failed to retrieve offer" };  
+    }  
+  }
+
 }
 module.exports = new OfferServices();

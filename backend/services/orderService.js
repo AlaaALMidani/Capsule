@@ -259,5 +259,34 @@ class OrderServices {
       return { success: false, error: error.message };
     }
   }
+  async updateStatus(orderId, status, token) {  
+    try {  
+      const { success, error, userId } = await this.validateToken(token);  
+      if (!success) {  
+        return { success: false, error };  
+      }   
+      const existingOrder = await OrderRepo.findById(orderId);  
+      if (!existingOrder) {  
+        return { success: false, error: "Order not found" };  
+      }  
+      const validStatuses = ["pending", "offer_accepted", "inProgress", "completed", "canceled"];  
+      if (!validStatuses.includes(status)) {  
+        return { success: false, error: "Invalid status" };  
+      }  
+      const updatedOrder = await OrderRepo.updateOne(orderId, { status });  
+      const baseURL = "http://localhost:3002/";  
+      return {  
+        success: true,  
+        order: {  
+          ...updatedOrder.order.toObject(),  
+          photo: updatedOrder.order.photo  
+            ? `${baseURL}${updatedOrder.order.photo}`  
+            : null,  
+        },  
+      };  
+    } catch (error) {  
+      return { success: false, error: error.message };  
+    }  
+  }
 }
 module.exports = new OrderServices();
