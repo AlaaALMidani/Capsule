@@ -244,22 +244,16 @@ class PostService {
 
   async getAllPosts(token) {
     try {
-      // Step 1: Validate the token and extract userId
       const { success, error, userId } = await this.validateToken(token);
       if (!success) {
         return { success: false, error };
       }
-
-      // Step 2: Fetch the user from the database using the userId
       const user = await UserRepo.findById(userId);
       if (!user) {
         return { success: false, error: "User not found" };
       }
-
-      // Step 3: Check the user's role and fetch posts accordingly
       let posts;
       if (user.roleID === 2) {
-        // Fetch all posts from users with roleID 3
         posts = await PostRepo.findAll();
         const filteredPosts = await Promise.all(
           posts.map(async (post) => {
@@ -269,7 +263,6 @@ class PostService {
         );
         posts = filteredPosts.filter((post) => post !== null);
       } else if (user.roleID === 3) {
-        // Fetch all posts from users with roleID 4
         posts = await PostRepo.findAll();
         const filteredPosts = await Promise.all(
           posts.map(async (post) => {
@@ -279,11 +272,8 @@ class PostService {
         );
         posts = filteredPosts.filter((post) => post !== null);
       } else {
-        // If the user's role is not authorized
         return { success: false, error: "Unauthorized role" };
       }
-
-      // Step 4: Format the posts with full URLs for files
       const baseURL = "http://localhost:3002/";
       const formattedPosts = posts.map((post) => ({
         ...post.toObject(),

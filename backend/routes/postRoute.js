@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 
 const PostServices = require('../services/postService');
+
+
 router.post('/addPost', PostServices.upload, async (req, res) => {
   try {
     const postData = req.body;
@@ -14,6 +16,7 @@ router.post('/addPost', PostServices.upload, async (req, res) => {
     return res.status(500).json({ success: false, error: error.message });
   }
 });
+
 router.get("/getOwnPosts", async (req, res) => {
 
     const token = req.headers["authorization"];
@@ -57,7 +60,6 @@ router.put('/:postId', PostServices.upload, async (req, res) => {
   }
 });
 
-
 router.get('/getAllPosts', async (req, res) => {
     const token = req.headers['authorization'];
     
@@ -70,4 +72,5 @@ router.get('/getAllPosts', async (req, res) => {
     }
     return res.status(200).json({ success: true, posts: response.posts });
 });
+
 module.exports = router;
