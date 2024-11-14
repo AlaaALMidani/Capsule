@@ -18,7 +18,7 @@ export const Register = () => {
     const dispatch = useDispatch();
     const state = useSelector(state => state.register);
     const navigate = useNavigate();
-
+ 
     const handleChange = (event) => {
         const { name, value, type, files } = event.target;
         setFormData((prevState) => ({
