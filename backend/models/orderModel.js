@@ -2,7 +2,12 @@ const mongoose = require("mongoose");
 
 const orderSchema = new mongoose.Schema({
   senderId: { type: String, required: true },
-  status: { type: String, required: true, enum: ["pending", "inProgress", "completed", "canceled"], default: "pending" },
+  status: {
+    type: String,
+    required: true,
+    enum: ["pending", "inProgress", "completed", "canceled"],
+    default: "pending",
+  },
   createdAt: { type: Date, required: true, default: Date.now },
   message: { type: String, required: true, minlength: 5 },
   photo: { type: String },
@@ -31,8 +36,8 @@ class OrderRepo {
     return await Order.findOneAndDelete({ _id });
   };
 
-  static findPending = async (senderId) => {
-    return await Order.find({ senderId, status: "pending" });
+  static findByStatus = async (senderId, status) => {
+    return await Order.find({ senderId, status });
   };
   static findByStatus = async (status) => {
     return await Order.find({ status });
@@ -58,10 +63,6 @@ class OrderRepo {
     }
   };
 }
-
-module.exports = {
-  OrderRepo,
-};
 
 module.exports = {
   OrderRepo,

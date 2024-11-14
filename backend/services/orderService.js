@@ -93,15 +93,15 @@ class OrderServices {
       return { success: false, error: error.message };
     }
   }
-  async currentOrders(token) {
+  async ordersByStatus(token,status) {
     try {
       const { success, error, userId } = await this.validateToken(token);
       if (!success) {
         return { success: false, error };
       }
-      const currentOrders = await OrderRepo.findPending(userId);
+      const currentOrders = await OrderRepo.findByStatus(userId,status);
       if (!currentOrders || currentOrders.length === 0) {
-        return { success: false, error: "There are no current orders" };
+        return { success: false, error: `There are no ${status}  orders` };
       }
       const baseURL = "http://localhost:3002/";
       const formattedOrders = currentOrders.map((order) => ({
@@ -111,29 +111,6 @@ class OrderServices {
           : null,
       }));
 
-      return { success: true, orders: formattedOrders };
-    } catch (error) {
-      return { success: false, error: error.message };
-    }
-  }
-
-  async previousOrders(token) {
-    try {
-      const { success, error, userId } = await this.validateToken(token);
-      if (!success) {
-        return { success: false, error };
-      }
-      const previousOrders = await OrderRepo.findCompleted(userId);
-      if (!previousOrders || previousOrders.length === 0) {
-        return { success: false, error: "There are no previous orders" };
-      }
-      const baseURL = "http://localhost:3002/";
-      const formattedOrders = previousOrders.map((order) => ({
-        ...order.toObject(),
-        photo: order.photo
-          ? `${baseURL}${order.photo.replace(/\\/g, "/")}`
-          : null,
-      }));
       return { success: true, orders: formattedOrders };
     } catch (error) {
       return { success: false, error: error.message };
