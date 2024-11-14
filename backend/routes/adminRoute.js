@@ -17,30 +17,17 @@ router.get("/users/:role", async (req, res) => {
 });
 
 //orders
-router.get("/orders/", async (req, res) => {
+router.get("/allOrders/", async (req, res) => {
   const orders = await AdminServices.getAllOrders();
   return res.send(orders);
 });
 
-router.get("/orders/completed", async (req, res) => {
-  const orders = await AdminServices.getOrders("completed");
+router.get("/orders/", async (req, res) => {
+  const orders = await AdminServices.getOrders(req.query.status);
   return res.send(orders);
 });
 
-router.get("/orders/pending", async (req, res) => {
-  const orders = await AdminServices.getOrders("pending");
-  return res.send(orders);
-});
 
-router.get("/orders/inProgress", async (req, res) => {
-  const orders = await AdminServices.getOrders("inProgress");
-  return res.send(orders);
-});
-
-router.get("/orders/canseled", async (req, res) => {
-  const orders = await AdminServices.getOrders("canseled");
-  return res.send(orders);
-});
 //profiles
 router.get("/profiles/userInfo/:userID", async (req, res) => {
   const user = await AdminServices.getProfile(req.params.userID);
@@ -53,6 +40,12 @@ router.get("/profiles/userInfo", async (req, res) => {
 });
 
 router.get("/profiles/orders", async (req, res) => {
+  console.log(req.query);
+  const orders = await AdminServices.getUserOrders(req.query.userID,req.query.status);
+  return res.send(orders);
+});
+
+router.get("/profiles/", async (req, res) => {
   console.log(req.query);
   const orders = await AdminServices.getUserOrders(req.query.userID,req.query.status);
   return res.send(orders);

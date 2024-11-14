@@ -150,7 +150,7 @@ class OrderServices {
         return { success: false, error };
       }
 
-      const user = await UserRepo.findById(userId);
+      const user = await UserRepo.findByID(userId);
       if (!user) {
         return { success: false, error: "User not found" };
       }

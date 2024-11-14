@@ -141,6 +141,7 @@ class AdminServices {
         }
       }
       async getOrders(status) {
+        console.log(status)
         try {
           return await OrderRepo.findByStatus(status);
         } catch (error) {
