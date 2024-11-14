@@ -57,7 +57,3 @@ class OrderRepo {
 module.exports = {
   OrderRepo,
 };
-
-module.exports = {
-  OrderRepo,
-};

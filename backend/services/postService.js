@@ -21,7 +21,7 @@ class PostService {
     ]);
   }
   async validate(post) {
-    const errors = {};
+    let errors = {};
     if (
       !post.productName ||
       typeof post.productName !== "string" ||
@@ -105,10 +105,12 @@ class PostService {
         success: true,
         post: {
           ...newPost.toObject(),
-          postPhoto: newPost.postPhoto ? `${baseURL}${newPost.postPhoto}` : null,
+          postPhoto: newPost.postPhoto
+            ? `${baseURL}${newPost.postPhoto}`
+            : null,
           video: newPost.video ? `${baseURL}${newPost.video}` : null,
           PDF: newPost.PDF ? `${baseURL}${newPost.PDF}` : null,
-        }
+        },
       };
     } catch (error) {
       return { success: false, error: error.message };
