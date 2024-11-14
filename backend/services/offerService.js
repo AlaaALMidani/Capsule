@@ -1,6 +1,5 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { UserRepo } = require("../models/userModel");
 const { OrderRepo } = require("../models/orderModel");
 const { OfferRepo } = require("../models/offerModel");
 
@@ -111,6 +110,45 @@ class OfferServices {
       return { success: false, error: "Failed to update offer" };
     }
   }
-  
+  async getOffers(token) {
+    try {
+      const { success, error, userId } = await this.validateToken(token);
+      if (!success) {
+        return { success: false, error };
+      }
+      let offers = await OfferRepo.findByReceiverId(userId);
+      if (!offers || offers.length === 0) {
+        return { success: false, error: "No offers found for this user" };
+      }
+      return { success: true, offers: offers };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
+  }
+  async getOrderOffers(token, orderID) {
+    const { success, userId, error } = await this.validateToken(token);
+    if (!success) {
+      return { success: false, error };
+    }
+    try {
+      const order = await OrderRepo.findById(orderID);
+      if (!order) {
+        return { success: false, error: "Order not found" };
+      }
+      if (order.receiverId !== userId) {
+        return {
+          success: false,
+          error: "Unauthorized to view offers for this order",
+        };
+      }
+      const offers = await OfferRepo.findByOrderId(orderID);
+      if (!offers || offers.length === 0) {
+        return { success: false, error: "No offers found for this order" };
+      }
+      return { success: true, offers };
+    } catch (error) {
+      return { success: false, error: "Failed to retrieve offers" };
+    }
+  }
 }
 module.exports = new OfferServices();

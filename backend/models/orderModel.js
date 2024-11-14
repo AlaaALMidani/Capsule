@@ -31,13 +31,10 @@ class OrderRepo {
     return await Order.findOneAndDelete({ _id }); 
   };
 
-  static findPending = async (senderId) => {
-    return await Order.find({ senderId, status: "pending" });
+  static findByStatus = async (senderId,status) => {
+    return await Order.find({ senderId, status });
   };
 
-  static findCompleted = async (senderId) => {
-    return await Order.find({ senderId, status: "completed" });
-  };
   static updateOne = async (_id, updateData) => {  
     try {  
       const updatedOrder = await Order.findOneAndUpdate({ _id }, updateData, {  

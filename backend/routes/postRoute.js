@@ -2,8 +2,6 @@ const express = require("express");
 const router = express.Router();
 
 const PostServices = require('../services/postService');
-
-
 router.post('/addPost', PostServices.upload, async (req, res) => {
   try {
     const postData = req.body;
@@ -16,10 +14,6 @@ router.post('/addPost', PostServices.upload, async (req, res) => {
     return res.status(500).json({ success: false, error: error.message });
   }
 });
-
-
-
-
 router.get("/getOwnPosts", async (req, res) => {
 
     const token = req.headers["authorization"];
