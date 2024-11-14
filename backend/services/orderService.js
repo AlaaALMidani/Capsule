@@ -4,7 +4,6 @@ const multer = require("multer");
 const path = require("path");
 const { UserRepo } = require("../models/userModel");
 
-
 class OrderServices {
   constructor() {
     this.storage = multer.diskStorage({
