@@ -21,7 +21,6 @@ const Team = () => {
       try {
         const response = await fetch('/mockData.json');
         const data = await response.json();
-  
         if (data && data.users) {
           const formattedData = data.users.map((item) => ({
             id: item._id,
