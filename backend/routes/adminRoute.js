@@ -51,4 +51,8 @@ router.get("/profiles/", async (req, res) => {
   return res.send(orders);
 });
 
+router.patch("/profiles/toggleActivation", async (req, res) => {
+  const user = await AdminServices.toggleActivation(req.query.userID);
+  return res.send(user);
+});
 module.exports = router;

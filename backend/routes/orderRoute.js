@@ -28,26 +28,15 @@ router.post('/addOrder', OrderServices.upload, async (req, res) => {
     }
 });
   
-  router.get('/current', async (req, res) => {
+  router.get('/ordersByStatus', async (req, res) => {
     const token = req.headers.authorization?.split(' ')[1];
-    const result = await OrderServices.currentOrders(token);
-  
+    const status=req.body
+    const result = await OrderServices.ordersByStatus(token,status);
     if (result.success) {
       return res.status(200).json(result);
     } else {
       return res.status(400).json(result);
     } 
-  });
-
-  router.get('/previous', async (req, res) => {
-    const token = req.headers.authorization?.split(' ')[1];
-    const result = await OrderServices.previousOrders(token);
-  
-    if (result.success) {
-      return res.status(200).json(result);
-    } else {
-      return res.status(400).json(result);
-    }
   });
 
   router.get('/all', async (req, res) => {
