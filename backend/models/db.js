@@ -1,12 +1,8 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose'); 
 
-const connect = async () => {
+const connect = async () => {  
   try {
-    await mongoose.connect('mongodb+srv://alaaalmedane:a1HdKaiPT566ySIY@cluster0.2d4jl.mongodb.net/Capsule-App',
-      {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      });
+    await mongoose.connect('mongodb+srv://alaaalmedane:BrRigznLHhSIJEiZ@cluster0.2d4jl.mongodb.net/capsule-app',);
     console.log('Connected to MongoDB');
   } catch (error) {
     console.error('Failed to connect to MongoDB:', error);
