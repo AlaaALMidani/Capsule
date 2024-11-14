@@ -19,32 +19,31 @@ const Team = () => {
   useEffect(() => {
     const fetchTeamData = async () => {
       try {
-        const response = await fetch('https://5de5-188-133-56-0.ngrok-free.app/api/admin/allUsers');
-        // const response = await fetch('/mockData.json');
+        const response = await fetch('/mockData.json');
         const data = await response.json();
-          console.log(response)
-        // if (data && data.users) {
-        //   const formattedData = data.users.map((item) => ({
-        //     id: item._id,
-        //     name: item.fullName,
-        //     phone: item.phoneNumber,
-        //     location: item.location,
-        //     active: item.active ? "Active" : "Inactive",
-        //     accessLevel:
-        //       item.roleID === 1
-        //         ? "admin"
-        //         : item.roleID === 2
-        //         ? "user"
-        //         : item.roleID === 3
-        //         ? "pharmacy"
-        //         : item.roleID === 4
-        //         ? "warehouse"
-        //         : "driver",
-        //   }));
-        //   setTeamData(formattedData);
-        // } else {
-        //   console.error("Unexpected response format:", data);
-        // }
+  
+        if (data && data.users) {
+          const formattedData = data.users.map((item) => ({
+            id: item._id,
+            name: item.fullName,
+            phone: item.phoneNumber,
+            location: item.location,
+            active: item.active ? "Active" : "Inactive",
+            accessLevel:
+              item.roleID === 1
+                ? "admin"
+                : item.roleID === 2
+                ? "user"
+                : item.roleID === 3
+                ? "pharmacy"
+                : item.roleID === 4
+                ? "warehouse"
+                : "driver",
+          }));
+          setTeamData(formattedData);
+        } else {
+          console.error("Unexpected response format:", data);
+        }
       } catch (error) {
         console.error("Error fetching team data:", error);
       }
