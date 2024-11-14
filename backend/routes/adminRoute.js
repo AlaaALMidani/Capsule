@@ -8,6 +8,7 @@ router.post("/addUser", async (req, res) => {
 });
 router.get("/allUsers", async (req, res) => {
   const allUsers = await AdminServices.getAllUsers(req.body);
+ 
   return res.send(allUsers);
 });
 
