@@ -19,7 +19,7 @@ import { ColorModeContext, useMode } from "./theme.js";
 
 function App() {
   const [theme, colorMode] = useMode();
-  // const [isSidebar, setIsSidebar] = useState(true);
+  const [isSidebar, setIsSidebar] = useState(true);
 
   return (
     <ColorModeContext.Provider value={colorMode}>
@@ -34,9 +34,9 @@ function App() {
             {/* <Topbar setIsSidebar={setIsSidebar} /> */}
             <main className="p-4">
               <Routes>
-              <Route path="/register" element={<Register />}></Route>
-            <Route path="/login" element={<Login/>}></Route>
-            <Route path="/home" element={<div>home </div>}></Route>
+                <Route path="/register" element={<Register />}></Route>
+                <Route path="/login" element={<Login/>}></Route>
+                <Route path="/home" element={<div>home </div>}></Route>
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/team" element={<Team />} />
                 <Route path="/contacts" element={<Contacts />} />

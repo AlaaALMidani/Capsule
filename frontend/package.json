@@ -55,7 +55,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject" 
   },
   "eslintConfig": {
     "extends": [
@@ -77,5 +77,6 @@
   },
   "devDependencies": {
     "tailwindcss": "^3.4.13"
-  }
+  },
+  "proxy": "https://5de5-188-133-56-0.ngrok-free.app"
 }
