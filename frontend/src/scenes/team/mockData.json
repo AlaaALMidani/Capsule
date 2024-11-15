@@ -1,0 +1,25 @@
+{
+  "ok": true,
+  "users": [
+    {
+      "_id": "67331ce9a68d9849ba8644c7",
+      "fullName": "alaaalmedane",
+      "phoneNumber": "0934552101",
+      "password": "$2a$09$L7vr/g3h0Wt2UjC981RMCuu6p7W5c4jcTDQAJcOZSl1qL/nyIAmmG",
+      "location": "-118.2437,34.0522",
+      "active": true,
+      "roleID": 3,
+      "__v": 0
+    },
+    {
+      "_id": "67335bc624faa240c8ec8453",
+      "fullName": "alaaalmedane",
+      "phoneNumber": "0934552102",
+      "password": "$2a$09$UUMIxsfp6t6orTezvxp5eenEoPvm8AjuFqlIUMF/aRpUIBTIsBZ7G",
+      "location": "-118.2437,34.0522",
+      "active": true,
+      "roleID": 3,
+      "__v": 0
+    }
+  ]
+}
