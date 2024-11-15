@@ -3,6 +3,7 @@ const router = express.Router();
 const OrderServices = require('../services/orderService');
 
 
+
 router.post('/addOrder', OrderServices.upload, async (req, res) => {
   const token = req.headers.authorization?.split(' ')[1];
   const orderData = req.body;
@@ -73,6 +74,18 @@ router.post('/addOrder', OrderServices.upload, async (req, res) => {
     } else {
       return res.status(400).json(result);
     }
-  });
 
+    
+  });
+  router.patch("/:orderId/status", async (req, res) => {
+    const { orderId } = req.params;
+    const { offerId, status } = req.body;
+    const token = req.headers.authorization;
+    const response = await OrderServices.updateStatus(orderId, offerId, status, token);
+      if (response.success) {
+        return res.status(200).json(response);
+      } else {
+        return res.status(400).json({ error: response.error });
+      }
+  });
   module.exports = router;

@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
 const { UserRepo } = require("../models/userModel");
+const InvoiceService = require('../services/invoiceService');
 
 class OrderServices {
   constructor() {
@@ -126,7 +127,7 @@ class OrderServices {
         return { success: false, error };
       }
 
-      const user = await UserRepo.findByID(userId);
+      const user = await UserRepo.findById(userId);
       if (!user) {
         return { success: false, error: "User not found" };
       }
@@ -257,6 +258,45 @@ class OrderServices {
     } catch (error) {
       return { success: false, error: error.message };
     }
+  }
+
+  async updateStatus(orderId,offerId,status, token) {  
+    try {  
+      const { success, error, userId } = await this.validateToken(token);  
+      if (!success) {  
+        return { success: false, error };  
+      }   
+      const existingOrder = await OrderRepo.findById(orderId);  
+      if (!existingOrder) {  
+        return { success: false, error: "Order not found" };  
+      }  
+      const validStatuses = ["pending", "offer_accepted", "inProgress", "completed", "canceled"];  
+      if (!validStatuses.includes(status)) {  
+        return { success: false, error: "Invalid status" };  
+      }  
+  
+      const updatedOrder = await OrderRepo.updateOne(orderId, { status });  
+  
+      if (status === "completed") {
+        const invoiceResponse = await InvoiceService.createInvoice(offerId, orderId);
+        if (!invoiceResponse.success) {
+          return { success: false, error: "Order status updated but failed to create invoice." };
+        }
+      }
+  
+      const baseURL = "http://localhost:3002/";  
+      return {  
+        success: true,  
+        order: {  
+          ...updatedOrder.order.toObject(),  
+          photo: updatedOrder.order.photo  
+            ? `${baseURL}${updatedOrder.order.photo}`  
+            : null,  
+        },  
+      };  
+    } catch (error) {  
+      return { success: false, error: error.message };  
+    }  
   }
 }
 module.exports = new OrderServices();

@@ -5,7 +5,7 @@ const orderSchema = new mongoose.Schema({
   status: {
     type: String,
     required: true,
-    enum: ["pending", "inProgress", "completed", "canceled"],
+    enum: ["pending","offer_accepted", "inProgress", "completed", "canceled"],
     default: "pending",
   },
   createdAt: { type: Date, required: true, default: Date.now },
@@ -25,6 +25,7 @@ class OrderRepo {
   static findAll = async () => {
     return await Order.find();
   };
+
   static findById = async (_id) => {
     return await Order.findOne({ _id });
   };
@@ -32,6 +33,7 @@ class OrderRepo {
   static findBySenderId = async (senderId) => {
     return await Order.findOne({ senderId });
   };
+
   static deleteOne = async (_id) => {
     return await Order.findOneAndDelete({ _id });
   };
@@ -39,15 +41,19 @@ class OrderRepo {
   static findByStatus = async (senderId, status) => {
     return await Order.find({ senderId, status });
   };
+
   static findByStatus = async (status) => {
     return await Order.find({ status });
   };
+
   static findByIDAndStatus = async (senderId, status) => {
     return await Order.find({ senderId, status });
   };
+
   static findCompleted = async (senderId) => {
     return await Order.find({ senderId, status: "completed" });
   };
+
   static updateOne = async (_id, updateData) => {
     try {
       const updatedOrder = await Order.findOneAndUpdate({ _id }, updateData, {
@@ -62,8 +68,10 @@ class OrderRepo {
       return { success: false, error: error.message };
     }
   };
+
 }
 
 module.exports = {
   OrderRepo,
 };
+  

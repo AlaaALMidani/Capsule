@@ -59,4 +59,15 @@ router.get("/order/:orderID", async (req, res) => {
   res.status(200).json(result);
 });
 
+router.get('/:id', async (req, res) => {  
+  const { id } = req.params;  
+  const token = req.headers['authorization'];   
+  const result = await OfferServices.getOfferById(id, token);   
+  if (result.success) {  
+    return res.status(200).json(result);
+  } else {  
+    return res.status(404).json(result); 
+  }  
+});  
+
 module.exports = router;
