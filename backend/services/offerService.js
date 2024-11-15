@@ -34,7 +34,6 @@ class OfferServices {
     }
     return errors;
   }
-
   async validateToken(token) {
     try {
       if (token.startsWith("Bearer ")) {
@@ -46,7 +45,6 @@ class OfferServices {
       return { success: false, error: "Invalid or expired token" };
     }
   }
-
   async createOffer(offerData, token) {
     const { success, userId, error } = await this.validateToken(token);
     if (!success) {
@@ -70,7 +68,6 @@ class OfferServices {
       return { success: false, error: "Failed to create offer" };
     }
   }
-
   async deleteOneOffer(offerId, token) {
     const { success, userId, error } = await this.validateToken(token);
     if (!success) {
@@ -90,34 +87,26 @@ class OfferServices {
       return { success: false, error: "Failed to delete offer" };
     }
   }
-
   async updateOffer(offerId, offerData, token) {
     const { success, userId, error } = await this.validateToken(token);
     if (!success) {
       return { success: false, error };
     }
     try {
-      const existingOffer = await OfferRepo.findById(offerId);
-      if (!existingOffer) {
+      const offer = await OfferRepo.findById(offerId);
+      if (!offer) {
         return { success: false, error: "Offer not found" };
       }
-      const updatedData = {
-        senderID: offerData.senderID || existingOffer.senderID,
-        receiverID: offerData.receiverID || existingOffer.receiverID,
-        orderID: offerData.orderID || existingOffer.orderID,
-        cost: offerData.cost !== undefined ? offerData.cost : existingOffer.cost,
-        message: offerData.message || existingOffer.message,
-        estimatedCost: offerData.estimatedCost !== undefined ? offerData.estimatedCost : existingOffer.estimatedCost,
-        sentAt: existingOffer.sentAt
-      };
-      const errors = await this.validate(updatedData);
+      if (offer.senderID !== userId) {
+        return { success: false, error: "Unauthorized to update this offer" };
+      }
+      const errors = await this.validate(offerData);
       if (Object.keys(errors).length > 0) {
         return { success: false, errors };
       }
-      const updatedOffer = await OfferRepo.update(offerId, updatedData);
+      const updatedOffer = await OfferRepo.update(offerId, offerData);
       return { success: true, offer: updatedOffer };
     } catch (error) {
-      console.error("Error updating offer:", error);
       return { success: false, error: "Failed to update offer" };
     }
   }
@@ -136,7 +125,6 @@ class OfferServices {
       return { success: false, error: error.message };
     }
   }
-
   async getOrderOffers(token, orderID) {
     const { success, userId, error } = await this.validateToken(token);
     if (!success) {
@@ -147,7 +135,7 @@ class OfferServices {
       if (!order) {
         return { success: false, error: "Order not found" };
       }
-      if (order.senderId !== userId) {
+      if (order.receiverId !== userId) {
         return {
           success: false,
           error: "Unauthorized to view offers for this order",
@@ -162,30 +150,5 @@ class OfferServices {
       return { success: false, error: "Failed to retrieve offers" };
     }
   }
-
-  async getOfferById(id, token) {  
-    const { success, error, userId } = await this.validateToken(token);  
-    if (!success) {  
-      return { success: false, error };  
-    }  
-    try {  
-      const offer = await OfferRepo.findById(id);  
-      if (!offer) {  
-        return { success: false, error: "Offer not found" };  
-      }  
-      if (offer.senderID !== userId && offer.receiverID !== userId) {  
-        return { success: false, error: "Unauthorized to view this offer" };  
-      }  
-      const order = await OrderRepo.findById(offer.orderID);  
-      if (!order) {  
-        return { success: false, error: "Order associated with this offer not found" };
-      }  
-      return { success: true, offer, order };  
-    } catch (err) {  
-      console.error("Error retrieving offer:", err); 
-      return { success: false, error: "Failed to retrieve offer" };  
-    }  
-  }
-
 }
 module.exports = new OfferServices();
