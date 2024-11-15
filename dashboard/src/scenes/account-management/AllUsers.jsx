@@ -20,71 +20,10 @@ const AllUsers = () => {
 
 
   useEffect(() => {
-    const fetchTeamData = async () => {
-      try {
-        const response = await fetch('http://localhost:3002/api/admin/allUsers',  {
-    
-          headers: {
-              'Cache-Control': 'no-cache' // Disable caching for this request
-          }
-      });
-        // const response = await fetch('/mockData.json');
-        const data = await response.json();
-          console.log(data)
-        // if (data && data.users) {
-        //   const formattedData = data.users.map((item) => ({
-        //     id: item._id,
-        //     name: item.fullName,
-        //     phone: item.phoneNumber,
-        //     location: item.location,
-        //     active: item.active ? "Active" : "Inactive",
-        //     accessLevel:
-        //       item.roleID === 1
-        //         ? "admin"
-        //         : item.roleID === 2
-        //         ? "user"
-        //         : item.roleID === 3
-        //         ? "pharmacy"
-        //         : item.roleID === 4
-        //         ? "warehouse"
-        //         : "driver",
-        //   }));
-        //   setTeamData(formattedData);
-        // } else {
-        //   console.error("Unexpected response format:", data);
-        // }
-        const response = await fetch('/mockData.json');
-        const data = await response.json();
-        if (data && data.users) {
-          const formattedData = data.users.map((item) => ({
-            id: item._id,
-            name: item.fullName,
-            phone: item.phoneNumber,
-            location: item.location,
-            active: item.active ? "Active" : "Inactive",
-            accessLevel:
-              item.roleID === 1
-                ? "admin"
-                : item.roleID === 2
-                ? "user"
-                : item.roleID === 3
-                ? "pharmacy"
-                : item.roleID === 4
-                ? "warehouse"
-                : "driver",
-          }));
-          setTeamData(formattedData);
-        } else {
-          console.error("Unexpected response format:", data);
-        }
-      } catch (error) {
-        console.error("Error fetching team data:", error);
-      }
-
     const fetchData = async () => {
       const data = await fetchUsersData();
       setUsersData(data);
-  };
+    };
 
     fetchData();
   }, []);

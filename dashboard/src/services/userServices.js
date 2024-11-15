@@ -1,26 +1,17 @@
-<<<<<<< HEAD:frontend/src/services/userServices.js
-const baseUrl = "http://localhost:3002/api/users/";
-=======
 
 import axios from "axios";
 import { apiURLs } from "../config/apiURLs.js";
 
 
 const baseUrl = "http://localhost:3000/";
->>>>>>> 8ab229dfb5a224597faf34a17ac9553bb58be43e:dashboard/src/services/userServices.js
 const register = "register";
 const login = "login"
 export class UserServices {
-
+    
     static async register(data) {
-        console.log('ri')
-        console.log(data)
         return fetch(`${baseUrl}${register}`, {
             method: "post",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
+            body: data,
         })
             .then((response) => response.json())
             .then(data => data)
