@@ -131,7 +131,7 @@ class PostService {
       const { success, error, userId } = await this.validateToken(token);
       if (!success) {
         return { success: false, error };
-      }
+      } 
       const ownPosts = await PostRepo.findByUserId(userId);
       if (!ownPosts || ownPosts.length === 0) {
         return { success: false, error: "No posts found for this user" };

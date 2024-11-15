@@ -29,15 +29,9 @@ export const Register = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const form = new FormData();
-        for (const key in formData) {
-            if (key === 'skills') {
-                form.append(key, formData[key].split(','));
-            } else {
-                form.append(key, formData[key]);
-            }
-        }
-        dispatch(fetchUser(form));
+        console.log('test')
+
+        dispatch(fetchUser(formData));
     };
 
     if (state.data) {

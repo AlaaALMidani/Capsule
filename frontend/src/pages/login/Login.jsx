@@ -8,7 +8,6 @@ import { CustomInput } from '../../components/CustomInput';
 
 export const Login = () => {
   const [formData, setFormData] = useState({
-    fullName: "alaaalmedane",
     phoneNumber: "+963 937 639 501",
     password: "alaa@Alaa1"
   });
