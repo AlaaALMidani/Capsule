@@ -3,8 +3,6 @@ const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const db = require("./models/db");
-const mongoose = require("mongoose");
-
 const fs = require("fs");
 const path = require("path");
 
