@@ -73,4 +73,29 @@ router.get('/getAllPosts', async (req, res) => {
     return res.status(200).json({ success: true, posts: response.posts });
 });
 
+router.post('/:postId/like', async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(' ')[1];
+    const { success, userId, error } = await PostServices.validateToken(token);
+    if (!success) {
+      return res.status(401).json({ success: false, error });
+    }
+    const postId = req.params.postId;
+    const post = await PostRepo.findById(postId);
+    if (!post) {
+      return res.status(404).json({ success: false, error: 'Post not found' });
+    }
+    if (post.likes.includes(userId)) {
+      await Post.updateOne({ _id: postId }, { $pull: { likes: userId } });
+      return res.status(200).json({ success: true, liked: false, likesCount: post.likes.length - 1 });
+    } else {
+      await Post.updateOne({ _id: postId }, { $addToSet: { likes: userId } });
+      return res.status(200).json({ success: true, liked: true, likesCount: post.likes.length + 1 });
+    }
+  } catch (error) {
+    return res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+
 module.exports = router;

@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const invoiceSchema = new mongoose.Schema({
   orderID: { type: String, require: true },
   receiverId: { type: String },
+  createdAt: { type: Date, required: true, default: Date.now },
 });
 
 const Invoice = mongoose.model("Invoice", invoiceSchema);
