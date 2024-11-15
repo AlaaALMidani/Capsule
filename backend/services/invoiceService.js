@@ -9,10 +9,11 @@ class InvoiceServices {
         offerID: offerID,
         orderID: orderID,
       };
-      const newInvoice = await InvoiceRepo(invoice);
-      return { success: true, offer: newOffer };
+
+      const newInvoice = await InvoiceRepo.create(invoice);
+      return { success: true, invoice: newInvoice };
     } catch (error) {
-      return { success: false, error: "Failed to create offer" };
+      return { success: false, error: "Failed to create invoice" };
     }
   }
 }

@@ -3,6 +3,7 @@ const router = express.Router();
 const OrderServices = require('../services/orderService');
 
 
+
 router.post('/addOrder', OrderServices.upload, async (req, res) => {
   const token = req.headers.authorization?.split(' ')[1];
   const orderData = req.body;
@@ -76,7 +77,7 @@ router.post('/addOrder', OrderServices.upload, async (req, res) => {
 
     
   });
-  router.patch("/orders/:orderId/status", async (req, res) => {
+  router.patch("/:orderId/status", async (req, res) => {
     const { orderId } = req.params;
     const { offerId, status } = req.body;
     const token = req.headers.authorization;

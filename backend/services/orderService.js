@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
 const { UserRepo } = require("../models/userModel");
-
+const InvoiceService = require('../services/invoiceService');
 
 class OrderServices {
   constructor() {
@@ -278,7 +278,7 @@ class OrderServices {
       const updatedOrder = await OrderRepo.updateOne(orderId, { status });  
   
       if (status === "completed") {
-        const invoiceResponse = await invoiceService.createInvoice(offerId, orderId);
+        const invoiceResponse = await InvoiceService.createInvoice(offerId, orderId);
         if (!invoiceResponse.success) {
           return { success: false, error: "Order status updated but failed to create invoice." };
         }
