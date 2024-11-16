@@ -7,12 +7,18 @@ import CardActions from '@mui/material/CardActions';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
+
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import med from './med.jpg';
+
+
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
+
+import { red } from '@mui/material/colors';
+import med from './med.jpg';
+
+
 
 export function Post() {
   const [liked, setLiked] = React.useState(false); 
