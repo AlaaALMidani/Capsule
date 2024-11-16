@@ -34,7 +34,7 @@ const UserHome = () => {
           />
         </div>
       </div>
-      <div className="grid grid-cols-1 gap-4 p-4">  
+      <div className="  ">  
         {posts.map(post => (  
           <Post key={post.id} title={post.title} content={post.description} />  
         ))}  
