@@ -11,7 +11,7 @@ import LineChart from "../../components/LineChart";
 import GeographyChart from "../../components/GeographyChart";
 import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StartBox";
-import ProgressCircle from "../../components/ProgressCirde";
+// import ProgressCircle from "../../components/ProgressCirde";
 // import ProgressCircle from "../../components/ProgressCircle";
 import { PieChart, Pie, Cell, Legend, Tooltip } from "recharts";
 
@@ -211,7 +211,7 @@ const Dashboard = () => {
         </Box>
 
         <Box gridColumn="span 4" gridRow="span 2" backgroundColor={colors.primary[400]}>
-          <Typography variant="h5" fontWeight="600" sx={{ padding: "30px" }}>
+          <Typography variant="h5" fontWeight="400" sx={{ padding: "10px" }}>
             Sales Quantity
           </Typography>
           <Box height="250px">
