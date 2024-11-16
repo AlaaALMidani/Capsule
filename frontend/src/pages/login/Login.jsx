@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { login } from './loginSlices';
 import logo from "../../styles/logo.png";
-import { CustomInput } from '../../components/CustomInput';
+import { CustomInput } from '../../components/shared/CustomInput';
 
 export const Login = () => {
   const [formData, setFormData] = useState({

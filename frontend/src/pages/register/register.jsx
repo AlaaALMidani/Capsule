@@ -6,7 +6,7 @@ import React from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import { useNavigate } from 'react-router-dom';
-import { CustomInput } from '../../components/CustomInput';
+import { CustomInput } from '../../components/shared/CustomInput.js';
 
 export const Register = () => {
     const [formData, setFormData] = useState({
