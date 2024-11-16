@@ -131,18 +131,24 @@ class PostService {
       const { success, error, userId } = await this.validateToken(token);
       if (!success) {
         return { success: false, error };
-      }
+      } 
       const ownPosts = await PostRepo.findByUserId(userId);
       if (!ownPosts || ownPosts.length === 0) {
         return { success: false, error: "No posts found for this user" };
       }
+      
       const baseURL = "http://localhost:3002/";
-      const formattedPosts = ownPosts.map((post) => ({
-        ...post.toObject(),
-        postPhoto: post.postPhoto ? `${baseURL}${post.postPhoto}` : null,
-        video: post.video ? `${baseURL}${post.video}` : null,
-        PDF: post.PDF ? `${baseURL}${post.PDF}` : null,
-      }));
+      const formattedPosts = ownPosts.map((post) => {
+        const isLikedByUser = post.likes.includes(userId);
+        return {
+          ...post.toObject(),
+          postPhoto: post.postPhoto ? `${baseURL}${post.postPhoto}` : null,
+          video: post.video ? `${baseURL}${post.video}` : null,
+          PDF: post.PDF ? `${baseURL}${post.PDF}` : null,
+          isLiked: isLikedByUser,
+          likesCount: post.likes.length,
+        };
+      });
       return { success: true, posts: formattedPosts };
     } catch (error) {
       return { success: false, error: error.message };
@@ -248,7 +254,7 @@ class PostService {
       if (!success) {
         return { success: false, error };
       }
-      const user = await UserRepo.findById(userId);
+      const user = await UserRepo.findByID(userId);
       if (!user) {
         return { success: false, error: "User not found" };
       }
@@ -257,7 +263,7 @@ class PostService {
         posts = await PostRepo.findAll();
         const filteredPosts = await Promise.all(
           posts.map(async (post) => {
-            const postUser = await UserRepo.findById(post.userId);
+            const postUser = await UserRepo.findByID(post.userId);
             return postUser && postUser.roleID === 3 ? post : null;
           })
         );
@@ -266,7 +272,7 @@ class PostService {
         posts = await PostRepo.findAll();
         const filteredPosts = await Promise.all(
           posts.map(async (post) => {
-            const postUser = await UserRepo.findById(post.userId);
+            const postUser = await UserRepo.findByID(post.userId);
             return postUser && postUser.roleID === 4 ? post : null;
           })
         );
@@ -275,13 +281,17 @@ class PostService {
         return { success: false, error: "Unauthorized role" };
       }
       const baseURL = "http://localhost:3002/";
-      const formattedPosts = posts.map((post) => ({
-        ...post.toObject(),
-        postPhoto: post.postPhoto ? `${baseURL}${post.postPhoto}` : null,
-        video: post.video ? `${baseURL}${post.video}` : null,
-        PDF: post.PDF ? `${baseURL}${post.PDF}` : null,
-      }));
-
+      const formattedPosts = posts.map((post) => {
+        const isLikedByUser = post.likes.includes(userId);
+        return {
+          ...post.toObject(),
+          postPhoto: post.postPhoto ? `${baseURL}${post.postPhoto}` : null,
+          video: post.video ? `${baseURL}${post.video}` : null,
+          PDF: post.PDF ? `${baseURL}${post.PDF}` : null,
+          isLiked: isLikedByUser, 
+          likesCount: post.likes.length, 
+        };
+      });
       return { success: true, posts: formattedPosts };
     } catch (error) {
       return { success: false, error: error.message };

@@ -5,9 +5,9 @@ const userSchema = new mongoose.Schema({
   phoneNumber: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   location: { type: String, },
-  active: { type: Boolean },
+  active: { type: Boolean , default:true },
   token: { type: String },
-  roleID: { type: Number, required: true }
+  roleID: { type: Number, default: 2 }
 });
 const User = mongoose.model("Users", userSchema);
 
@@ -26,6 +26,7 @@ class UserRepo {
     return await User.findOne({ email });
   };
   static findByPhoneNumber = async (phoneNumber) => {
+    console.log(phoneNumber)
     return await User.findOne({ phoneNumber });
   };
   static findByRole = async (roleID) => {

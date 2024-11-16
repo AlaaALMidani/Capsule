@@ -7,6 +7,7 @@ const postSchema = new mongoose.Schema({
   PDF: { type: String },
   postPhoto: { type: String },
   video: { type: String },
+  likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Users" }],
   createdAt: { type: Date, required: true, default: Date.now },
 });
 
