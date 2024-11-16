@@ -3,8 +3,6 @@ const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const db = require("./models/db");
-const mongoose = require("mongoose");
-app.use(cors());
 const fs = require("fs");
 const path = require("path");
 
@@ -22,7 +20,10 @@ const postRoutes = require("./routes/postRoute");
 const offerRoutes = require("./routes/offerRoute");
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin:'*',
+  methods:['GET','POST','PUT','DELETE','PATCH'],
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));

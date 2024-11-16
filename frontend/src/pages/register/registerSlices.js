@@ -8,7 +8,7 @@ const initialState = {
     error: '',
 };
 
-export const fetchUser = createAsyncThunk('register/signIn', async (d) => {
+export const fetchUser = createAsyncThunk('register', async (d) => {
     return UserServices.register(d).then(data => data)
 })
 export const registerSlice = createSlice({

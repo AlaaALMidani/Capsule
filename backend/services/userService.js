@@ -17,7 +17,7 @@ class UserServices {
   generateToken(user) {
     const payload = {
       userID: user._id,
-      username: user.username,
+      phoneNumber: user.phoneNumber,
     };
 
     const options = {
@@ -72,7 +72,10 @@ class UserServices {
     // Phone Number Validation (Syrian and International)
     if (!user.phoneNumber) {
       errors.phoneNumber = 'Phone number is required.';
-    } else {
+    } else if (await UserRepo.findByPhoneNumber(user.phoneNumber)) {
+      errors.phoneNumber = "Phone number is already exist";
+    }
+     else {
       const phoneNumber = user.phoneNumber.replace(/\D/g, ''); // Remove non-digits
 
       if (this.isValidSyrianMobile(phoneNumber)) {
@@ -104,25 +107,19 @@ class UserServices {
       password: hashedPassword,
     });
 
-    const token = this.generateToken(newUser);
+    const token = this.generateToken(newUser._doc);
     return { ok: true, user: { ...newUser._doc, token } };
   }
-  async login({ emailOrUsername, password }) {
+  async login({phoneNumber,password}) {
 
-    let user = await UserRepo.findByEmail(emailOrUsername);
-
-    if (user && await this.comparePassword(password, user.password)) {
-      return { ok: true, user: { ...user._doc, token: this.generateToken(user) } };
-    }
-
-    user = await UserRepo.findByUsername(emailOrUsername)
+    let user = await UserRepo.findByPhoneNumber(phoneNumber);
 
     if (user && await this.comparePassword(password, user.password)) {
       return { ok: true, user: { ...user._doc, token: this.generateToken(user) } };
     }
 
-    return { ok: false, message: "email or password isn't correct" };
-  }
+    return { ok: false, message: "phone number or password isn't correct" };
+  } 
  
 }
 module.exports = new UserServices();
