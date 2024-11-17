@@ -13,7 +13,7 @@ function App() {
 
   return (
         <div className="flex ">
-          <div className="flex-1 overflow-y-auto">
+          {/* <div className="flex-1 overflow-y-auto">
             <main className="p-4">
               <Routes>
                 <Route path="/register" element={<Register />}></Route>
@@ -24,7 +24,8 @@ function App() {
                 <Route path="/pharmacyHome/history" element={<PharmacyHistory/>}></Route>
               </Routes>
             </main>
-          </div>
+          </div> */}
+          <PharmacyHome/>
         </div>
   );
 }
