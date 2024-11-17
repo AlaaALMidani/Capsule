@@ -2,18 +2,26 @@ import React from 'react';
 import Navbar from '../../components/Navbar.jsx';
 import pharma from '../../styles/pharma.png';
 import Button from '@mui/material/Button/index.js'
+import Post from '../../components/Post.js'
 import { Box, Grid, useMediaQuery, Typography } from '@mui/material';
 
 export const PharmacyHome = () => {
   // Check if the screen size is small (mobile)
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down('md'));
 
+  const posts = [
+    { id: 1, title: 'Post 1', content: 'Content of Post 1' },
+    { id: 2, title: 'Post 2', content: 'Content of Post 2' },
+    { id: 3, title: 'Post 3', content: 'Content of Post 3' },
+  ];
+
   return (
+    <>
     <div
       style={{
         backgroundColor: '#f0f4f8',
         backgroundImage: 'linear-gradient(to bottom right, #d9e9f6, #b3d4e8)',
-        minHeight: '100vh', // full screen height
+        minHeight: '50vh', // full screen height
         padding: '20px',
       }}
     >
@@ -29,6 +37,7 @@ export const PharmacyHome = () => {
                 display: 'flex',
                 flexDirection: isMobile ? 'column' : 'row',
                 gap: 2,
+                padding: '50px',
                 justifyContent: isMobile ? 'center' : 'flex-start',
                 alignItems: 'center',
               }}
@@ -62,7 +71,7 @@ export const PharmacyHome = () => {
           </Grid>
 
           <Grid item xs={12} md={6}>
-            {/* Image Section */}
+           
             <Box
               sx={{
                 display: 'flex',
@@ -76,7 +85,7 @@ export const PharmacyHome = () => {
                 alt="Logo"
                 style={{
                   maxWidth: '100%',
-                  width: '300px', // Image size adjusts but keeps the aspect ratio
+                  width: '700px',
                   height: 'auto',
                 }}
               />
@@ -84,6 +93,14 @@ export const PharmacyHome = () => {
           </Grid>
         </Grid>
       </Box>
+  
+
     </div>
+    {posts.map((post) => (
+            <Grid item xs={12} sm={6} md={4} key={post.id}> 
+              <Post title={post.title} content={post.content} />
+            </Grid>
+          ))}
+    </>
   );
 };
