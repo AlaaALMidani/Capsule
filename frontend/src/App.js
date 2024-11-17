@@ -15,16 +15,18 @@ function App() {
     <ThemeProvider theme={theme}>
       <div className="flex ">
         <div className="flex-1 overflow-y-auto">
-          <main className="">
-            <Navbar />
-            <Routes>
-              <Route path="/register" element={<Register />}></Route>
-              <Route path="/login" element={<Login />}></Route>
-              <Route path="/home" element={<div>home</div>}></Route>
-              <Route path="/pharmacyHome" element={<PharmacyHome />}></Route>
-            </Routes>
-          </main>
-        </div>
+            <main className="">
+              <Navbar />
+              <Routes>
+                <Route path="/register" element={<Register />}></Route>
+                <Route path="/login" element={<Login/>}></Route>
+                <Route path="/home" element={<div>home</div>}></Route>
+                <Route path="/nav" element={<Navbar/>}></Route>
+                <Route path="/pharmacyHome" element={<PharmacyHome/>}></Route>
+
+              </Routes>
+            </main>
+          </div>
       </div>
     </ThemeProvider>
   );
