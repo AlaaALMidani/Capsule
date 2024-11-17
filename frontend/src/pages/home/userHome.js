@@ -8,7 +8,7 @@ const UserHome = () => {
       productName: 'Pharmacy Product 1',
       userId: '6457d324f582b029e3a10d01',
       description: 'This is a great product for health improvement.',
-      postPhoto: 'http://localhost:3002/uploads/photo1.jpg',
+      postPhoto: null,
       video: null,
       PDF: 'http://localhost:3002/uploads/manual1.pdf',
       likes: ['6457d324f582b029e3a10d01', '6457d324f582b029e3a10d02'],

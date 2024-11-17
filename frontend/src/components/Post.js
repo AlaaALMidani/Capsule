@@ -15,7 +15,7 @@ import AddIcon from '@mui/icons-material/Add';
 
 import { red } from '@mui/material/colors';
 
-// Updated Post Component
+
 export function Post({
   title,
   content,
