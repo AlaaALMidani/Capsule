@@ -1,10 +1,10 @@
 import React from 'react';
 //import Navbar from '../../components/Navbar.jsx';
-import pharma from '../../styles/pharma.png';
+import doctor from '../../assets/doctorImage2.png';
 import Button from '@mui/material/Button/index.js'
 import Post from '../../components/Post.js'
-import { Box, Grid, useMediaQuery, Typography } from '@mui/material';
-
+import { Box, Grid2, useMediaQuery } from '@mui/material';
+import AddPost from '../../components/AddPost.js'
 export const PharmacyHome = () => {
   // Check if the screen size is small (mobile)
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down('md'));
@@ -18,19 +18,14 @@ export const PharmacyHome = () => {
   return (
     <>
       <div
-        style={{
-          backgroundColor: '#f0f4f8',
-          backgroundImage: 'linear-gradient(to bottom right, #d9e9f6, #b3d4e8)',
-          minHeight: '50vh', // full screen height
-          padding: '20px',
-        }}
+        className='bg-[#f0f4f8] bg-gradient-to-tr from-[#d9e9f6] to-[#009dff] min-h-[50vh] p-5'
       >
-        
+
 
         <Box sx={{ marginTop: 4 }}>
           {/* Main Content Container */}
-          <Grid container spacing={4} alignItems="center" justifyContent="space-between">
-            <Grid item xs={12} md={6}>
+          <Grid2 container spacing={4} alignItems="center" justifyContent="space-between">
+            <Grid2 item xs={12} md={6}>
               {/* Buttons Section */}
               <Box
                 sx={{
@@ -55,22 +50,11 @@ export const PharmacyHome = () => {
                   Add New Order
                 </Button>
 
-                <Button
-                  variant="contained"
-                  sx={{
-                    backgroundColor: '#103758',
-                    '&:hover': { backgroundColor: '#082544' },
-                    color: 'white',
-                    padding: isMobile ? '12px 20px' : '12px 30px',
-                    width: isMobile ? '100%' : 'auto',
-                  }}
-                >
-                  Add New Post
-                </Button>
-              </Box>
-            </Grid>
 
-            <Grid item xs={12} md={6}>
+              </Box>
+            </Grid2>
+
+            <Grid2 item xs={12} md={6}>
 
               <Box
                 sx={{
@@ -81,7 +65,7 @@ export const PharmacyHome = () => {
                 }}
               >
                 <img
-                  src={pharma}
+                  src={doctor}
                   alt="Logo"
                   style={{
                     maxWidth: '100%',
@@ -90,21 +74,33 @@ export const PharmacyHome = () => {
                   }}
                 />
               </Box>
-            </Grid>
-          </Grid>
+            </Grid2>
+          </Grid2>
         </Box>
 
 
       </div>
       <div className='mt-6'>
+        {/* <Button
+          variant="contained"
+          sx={{
+            backgroundColor: '#103758',
+            '&:hover': { backgroundColor: '#082544' },
+            color: 'white',
+            padding: isMobile ? '12px 20px' : '12px 30px',
+            width: isMobile ? '100%' : 'auto',
+          }}
+        >
+          Add New Post
+        </Button> */}
+        <AddPost />
         {posts.map((post) => (
           <div className='mb-4'>
-            <Grid item xs={12} sm={6} md={4} key={post.id} spacing={2}>
+            <Grid2 item xs={12} sm={6} md={4} key={post.id} spacing={2}>
               <Post title={post.title} content={post.content} />
-            </Grid></div>
+            </Grid2></div>
         ))}
       </div>
     </>
   );
 };
- 
