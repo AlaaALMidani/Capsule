@@ -12,15 +12,8 @@ const UserHome = () => {
   ];
   return (
     <div>
-      <div id="section-1" className=" pt-16">
-
-
-        {/* Button Section */}
-        
+      <div id="section-1" className=" pt-16 flex justify-around">
           <AddOrder />  
-  
-
-        {/* Image Section with Slow and Less Bounce Animation */}
 
         <img
           src="doctorImage2.png"
