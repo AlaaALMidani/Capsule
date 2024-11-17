@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Chart, LineElement, PointElement, LineController, LinearScale, CategoryScale } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 
 Chart.register(LineElement, PointElement, LineController, LinearScale, CategoryScale);
-
 
 const LineChart = () => {
   const [userData, setUserData] = useState([]);
@@ -12,17 +12,16 @@ const LineChart = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/mockOrders.json"); 
-        const data = await response.json();
+        const response = await axios.get('/mockOrders.json');
+        const data = response.data;
 
         if (data.ok) {
-
-          const users = data.users.map(user => ({
+          const users = data.users?.map(user => ({
             id: user._id,
             name: user.fullName,
             role: user.roleID,
             active: user.active,
-          }));
+          })) || [];
           setUserData(users);
 
           const orders = data.orders.map(order => ({
@@ -42,39 +41,86 @@ const LineChart = () => {
     fetchData();
   }, []);
 
+  const formatChartData = (orders) => {
+    const dataByDate = {};
 
-  const chartData = {
-    labels: orderData.map(order =>
-      order.createdAt.toLocaleDateString("en-US", { month: "short", day: "numeric" })
-    ),
-    datasets: [
-      {
-        label: "Orders Over Time",
-        data: orderData.map(order => order.status === "pending" ? 1 : 0), // مثال
-        borderColor: "rgba(75,192,192,1)",
-        backgroundColor: "rgba(75,192,192,0.2)",
-        tension: 0.4,
-      },
-    ],
+    orders.forEach(order => {
+      const date = order.createdAt.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+
+      if (!dataByDate[date]) {
+        dataByDate[date] = {
+          pending: 0,
+          inProgress: 0,
+          completed: 0,
+          canceled: 0,
+        };
+      }
+
+      if (order.status === "pending") {
+        dataByDate[date].pending += 1;
+      } else if (order.status === "inProgress") {
+        dataByDate[date].inProgress += 1;
+      } else if (order.status === "completed") {
+        dataByDate[date].completed += 1;
+      } else if (order.status === "canceled") {
+        dataByDate[date].canceled += 1;
+      }
+    });
+
+    const labels = Object.keys(dataByDate);
+    const pendingData = labels.map(label => dataByDate[label].pending);
+    const inProgressData = labels.map(label => dataByDate[label].inProgress);
+    const completedData = labels.map(label => dataByDate[label].completed);
+    const canceledData = labels.map(label => dataByDate[label].canceled);
+
+    return {
+      labels,
+      datasets: [
+        {
+          label: "Pending Orders",
+          data: pendingData,
+          borderColor: "rgba(75,192,192,1)",
+          backgroundColor: "rgba(75,192,192,0.2)",
+          tension: 0.4,
+        },
+        {
+          label: "In Progress Orders",
+          data: inProgressData,
+          borderColor: "rgba(255,159,64,1)",
+          backgroundColor: "rgba(255,159,64,0.2)",
+          tension: 0.4,
+        },
+        {
+          label: "Completed Orders",
+          data: completedData,
+          borderColor: "rgba(153,102,255,1)",
+          backgroundColor: "rgba(153,102,255,0.2)",
+          tension: 0.4,
+        },
+        {
+          label: "Canceled Orders",
+          data: canceledData,
+          borderColor: "rgba(255,99,132,1)",
+          backgroundColor: "rgba(255,99,132,0.2)",
+          tension: 0.4,
+        },
+      ],
+    };
   };
+
+  const chartData = formatChartData(orderData);
 
   const chartOptions = {
     responsive: true,
     plugins: {
       legend: { position: "top" },
-      title: { display: true, text: "Order Statistics" },
+      title: { display: true, text: "Order Statistics Over Time" },
     },
   };
 
   return (
     <div className="dashboard">
-      <h1>User & Order Statistics</h1>
-      <div>
-        <h2>Total Users: {userData.length}</h2>
-        <h2>Active Users: {userData.filter(user => user.active).length}</h2>
-        <h2>Total Orders: {orderData.length}</h2>
-      </div>
-      <div style={{ maxWidth: "600px", margin: "0 auto" }}>
+      <div style={{ maxWidth: "800px", margin: "0 auto" }}>
         <Line data={chartData} options={chartOptions} />
       </div>
     </div>
@@ -82,5 +128,3 @@ const LineChart = () => {
 };
 
 export default LineChart;
-
-
