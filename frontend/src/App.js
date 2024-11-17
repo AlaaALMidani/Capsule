@@ -19,17 +19,12 @@ function App() {
             <Navbar />
            
               <Routes>
-                <Route path="/register" element={<Register />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/pharmacyHome" element={<PharmacyHome />} />
-                <Route path="/history" element={<PharmacyHistory />} />
-                <Route path="/offers" element={<div>Offers Page</div>} />
-                <Route
-                  path="/customerOrders"
-                  element={<div>Customer Orders</div>}
-                />
-                <Route path="/myPosts" element={<div>My Posts</div>} />
-                <Route path="/" element={<div>Welcome to the Home Page</div>} />
+                <Route path="/register" element={<Register />}></Route>
+                <Route path="/login" element={<Login/>}></Route>
+                <Route path="/home" element={<div>home</div>}></Route>
+                <Route path="/nav" element={<Navbar/>}></Route>
+                <Route path="/pharmacyHome" element={<PharmacyHome/>}></Route>
+
               </Routes>
 
           </main>

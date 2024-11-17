@@ -8,23 +8,21 @@ import Typography from '@mui/material/Typography';
 import ReplayIcon from '@mui/icons-material/Replay';
 import Button from '@mui/material/Button';
 
-export function PreviosOrderCard({ order }) {
+export function PreviosOrderCard({content, previousOrderPhoto}) {
   return (
     <Card className='w-1/3'>
       <CardHeader subheader={order.createdAt} />
       <CardMedia
         component="img"
         height="194"
-        image={order.photo}
-        alt="Order photo"
+        image={previousOrderPhoto}
+        alt="Roshita photo"
       />
       <CardContent>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          {order.message}
+         { content }
         </Typography>
-        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          Location: {order.location}
-        </Typography>
+        
       </CardContent>
       <CardActions disableSpacing sx={{ justifyContent: 'flex-end' }}>
         <Button variant="contained" color="success" startIcon={<ReplayIcon />}>
