@@ -5,16 +5,17 @@ import Navbar from 'react-bootstrap/Navbar';
 import { FiBell } from 'react-icons/fi';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import logo from '../styles/logo.png';
+import { NavLink } from 'react-router-dom';
 
 function NavScrollExample() {
   return (
     <Navbar expand="lg" className="bg-transparent se">
       <Container fluid>
         <Navbar.Brand href="#">
-          <img 
+          <img
             src={logo}
             alt="Logo"
-            style={{ height: '50px' }} 
+            style={{ height: '50px' }}
           />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
@@ -24,12 +25,12 @@ function NavScrollExample() {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <a href="#action1" className="mx-3 text-gray-700 hover:text-blue-500 transition-colors duration-200">Home</a>
-            <a href="#action2" className="mx-3 text-gray-700 hover:text-blue-500 transition-colors duration-200">Offers</a>
-            <a href="/pharmacyHome/history" className="mx-3 text-gray-700 hover:text-blue-500 transition-colors duration-200">History</a>
+            <NavLink to={'/pharmacyHome'} style={({isActive})=>{return {color:isActive?"black":'white'}}}><a href="#action1" className="mx-3  hover:text-blue-500 transition-colors duration-200">Home</a></NavLink>
+            <NavLink to={'/offers'} style={({isActive})=>{return {color:isActive?"black":'white'}}}><a href="#action2" className="mx-3 hover:text-blue-500 transition-colors duration-200">Offers</a></NavLink>
+            <NavLink to={'/offers'} style={({isActive})=>{return {color:isActive?"black":'white'}}}><a href="/history" className="mx-3  hover:text-blue-500 transition-colors duration-200">History</a></NavLink> 
           </Nav>
           <Button variant="outline-success" className="d-flex align-items-center">
-            <FiBell /> 
+            <FiBell />
           </Button>
         </Navbar.Collapse>
       </Container>
