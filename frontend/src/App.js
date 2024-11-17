@@ -5,7 +5,7 @@ import { Login } from "./pages/login/Login.jsx";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme.js";
 import Navbar from './components/Navbar.jsx'
-import { PharmacyHome } from "./pages/home/PharmacyHome.js";
+import { PharmacyHome } from "./pages/home/pharmacyHome.js";
 import {PharmacyHistory} from "./pages/history/PharmacyHistory.js"
 function App() {
   const [theme, colorMode] = useMode();
