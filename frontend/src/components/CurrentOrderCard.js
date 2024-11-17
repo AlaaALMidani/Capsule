@@ -10,10 +10,8 @@ import CardActions from '@mui/material/CardActions';
 
 export function CurrentOrderCard({content, currentOrderPhoto}) {
   return (
-    <Card  className='w-1/3 '>
-      <CardHeader
-        subheader="September 14, 2016"
-      />
+    <Card className='w-1/3'>
+      <CardHeader subheader={order.createdAt} />
       <CardMedia
         component="img"
         height="194"
@@ -27,11 +25,10 @@ export function CurrentOrderCard({content, currentOrderPhoto}) {
         
       </CardContent>
       <CardActions disableSpacing sx={{ justifyContent: 'flex-end' }}>
-        <Button variant="contained" color="error" startIcon={<CancelIcon />}> 
+        <Button variant="contained" color="error" startIcon={<CancelIcon />}>
           Cancel order
         </Button>
       </CardActions>
     </Card>
   );
 }
-
