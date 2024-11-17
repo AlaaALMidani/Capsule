@@ -6,6 +6,7 @@ import React from "react";
 // import { CssBaseline, ThemeProvider } from "@mui/material";  
 // import { ColorModeContext, useMode } from "./theme.js";  
 import UserHome from './pages/home/userHome.js'; // Use UserHome here  
+import HistoryPage from "./pages/HistoryPage.js";
 
 function App() {  
   // const [theme, colorMode] = useMode();  
@@ -24,7 +25,8 @@ function App() {
       //   </div>  
       // </div>  
       <div>  
-        <UserHome /> {/* Use UserHome with a capital U */}  
+        {/* <UserHome />   */}
+        <HistoryPage/>
       </div>  
   );  
 }  

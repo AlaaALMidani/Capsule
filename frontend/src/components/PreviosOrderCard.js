@@ -8,26 +8,22 @@ import Typography from '@mui/material/Typography';
 import ReplayIcon from '@mui/icons-material/Replay';
 import Button from '@mui/material/Button';
 
-export function PreviosOrderCard() {
+export function PreviosOrderCard({ order }) {
   return (
-    
-    <Card className='w-1/3 '>
-      <CardHeader
-        
-        subheader="September 14, 2016"
-      />
+    <Card className='w-1/3'>
+      <CardHeader subheader={order.createdAt} />
       <CardMedia
         component="img"
         height="194"
-        image="/static/images/cards/paella.jpg"
-        alt="Roshita photo"
+        image={order.photo}
+        alt="Order photo"
       />
       <CardContent>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          2 packets sytamol 
+          {order.message}
         </Typography>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          1 packet sytamol 
+          Location: {order.location}
         </Typography>
       </CardContent>
       <CardActions disableSpacing sx={{ justifyContent: 'flex-end' }}>
