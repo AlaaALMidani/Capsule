@@ -8,13 +8,13 @@ import logo from '../styles/logo.png';
 
 function NavScrollExample() {
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Navbar expand="lg" className="bg-transparent se">
       <Container fluid>
         <Navbar.Brand href="#">
           <img 
             src={logo}
             alt="Logo"
-            style={{ height: '60px' }} 
+            style={{ height: '50px' }} 
           />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
@@ -26,7 +26,7 @@ function NavScrollExample() {
           >
             <a href="#action1" className="mx-3 text-gray-700 hover:text-blue-500 transition-colors duration-200">Home</a>
             <a href="#action2" className="mx-3 text-gray-700 hover:text-blue-500 transition-colors duration-200">Offers</a>
-            <a href="#action3" className="mx-3 text-gray-700 hover:text-blue-500 transition-colors duration-200">History</a>
+            <a href="/pharmacyHome/history" className="mx-3 text-gray-700 hover:text-blue-500 transition-colors duration-200">History</a>
           </Nav>
           <Button variant="outline-success" className="d-flex align-items-center">
             <FiBell /> 
@@ -38,3 +38,4 @@ function NavScrollExample() {
 }
 
 export default NavScrollExample;
+
