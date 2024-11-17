@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { Post } from '../../components/Post.js';
+import AddOrder from '../../components/AddOrder.js';
 
 const UserHome = () => {
+<<<<<<< HEAD
   const fakePosts = [
     {
       _id: '6387e15b4c92e828e1fbd001',
@@ -86,6 +88,38 @@ const UserHome = () => {
             />
           ))}
         </div>
+=======
+  const posts = [
+    { id: 1, title: 'Pharmacy 1', description: 'Description for pharmacy 1.' },
+    { id: 2, title: 'Pharmacy 2', description: 'Description for pharmacy 2.' },
+    { id: 3, title: 'Pharmacy 3', description: 'Description for pharmacy 3.' },
+    { id: 4, title: 'Pharmacy 4', description: 'Description for pharmacy 4.' },
+    { id: 5, title: 'Pharmacy 5', description: 'Description for pharmacy 5.' },
+  ];
+  return (
+    <div>
+      <div id="section-1" className=" pt-16">
+
+
+        {/* Button Section */}
+        
+          <AddOrder />  
+  
+
+        {/* Image Section with Slow and Less Bounce Animation */}
+
+        <img
+          src="doctorImage2.png"
+          alt="Home"
+          className="h-96"
+        />
+
+      </div>
+      <div className="  ">
+        {posts.map(post => (
+          <Post key={post.id} title={post.title} content={post.description} />
+        ))}
+>>>>>>> b2e60f9311c43168b2006579e1d319e64be54d86
       </div>
     </div>
   );
