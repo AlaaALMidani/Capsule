@@ -7,18 +7,12 @@ import CardActions from '@mui/material/CardActions';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-
-
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
-
 import { red } from '@mui/material/colors';
 import med from './med.jpg';
-
-
 
  function Post() {
   const [liked, setLiked] = React.useState(false); 
@@ -29,7 +23,7 @@ import med from './med.jpg';
 
   return (
     <div className='flex justify-center '>
-    <Card className='w-1/4 h-1/4 '> 
+    <Card className='w-1/2 h-1/4 '> 
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
