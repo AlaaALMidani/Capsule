@@ -12,11 +12,16 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import { red } from '@mui/material/colors';
-import med from './med.jpg';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
-function Post() {
+function Post({
+  description,          
+  profilePhoto,         
+  postPhoto,           
+  pharmacyName,        
+  postDate        
+}) {
   const [liked, setLiked] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const openMenu = Boolean(anchorEl);
@@ -44,45 +49,48 @@ function Post() {
   };
 
   return (
-    <div className='flex justify-center'>
-      <Card 
+    <div className="flex justify-center">
+      <Card
         sx={{
           width: {
-            xs: '100%',      
-            sm: '75%',       
-            md: '50%'       
+            xs: '100%',
+            sm: '75%',
+            md: '50%'
           },
-          height: 'auto'    
+          height: 'auto'
         }}
       >
         <CardHeader
           avatar={
-            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-              R
+            <Avatar sx={{ bgcolor: red[500] }} aria-label="profile">
+              {profilePhoto ? (
+                <img src={profilePhoto} alt="Profile" style={{ width: '100%', height: '100%', borderRadius: '50%' }} />
+              ) : (
+                'P'
+              )}
             </Avatar>
           }
           action={
-            <IconButton
-              aria-label="settings"
-              onClick={handleMenuClick}
-            >
+            <IconButton aria-label="settings" onClick={handleMenuClick}>
               <MoreVertIcon />
             </IconButton>
           }
-          title="Pharmacy Name"
-          subheader="September 14, 2016"
+          title={pharmacyName || 'Pharmacy Name'}
+          subheader={postDate || 'September 14, 2016'}
         />
         <CardContent>
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            Post description
+            {description || 'Post description goes here.'}
           </Typography>
         </CardContent>
-        <CardMedia
-          component="img"
-          height="194"
-          image={med}
-          alt="image/video"
-        />
+        {postPhoto && (
+          <CardMedia
+            component="img"
+            height="194"
+            image={postPhoto}
+            alt="Post image"
+          />
+        )}
         <CardActions disableSpacing sx={{ justifyContent: 'flex-end' }}>
           <Button variant="contained" color="success" startIcon={<AddIcon />}>
             Order it now
@@ -92,7 +100,7 @@ function Post() {
           </IconButton>
         </CardActions>
 
-      
+       
         <Menu
           anchorEl={anchorEl}
           open={openMenu}
@@ -105,5 +113,4 @@ function Post() {
     </div>
   );
 }
-
 export default Post;
