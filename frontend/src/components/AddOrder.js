@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FiCamera } from 'react-icons/fi';
 import logo from '../styles/logo.png';
 
-function Addorder() {
+function AddOrder() {
   const [text, setText] = useState ('');
   const [image, setImage] = useState(null);
 
@@ -15,10 +15,10 @@ function Addorder() {
   };
 
   return (
-    <div className="w-96 h-96 p-6 bg-white border border-gray-300 rounded-lg mx-auto text-center">
+    <div className="w-96 p-6 bg-white bg-opacity-15 border border-gray-400 rounded-lg mx-auto text-center">
       {/* Logo and Title */}
       <div className="flex flex-col items-center mb-6">
-        <img src={logo} alt="Logo" className="w-20 h-20 mb-2" />
+        {/* <img src={logo} alt="Logo" className="w-20 h-20 mb-2" /> */}
         <h2 className="text-[] font-semibold text-lg">ORDER</h2>
       </div>
 
@@ -62,4 +62,4 @@ function Addorder() {
   );
 }
 
-export default Addorder;
+export default AddOrder;
