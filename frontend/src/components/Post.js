@@ -20,7 +20,7 @@ import med from './med.jpg';
 
 
 
-export function Post() {
+ function Post() {
   const [liked, setLiked] = React.useState(false); 
 
   const handleLike = () => {
@@ -29,7 +29,7 @@ export function Post() {
 
   return (
     <div className='flex justify-center '>
-    <Card className='w-3/4 h-3/4 '> 
+    <Card className='w-1/4 h-1/4 '> 
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -67,3 +67,4 @@ export function Post() {
     </div>
   );
 }
+export default Post;
