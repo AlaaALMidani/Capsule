@@ -99,8 +99,6 @@ function Post({
             <FavoriteIcon sx={{ color: liked ? red[500] : 'inherit', fontSize: 30 }} />
           </IconButton>
         </CardActions>
-
-       
         <Menu
           anchorEl={anchorEl}
           open={openMenu}

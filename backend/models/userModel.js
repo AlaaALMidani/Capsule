@@ -33,7 +33,7 @@ class UserRepo {
     return await User.find({ roleID })
   }
   static update = async (id, userData) => {
-    return await User.findByIdAndUpdate(id, userData, { new: true }); //new:true returns the updated doc
+    return await User.findByIdAndUpdate(id, userData, { new: true }); 
   };
   static deleteOne = async (id) => {
     return await User.findByIdAndDelete(id);

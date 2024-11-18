@@ -7,6 +7,8 @@ import { ColorModeContext, useMode } from "./theme.js";
 import Navbar from "./components/Navbar.jsx";
 import { PharmacyHome } from "./pages/home/pharmacyHome.js";
 import HistoryPage  from "./pages/HistoryPage.js";
+import OfferPage from "./pages/OfferPage.js";
+import MyPostsPage from "./pages/myPostsPage.js";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -26,6 +28,8 @@ function App() {
               <Route path="/nav" element={<Navbar />}></Route>
               <Route path="/pharmacyHome" element={<PharmacyHome />}></Route>
               <Route path="/history" element={<HistoryPage />}></Route>
+              <Route path="/offers" element={<OfferPage/>}></Route>
+              <Route path="/myPosts" element={<MyPostsPage/>}></Route>
             </Routes>
           </main>
         </div>
