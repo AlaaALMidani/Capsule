@@ -1,17 +1,57 @@
 import { useTheme } from "@mui/material";
 import { ResponsiveBar } from "@nivo/bar";
 import { tokens } from "../assets/styles/theme.js";
-import { mockBarData as data } from "../Data/mockData.js";
+import { useEffect, useState } from "react";
+import axios from "axios"; 
 
 const BarChart = ({ isDashboard = false }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [chartData, setChartData] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("/mockUsers.json")
+      .then((response) => {
+        const data = response.data; 
+        const users = data.users; 
+        const roleCounts = users.reduce((acc, user) => {
+          acc[user.roleID] = (acc[user.roleID] || 0) + 1;
+          return acc;
+        }, {});
+
+        const formattedData = Object.entries(roleCounts).map(([roleID, count]) => {
+          let roleName = "";
+          switch (parseInt(roleID)) {
+            case 2:
+              roleName = "User";
+              break;
+            case 3:
+              roleName = "Pharmacy";
+              break;
+            case 4:
+              roleName = "Warehouse";
+              break;
+            case 5:
+              roleName = "Driver";
+              break;
+            default:
+              roleName = "Unknown";
+          }
+          return {
+            role: roleName, 
+            count,  
+          };
+        });
+        setChartData(formattedData);
+      })
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
 
   return (
     <ResponsiveBar
-      data={data}
+      data={chartData}
       theme={{
-        // added
         axis: {
           domain: {
             line: {
@@ -39,33 +79,13 @@ const BarChart = ({ isDashboard = false }) => {
           },
         },
       }}
-      keys={["hot dog", "burger", "sandwich", "kebab", "fries", "donut"]}
-      indexBy="country"
+      keys={["count"]}
+      indexBy="role"
       margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
       padding={0.3}
       valueScale={{ type: "linear" }}
       indexScale={{ type: "band", round: true }}
       colors={{ scheme: "nivo" }}
-      defs={[
-        {
-          id: "dots",
-          type: "patternDots",
-          background: "inherit",
-          color: "#38bcb2",
-          size: 4,
-          padding: 1,
-          stagger: true,
-        },
-        {
-          id: "lines",
-          type: "patternLines",
-          background: "inherit",
-          color: "#eed312",
-          rotation: -45,
-          lineWidth: 6,
-          spacing: 10,
-        },
-      ]}
       borderColor={{
         from: "color",
         modifiers: [["darker", "1.6"]],
@@ -76,7 +96,7 @@ const BarChart = ({ isDashboard = false }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "country", // changed
+        legend: isDashboard ? undefined : "Role",
         legendPosition: "middle",
         legendOffset: 32,
       }}
@@ -84,11 +104,11 @@ const BarChart = ({ isDashboard = false }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "food", // changed
+        legend: isDashboard ? undefined : "Count",
         legendPosition: "middle",
         legendOffset: -40,
       }}
-      enableLabel={false}
+      enableLabel={true}
       labelSkipWidth={12}
       labelSkipHeight={12}
       labelTextColor={{
@@ -120,8 +140,8 @@ const BarChart = ({ isDashboard = false }) => {
         },
       ]}
       role="application"
-      barAriaLabel={function (e) {
-        return e.id + ": " + e.formattedValue + " in country: " + e.indexValue;
+      barAriaLabel={(e) => {
+        return e.id + ": " + e.formattedValue + " in role: " + e.indexValue;
       }}
     />
   );
