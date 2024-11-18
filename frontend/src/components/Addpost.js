@@ -17,7 +17,7 @@ function AddPost() {
     setForm({ ...form, productName })
   };
 
-  const handleDescriptionChange = (e) => {  
+  const handleDescriptionChange = (e) => {
     setDescription(e.target.value);
     setForm({ ...form, description })
   };
@@ -65,10 +65,10 @@ function AddPost() {
   const state = useSelector(state => state.post);
   const SubmitOrder = () => {
     let formData = new FormData()
-    formData = objectToFormData(formData)
+    
+    formData = objectToFormData(form)
     dispatch(addPostAsync(formData))
   }
-  console.log(form)
   return (
     <div className="w-full max-w-md p-6 bg-white rounded-lg mx-auto mt-10 border border-gray-300 text-center">
 
@@ -146,11 +146,18 @@ function AddPost() {
       </div>
 
       {/* Post Button */}
-      {state.loading ? <progress value={state.progress/100} /> :
+      {state.loading ? <div>{state.progress}</div> :
         <div className="flex justify-end">
 
           <button className="w-full bg-[#1a8942] text-white p-2 rounded-lg hover:bg-[#215f92] transition-colors duration-200" onClick={SubmitOrder}>Post</button>
         </div>}
+      {state.data && !state.data.success && state.data.errors &&
+        Object.entries(state.data.errors).map(([field, message]) => (
+          <div key={field} className="error-message text-red-700 mt-3">
+            <b>{field}</b> : {message}
+          </div>
+        ))}
+
     </div>
   );
 }

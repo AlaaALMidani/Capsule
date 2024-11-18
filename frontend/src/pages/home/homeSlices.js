@@ -21,6 +21,9 @@ export const addPostAsync = createAsyncThunk('post/addPost', async (data, { reje
 export const postSlice = createSlice({
     name: 'post',
     initialState,
+    uploadProgress: (state, action) => { // This line defines the action creator
+        state.progress = action.payload;
+    },
     extraReducers: (builder) => {
         builder.addCase(addPostAsync.pending, (state) => {
             state.loading = true;
@@ -47,5 +50,5 @@ export const postSlice = createSlice({
     },
 });
 
-
+export const { uploadProgress } = postSlice.actions; 
 export default postSlice.reducer;
