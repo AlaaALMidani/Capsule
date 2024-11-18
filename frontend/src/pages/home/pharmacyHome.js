@@ -3,15 +3,23 @@ import { useState } from "react";
 import Button from "@mui/material/Button/index.js";
 import Post from "../../components/Post.js";
 import { Box, Grid2, useMediaQuery } from "@mui/material";
-import AddPost from "../../components/Addpost.js";
+import AddPost from "../../components/AddPost.js";
 import Popup from "reactjs-popup";
 import doctor from "../../assets/img/doctorImage2.png";
 import camera from "../../assets/img/camera.svg";
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from "react";
 export const PharmacyHome = () => {
   // Check if the screen size is small (mobile)
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
   const [isOpen, setIsOpen] = useState(false); // State to manage popup visibility
+  const postSuccess = useSelector(state => state.post.success)
+  
+  useEffect(() => {
+    if (postSuccess) {
+      setIsOpen(false); 
+    }
+  }, [postSuccess]); // Add success to the dependency array
 
   const posts = [
     { id: 1, title: "Post 1", content: "Content of Post 1" },
@@ -19,7 +27,7 @@ export const PharmacyHome = () => {
     { id: 3, title: "Post 3", content: "Content of Post 3" },
   ];
 
-  
+
   return (
     <div className={` ${isOpen ? "backdrop-brightness-150 " : ""}`}>
       <div

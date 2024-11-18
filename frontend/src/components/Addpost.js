@@ -4,6 +4,8 @@ import { FaFileUpload } from 'react-icons/fa';
 import logo from '../styles/logo.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { addPostAsync } from "../pages/home/homeSlices.js"
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 function AddPost() {
   const [productName, setProductName] = useState('');
   const [description, setDescription] = useState('');
@@ -65,7 +67,7 @@ function AddPost() {
   const state = useSelector(state => state.post);
   const SubmitOrder = () => {
     let formData = new FormData()
-    
+
     formData = objectToFormData(form)
     dispatch(addPostAsync(formData))
   }
@@ -146,9 +148,10 @@ function AddPost() {
       </div>
 
       {/* Post Button */}
-      {state.loading ? <div>{state.progress}</div> :
+      {state.loading ? <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <CircularProgress />
+      </Box> :
         <div className="flex justify-end">
-
           <button className="w-full bg-[#1a8942] text-white p-2 rounded-lg hover:bg-[#215f92] transition-colors duration-200" onClick={SubmitOrder}>Post</button>
         </div>}
       {state.data && !state.data.success && state.data.errors &&

@@ -7,26 +7,27 @@ const addPost = "addPost";
 
 export class PostServices {
 
-    static async addPost(data ,dispatch) {
+    static async addPost(data, dispatch) {
         console.log('addPost')
         console.log(data)
         return fetch(`${baseUrl}${addPost}`, {
             method: "post",
             body: data,
-            headers:{
-                'authorization':`${token}`
+            headers: {
+                'authorization': `${token}`
             },
             onUploadProgress: (progressEvent) => {
                 const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                dispatch(uploadProgress(percentCompleted)); 
-              },
+                console.log(percentCompleted)
+                dispatch(uploadProgress(percentCompleted));
+            },
         })
             .then((response) => response.json())
-            .then(data => data)
+            .then(data => console.log(data))
             .catch(error =>
                 error.message
             );
     }
 
-    
+
 }

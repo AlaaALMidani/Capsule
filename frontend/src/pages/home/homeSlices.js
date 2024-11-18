@@ -50,5 +50,5 @@ export const postSlice = createSlice({
     },
 });
 
-export const { uploadProgress } = postSlice.actions; 
+export const { uploadProgress } = postSlice.actions;        
 export default postSlice.reducer;
