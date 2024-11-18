@@ -1,5 +1,11 @@
 import { createContext, useState, useMemo } from "react";
-import { ThemeProvider, createTheme } from "@mui/material/styles/index.js";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+
+export const font = createTheme({
+  typography: {
+      fontFamily: "'Poppins', sans-serif",
+  },
+});
 
 // color design tokens export
 export const tokens = (mode) => ({
@@ -141,7 +147,7 @@ export const themeSettings = (mode) => {
               light: colors.grey[100],
             },
             background: {
-              default: colors.primary[500],
+              default: colors.greenAccent[200],
             },
           }
         : {

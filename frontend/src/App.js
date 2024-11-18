@@ -1,31 +1,31 @@
-import React, { useState } from "react";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Register } from "./pages/register/register.jsx";
 import { Login } from "./pages/login/Login.jsx";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { ColorModeContext, useMode } from "./theme.js";
+import { useMode } from "./theme.js";
 import Navbar from "./components/Navbar.jsx";
 import { PharmacyHome } from "./pages/home/pharmacyHome.js";
-import HistoryPage  from "./pages/HistoryPage.js";
+import HistoryPage from "./pages/HistoryPage.js";
 
 function App() {
-  const [theme, colorMode] = useMode();
-  const [isSidebar, setIsSidebar] = useState(true);
+  const [theme] = useMode();
 
   return (
     <ThemeProvider theme={theme}>
-      <div className="flex ">
+      <CssBaseline /> 
+      <div className="flex">
         <div className="flex-1 overflow-y-auto">
-          <main className="">
+          <main>
             <Navbar />
 
             <Routes>
-              <Route path="/register" element={<Register />}></Route>
-              <Route path="/login" element={<Login />}></Route>
-              <Route path="/home" element={<div>home</div>}></Route>
-              <Route path="/nav" element={<Navbar />}></Route>
-              <Route path="/pharmacyHome" element={<PharmacyHome />}></Route>
-              <Route path="/history" element={<HistoryPage />}></Route>
+              <Route path="/register" element={<Register />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/home" element={<div>Home</div>} />
+              <Route path="/nav" element={<Navbar />} />
+              <Route path="/pharmacyHome" element={<PharmacyHome />} />
+              <Route path="/history" element={<HistoryPage />} />
             </Routes>
           </main>
         </div>
