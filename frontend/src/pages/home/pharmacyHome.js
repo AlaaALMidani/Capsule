@@ -1,13 +1,18 @@
 import React from 'react';
-//import Navbar from '../../components/Navbar.jsx';
-import pharma from '../../styles/pharma.png';
+import { useState } from 'react'
+
 import Button from '@mui/material/Button/index.js'
 import Post from '../../components/Post.js'
-import { Box, Grid, useMediaQuery, Typography } from '@mui/material';
-
+import { Box, Grid2, useMediaQuery } from '@mui/material';
+import AddPost from '../../components/AddPost.js'
+import Popup from 'reactjs-popup';
+import doctor from '../../assets/img/doctorImage2.png';
+import camera from '../../assets/img/camera.svg'
 export const PharmacyHome = () => {
+
   // Check if the screen size is small (mobile)
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down('md'));
+  const [isOpen, setIsOpen] = useState(false); // State to manage popup visibility
 
   const posts = [
     { id: 1, title: 'Post 1', content: 'Content of Post 1' },
@@ -16,21 +21,14 @@ export const PharmacyHome = () => {
   ];
 
   return (
-    <>
+    <div className={` ${isOpen ? 'backdrop-brightness-150 ' : ''}`}>
       <div
-        style={{
-          backgroundColor: '#f0f4f8',
-          backgroundImage: 'linear-gradient(to bottom right, #d9e9f6, #b3d4e8)',
-          minHeight: '50vh', // full screen height
-          padding: '20px',
-        }}
+        className={`bg-[#f0f4f8] bg-gradient-to-tr items-center from-[#d9e9f6] to-[#009dff] min-h-[50vh] p-5 transition-all duration-300 ${isOpen ? 'backdrop-blur-3xl' : ''}`}
       >
-        
-
         <Box sx={{ marginTop: 4 }}>
           {/* Main Content Container */}
-          <Grid container spacing={4} alignItems="center" justifyContent="space-between">
-            <Grid item xs={12} md={6}>
+          <Grid2 container spacing={4} alignItems="center" justifyContent="space-between">
+            <Grid2 item xs={12} md={6}>
               {/* Buttons Section */}
               <Box
                 sx={{
@@ -54,24 +52,10 @@ export const PharmacyHome = () => {
                 >
                   Add New Order
                 </Button>
-
-                <Button
-                  variant="contained"
-                  sx={{
-                    backgroundColor: '#103758',
-                    '&:hover': { backgroundColor: '#082544' },
-                    color: 'white',
-                    padding: isMobile ? '12px 20px' : '12px 30px',
-                    width: isMobile ? '100%' : 'auto',
-                  }}
-                >
-                  Add New Post
-                </Button>
               </Box>
-            </Grid>
+            </Grid2>
 
-            <Grid item xs={12} md={6}>
-
+            <Grid2 item xs={12} md={6}>
               <Box
                 sx={{
                   display: 'flex',
@@ -79,9 +63,8 @@ export const PharmacyHome = () => {
                   alignItems: 'center',
                   marginTop: isMobile ? '20px' : '0',
                 }}
-              >
-                <img
-                  src={pharma}
+              > <img
+                  src={doctor}
                   alt="Logo"
                   style={{
                     maxWidth: '100%',
@@ -90,21 +73,43 @@ export const PharmacyHome = () => {
                   }}
                 />
               </Box>
-            </Grid>
-          </Grid>
+            </Grid2>
+
+          </Grid2>
+
         </Box>
-
-
       </div>
-      <div className='mt-6'>
+      <div className='mt-6 m-auto'>
+
+        <Popup
+
+          trigger={
+            <div className='flex justify-center m-8 '>
+              <img src={camera} className='h-20 mr-3 cursor-pointer ' alt='camera' />
+              <div className="sm:w-2/3 md:w-1/2 lg:w-1/3 cursor-pointer bg-indigo-900 bg-opacity-40 px-10 shadow-lg h-20  rounded-2xl flex items-center justify-center">
+                <span className="text-white font-bold ">Tell us about your product...
+                </span>
+              </div>
+              <button className="px-4 py-2 bg-green-600 text-white rounded-2xl ml-3 font-bold">ADD POST</button>
+            </div>
+          }
+          onClose={() => setIsOpen(false)} // Close popup
+          open={isOpen}
+          modal
+          closeOnDocumentClick
+        >
+          {close => (
+            <AddPost />
+          )}
+        </Popup>
+
         {posts.map((post) => (
           <div className='mb-4'>
-            <Grid item xs={12} sm={6} md={4} key={post.id} spacing={2}>
+            <Grid2 item xs={12} sm={6} md={4} key={post.id} spacing={2}>
               <Post title={post.title} content={post.content} />
-            </Grid></div>
+            </Grid2></div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
- 

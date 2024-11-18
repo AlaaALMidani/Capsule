@@ -1,21 +1,70 @@
+import React, { useEffect, useState } from 'react';
+
 import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
-import { tokens } from "../../assets/styles/theme";
-import { mockTransactions } from "../../data/mockData";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
-import EmailIcon from "@mui/icons-material/Email";
-import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import TrafficIcon from "@mui/icons-material/Traffic";
+import PersonIcon from "@mui/icons-material/Person";
+import PhoneIcon from "@mui/icons-material/Phone";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import CancelIcon from "@mui/icons-material/Cancel";
+import LocalPharmacyIcon from '@mui/icons-material/LocalPharmacy';
+import WarehouseIcon from '@mui/icons-material/Warehouse';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+
 import Header from "../../components/Header";
 import LineChart from "../../components/LineChart";
-import GeographyChart from "../../components/GeographyChart";
 import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StartBox";
 import ProgressCircle from "../../components/ProgressCirde";
 
+import { tokens } from "../../assets/styles/theme";
+import { fetchUsersData } from '../../services/fetchUsersData.js'; 
+
+
+
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  const [users, setUsers] = useState([]); 
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const userData = await fetchUsersData();
+      setUsers(userData);
+    };
+
+    getUsers();
+  }, []);
+  
+
+
+
+  const [userStats, setUserStats] = useState({
+    pharmacy: 0,
+    user: 0,
+    warehouse: 0,
+    driver: 0,
+  });
+
+  useEffect(() => {
+    const getUserData = async () => {
+      const users = await fetchUsersData();
+      const stats = {
+        pharmacy: users.filter((user) => user.accessLevel === "pharmacy").length,
+        user: users.filter((user) => user.accessLevel === "user").length,
+        warehouse: users.filter((user) => user.accessLevel === "warehouse").length,
+        driver: users.filter((user) => user.accessLevel === "driver").length,
+      };
+      setUserStats(stats);
+    };
+
+    getUserData();
+  }, []);
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 
   return (
     <Box m="20px">
@@ -48,86 +97,123 @@ const Dashboard = () => {
       >
         {/* ROW 1 */}
         <Box
-          gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title="12,361"
-            subtitle="Emails Sent"
-            progress="0.75"
-            increase="+14%"
-            icon={
-              <EmailIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
-        <Box
-          gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title="431,225"
-            subtitle="Sales Obtained"
-            progress="0.50"
-            increase="+21%"
-            icon={
-              <PointOfSaleIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
-        <Box
-          gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title="32,441"
-            subtitle="New Clients"
-            progress="0.30"
-            increase="+5%"
-            icon={
-              <PersonAddIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
-        <Box
-          gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title="1,325,134"
-            subtitle="Traffic Received"
-            progress="0.80"
-            increase="+43%"
-            icon={
-              <TrafficIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
+  gridColumn="span 3"
+  background={`linear-gradient(135deg, ${colors.primary[300]}, ${colors.greenAccent[400]})`}
+  boxShadow="0px 4px 10px rgba(0, 0, 0, 0.1)"
+  borderRadius="12px"
+  display="flex"
+  flexDirection="column"
+  alignItems="center"
+  justifyContent="center"
+  p="20px"
+>
+  <StatBox
+    title={userStats.pharmacy}
+    subtitle="Pharmacies"
+    progress="0.75"
+    increase="+14%"
+    icon={
+      <LocalPharmacyIcon
+        sx={{
+          color: colors.grey[100],
+          fontSize: "36px",
+          marginBottom: "10px",
+        }}
+      />
+    }
+  />
+</Box>
+
+<Box
+  gridColumn="span 3"
+  background={`linear-gradient(135deg, ${colors.primary[300]}, ${colors.greenAccent[400]})`}
+  boxShadow="0px 4px 10px rgba(0, 0, 0, 0.1)"
+  borderRadius="12px"
+  display="flex"
+  flexDirection="column"
+  alignItems="center"
+  justifyContent="center"
+  p="20px"
+>
+  <StatBox
+    title={userStats.user}
+    subtitle="Users"
+    progress="0.50"
+    increase="+21%"
+    icon={
+      <PersonIcon
+        sx={{
+          color: colors.grey[100],
+          fontSize: "36px",
+          marginBottom: "10px",
+        }}
+      />
+    }
+  />
+</Box>
+
+<Box
+  gridColumn="span 3"
+  background={`linear-gradient(135deg, ${colors.primary[300]}, ${colors.greenAccent[400]})`}
+  boxShadow="0px 4px 10px rgba(0, 0, 0, 0.1)"
+  borderRadius="12px"
+  display="flex"
+  flexDirection="column"
+  alignItems="center"
+  justifyContent="center"
+  p="20px"
+>
+  <StatBox
+    title={userStats.warehouse}
+    subtitle="Warehouses"
+    progress="0.30"
+    increase="+5%"
+    icon={
+      <WarehouseIcon
+        sx={{
+          color: colors.grey[100],
+          fontSize: "36px",
+          marginBottom: "10px",
+        }}
+      />
+    }
+  />
+</Box>
+
+<Box
+  gridColumn="span 3"
+  background={`linear-gradient(135deg, ${colors.primary[300]}, ${colors.greenAccent[400]})`}
+  boxShadow="0px 4px 10px rgba(0, 0, 0, 0.1)"
+  borderRadius="12px"
+  display="flex"
+  flexDirection="column"
+  alignItems="center"
+  justifyContent="center"
+  p="20px"
+>
+  <StatBox
+    title={userStats.driver}
+    subtitle="Drivers"
+    progress="0.80"
+    increase="+43%"
+    icon={
+      <LocalShippingIcon
+        sx={{
+          color: colors.grey[100],
+          fontSize: "36px",
+          marginBottom: "10px",
+        }}
+      />
+    }
+  />
+</Box>
+
+
 
         {/* ROW 2 */}
         <Box
           gridColumn="span 8"
-          gridRow="span 2"
+          gridRow="span 3"
           backgroundColor={colors.primary[400]}
         >
           <Box
@@ -165,66 +251,105 @@ const Dashboard = () => {
             <LineChart isDashboard={true} />
           </Box>
         </Box>
+
+
+
+
+
+
+
         <Box
-          gridColumn="span 4"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-          overflow="auto"
+      gridColumn="span 4"
+      gridRow="span 3"
+      backgroundColor={colors.primary[400]}
+      overflow="auto"
+      borderRadius="8px"
+      className="scrollbar-thin scrollbar-thumb-green-500 scrollbar-track-gray-700"
+
+    >
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        borderBottom={`4px solid ${colors.primary[400]}`}
+        p="15px"
+      >
+        <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
+          Latest Users
+        </Typography>
+      </Box>
+
+      {users.map((user) => (
+        <Box
+          key={user.id}
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+          backgroundColor={colors.blueAccent[800]}
+          borderRadius="8px"
+          p="15px"
+          m="10px"
         >
+          <Box display="flex" alignItems="center" gap="15px">
+            <PersonIcon style={{ color: colors.greenAccent[500], fontSize: "30px" }} />
+            <Box>
+              <Typography
+                color={colors.greenAccent[500]}
+                variant="h5"
+                fontWeight="600"
+              >
+                {user.name}
+              </Typography>
+              <Typography color={colors.grey[100]} display="flex" alignItems="center" gap="5px">
+                <PhoneIcon fontSize="small" /> {user.phone}
+              </Typography>
+              <Typography color={colors.grey[100]} display="flex" alignItems="center" gap="5px">
+                <LocationOnIcon fontSize="small" /> {user.location}
+              </Typography>
+            </Box>
+          </Box>
+
           <Box
             display="flex"
-            justifyContent="space-between"
             alignItems="center"
-            borderBottom={`4px solid ${colors.primary[500]}`}
-            colors={colors.grey[100]}
-            p="15px"
+            justifyContent="center"
+            gap="10px"
           >
-            <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
-              Recent Transactions
+            <Typography color={user.active === "Active" ? colors.greenAccent[500] : colors.redAccent[500]}>
+              {user.active === "Active" ? (
+                <CheckCircleIcon style={{ color: colors.greenAccent[500] }} />
+              ) : (
+                <CancelIcon style={{ color: colors.redAccent[500] }} />
+              )}
+              {user.active}
             </Typography>
           </Box>
-          {mockTransactions.map((transaction, i) => (
-            <Box
-              key={`${transaction.txId}-${i}`}
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-              borderBottom={`4px solid ${colors.primary[500]}`}
-              p="15px"
-            >
-              <Box>
-                <Typography
-                  color={colors.greenAccent[500]}
-                  variant="h5"
-                  fontWeight="600"
-                >
-                  {transaction.txId}
-                </Typography>
-                <Typography color={colors.grey[100]}>
-                  {transaction.user}
-                </Typography>
-              </Box>
-              <Box color={colors.grey[100]}>{transaction.date}</Box>
-              <Box
-                backgroundColor={colors.greenAccent[500]}
-                p="5px 10px"
-                borderRadius="4px"
-              >
-                ${transaction.cost}
-              </Box>
-            </Box>
-          ))}
+
+          <Typography
+            color={colors.grey[100]}
+            backgroundColor={colors.blueAccent[500]}
+            p="5px 10px"
+            borderRadius="4px"
+          >
+            {user.accessLevel}
+          </Typography>
         </Box>
+      ))}
+    </Box>
+
+
+
+
 
         {/* ROW 3 */}
         <Box
-          gridColumn="span 4"
+          gridColumn="span 6"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
           p="30px"
         >
           <Typography variant="h5" fontWeight="600">
-            Campaign
+          ِActive & Inactive
           </Typography>
           <Box
             display="flex"
@@ -233,18 +358,16 @@ const Dashboard = () => {
             mt="25px"
           >
             <ProgressCircle size="125" />
-            <Typography
-              variant="h5"
-              color={colors.greenAccent[500]}
-              sx={{ mt: "15px" }}
-            >
-              $48,352 revenue generated
-            </Typography>
-            <Typography>Includes extra misc expenditures and costs</Typography>
+
           </Box>
         </Box>
+
+
+
+
+        
         <Box
-          gridColumn="span 4"
+          gridColumn="span 6"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
         >
@@ -253,31 +376,17 @@ const Dashboard = () => {
             fontWeight="600"
             sx={{ padding: "30px 30px 0 30px" }}
           >
-            Sales Quantity
+            User Distribution
           </Typography>
           <Box height="250px" mt="-20px">
             <BarChart isDashboard={true} />
           </Box>
         </Box>
-        <Box
-          gridColumn="span 4"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-          padding="30px"
-        >
-          <Typography
-            variant="h5"
-            fontWeight="600"
-            sx={{ marginBottom: "15px" }}
-          >
-            Geography Based Traffic
-          </Typography>
-          <Box height="200px">
-            <GeographyChart isDashboard={true} />
+
+          
           </Box>
         </Box>
-      </Box>
-    </Box>
+
   );
 };
 

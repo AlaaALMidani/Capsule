@@ -8,18 +8,21 @@ function AddPost() {
   const [description, setDescription] = useState('');
   const [image, setImage] = useState(null);
   const [file, setFile] = useState(null);
-
+  const [form,setForm] = useState(null)
   const handleProductNameChange = (e) => {
     setProductName(e.target.value);
+    setForm({...form,productName})
   };
 
   const handleDescriptionChange = (e) => {
     setDescription(e.target.value);
+    setForm({...form,description})
   };
 
   // handle image upload
   const handleImageUpload = (e) => {
     const uploadedImage = e.target.files[0];
+    setForm({...form,image})
     if (uploadedImage) {
       setImage(URL.createObjectURL(uploadedImage));
     }
@@ -34,7 +37,7 @@ function AddPost() {
   };
 
   return (
-    <div className="w-full max-w-md p-6 bg-white rounded-lg mx-auto mt-10 border border-gray-300 text-center">
+    <div className="w-full p-6 bg-white rounded-lg mx-auto mt-10 border border-gray-300 text-center">
       
       {/* Logo and Title */}
       <div className="flex flex-col items-center mb-6">

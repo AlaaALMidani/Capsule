@@ -131,12 +131,12 @@ class PostService {
       const { success, error, userId } = await this.validateToken(token);
       if (!success) {
         return { success: false, error };
-      } 
+      }
       const ownPosts = await PostRepo.findByUserId(userId);
       if (!ownPosts || ownPosts.length === 0) {
         return { success: false, error: "No posts found for this user" };
       }
-      
+
       const baseURL = "http://localhost:3002/";
       const formattedPosts = ownPosts.map((post) => {
         const isLikedByUser = post.likes.includes(userId);
@@ -288,8 +288,8 @@ class PostService {
           postPhoto: post.postPhoto ? `${baseURL}${post.postPhoto}` : null,
           video: post.video ? `${baseURL}${post.video}` : null,
           PDF: post.PDF ? `${baseURL}${post.PDF}` : null,
-          isLiked: isLikedByUser, 
-          likesCount: post.likes.length, 
+          isLiked: isLikedByUser,
+          likesCount: post.likes.length,
         };
       });
       return { success: true, posts: formattedPosts };
