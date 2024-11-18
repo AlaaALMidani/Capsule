@@ -1,7 +1,9 @@
 import React from 'react'
 
-export const WarehouseHome = () => {
+const warehouseHome = () => {
   return (
-    <div>WarehouseHome</div>
+    <div>warehouseHome</div>
   )
 }
+
+export default warehouseHome
