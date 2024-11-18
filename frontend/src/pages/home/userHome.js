@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-import React from 'react'
-import {CustomInput} from '../../components/shared/CustomInput.js'
-export const UserHome = () => {
-=======
 import * as React from 'react';
 import { Post } from '../../components/Post.js';
 import AddOrder from '../../components/AddOrder.js';
@@ -15,7 +10,6 @@ const UserHome = () => {
     { id: 4, title: 'Pharmacy 4', description: 'Description for pharmacy 4.' },
     { id: 5, title: 'Pharmacy 5', description: 'Description for pharmacy 5.' },
   ]; 
->>>>>>> 2b36907090b841bb03031373a0b80f222ee8a2f5
   return (
     <div>
       <div id="section-1" className=" pt-16 flex justify-around">
