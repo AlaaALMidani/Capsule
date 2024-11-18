@@ -11,6 +11,7 @@ import OfferPage from "./pages/OfferPage.js";
 import MyPostsPage from "./pages/myPostsPage.js";
 import OrdersPage from "./pages/OrdersPage.js";
 import Notification from "./pages/Notification.js";
+
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);

@@ -45,7 +45,7 @@ const HistoryPage = () => {
       <div className="w-full max-w-4xl bg-white p-6 rounded-lg shadow-md">
         <Tabs defaultActiveKey="1" centered>
           <TabPane tab="Current Order" key="1">
-            <div className="flex flex-col items-center space-y-6 py-4">
+            <div className="flex flex-col items-center space-y-6 py-4 ">
               {fakeCurrentOrders.map((order) => (
                 <CurrentOrderCard key={order._id} order={order} />
               ))}

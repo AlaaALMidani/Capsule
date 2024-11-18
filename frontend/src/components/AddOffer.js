@@ -8,8 +8,15 @@ import CheckIcon from '@mui/icons-material/Check';
 
 export function AddOffer({offerMessage}) {
   return (
-    <div className='flex justify-center'>
-    <Card className='w-3/4'>
+    <div className='flex justify-center w-screen'>
+    <Card   sx={{
+          width: {
+            xs: '100%',
+            sm: '75%',
+            md: '50%'
+          },
+          height: 'auto'
+        }} >
       <CardContent>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
          {offerMessage}

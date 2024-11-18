@@ -11,10 +11,16 @@ export function MyOrder({ order }) {
     <Card className="shadow-lg rounded-lg overflow-hidden">
       <CardHeader
         subheader={`Created on: ${order.createdAt}`}
-        
       />
       
       <CardContent>
+        <CardMedia
+          component="img"
+ 
+          image={order.photo}
+          alt="Order photo"
+          sx={{ objectFit: 'cover', height:'200px', width:'full'}}  
+        />
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
           {order.message}
         </Typography>
