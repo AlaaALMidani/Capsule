@@ -10,11 +10,17 @@ export function Offer({ offer }) {
   return (
     <Card className="shadow-lg rounded-lg overflow-hidden">
       <CardContent>
-        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-         {offerMessage}
+        <Typography gutterBottom variant="h6" component="div">
+          Offer from {offer.senderID}
+        </Typography>
+        <Typography variant="body2" sx={{ color: 'text.secondary' }} className="mb-2">
+          {offer.message}
+        </Typography>
+        <Typography variant="body2" className="font-semibold mb-2">
+          Cost: ${offer.cost}
         </Typography>
       </CardContent>
-      <CardActions sx={{ justifyContent: 'flex-end' }}>
+      <CardActions sx={{ justifyContent: 'flex-end' }} className="bg-gray-100 p-2">
         <Button variant="contained" color="success" startIcon={<CheckIcon />}>
           Accept Offer
         </Button>
