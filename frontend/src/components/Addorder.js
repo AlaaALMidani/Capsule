@@ -3,11 +3,13 @@ import { FiCamera } from 'react-icons/fi';
 import logo from '../styles/logo.png';
 
 function AddOrder() {
-  const [message, setMessage] = useState ('');
-  const [location, setLocation] = useState ('');
+  const [text, setText] = useState ('');
   const [image, setImage] = useState(null);
 
- 
+  const handleTextChange = (e) => {
+    setText(e.target.value);
+  };
+
   const handleImageUpload = (e) => {
     setImage(URL.createObjectURL(e.target.files[0]));
   };
@@ -26,14 +28,8 @@ function AddOrder() {
         <textarea
           className="textarea textarea-success"
           placeholder="Add MEDICINE NAME"
-          value={message}
-          onChange={(e)=>{setMessage(e.target.value)}}
-        />
-        <textarea
-          className="textarea textarea-success"
-          placeholder="location"
-          value={location}
-          onChange={(e)=>{setLocation(e.target.value)}}
+          value={text}
+          onChange={handleTextChange}
         />
 
         {/* Image Upload */}
