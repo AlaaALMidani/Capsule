@@ -21,7 +21,6 @@ function App() {
         <div className="flex-1 overflow-y-auto">
           <main className="">
             <Navbar />
-
             <Routes>
               <Route path="/register" element={<Register />}></Route>
               <Route path="/login" element={<Login />}></Route>

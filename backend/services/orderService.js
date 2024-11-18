@@ -3,19 +3,19 @@ const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
 const { UserRepo } = require("../models/userModel");
-const InvoiceService = require('../services/invoiceService');
+const InvoiceService = require("../services/invoiceService");
 
 class OrderServices {
   constructor() {
     this.storage = multer.diskStorage({
       destination: (req, file, cb) => {
-        cb(null, "uploads/"); 
+        cb(null, "uploads/");
       },
       filename: (req, file, cb) => {
         cb(null, Date.now() + path.extname(file.originalname));
       },
     });
-    this.upload = multer({ storage: this.storage }).single('photo');
+    this.upload = multer({ storage: this.storage }).single("photo");
   }
   async validate(order) {
     const errors = {};
@@ -73,8 +73,8 @@ class OrderServices {
     } catch (error) {
       return { success: false, error: error.message };
     }
-  } 
-  
+  }
+
   async deleteOrder(orderId, token) {
     try {
       const { success, error, userId } = await this.validateToken(
@@ -93,16 +93,27 @@ class OrderServices {
       return { success: false, error: error.message };
     }
   }
-  async ordersByStatus(token,status) {
+  async ordersByStatus(token, status) {
     try {
       const { success, error, userId } = await this.validateToken(token);
       if (!success) {
         return { success: false, error };
       }
-      const currentOrders = await OrderRepo.findByStatus(userId,status);
+      const currentOrders = await OrderRepo.findByStatus(userId, status);
       if (!currentOrders || currentOrders.length === 0) {
         return { success: false, error: `There are no ${status}  orders` };
       }
+      const validStatuses = [
+        "pending",
+        "offer_accepted",
+        "inProgress",
+        "completed",
+        "canceled",
+      ];
+      if (!validStatuses.includes(status)) {
+        return { success: false, error: "Invalid status provided" };
+      }
+
       const baseURL = "http://localhost:3002/";
       const formattedOrders = currentOrders.map((order) => ({
         ...order.toObject(),
@@ -260,43 +271,55 @@ class OrderServices {
     }
   }
 
-  async updateStatus(orderId,offerId,status, token) {  
-    try {  
-      const { success, error, userId } = await this.validateToken(token);  
-      if (!success) {  
-        return { success: false, error };  
-      }   
-      const existingOrder = await OrderRepo.findById(orderId);  
-      if (!existingOrder) {  
-        return { success: false, error: "Order not found" };  
-      }  
-      const validStatuses = ["pending", "offer_accepted", "inProgress", "completed", "canceled"];  
-      if (!validStatuses.includes(status)) {  
-        return { success: false, error: "Invalid status" };  
-      }  
-  
-      const updatedOrder = await OrderRepo.updateOne(orderId, { status });  
-  
+  async updateStatus(orderId, offerId, status, token) {
+    try {
+      const { success, error, userId } = await this.validateToken(token);
+      if (!success) {
+        return { success: false, error };
+      }
+      const existingOrder = await OrderRepo.findById(orderId);
+      if (!existingOrder) {
+        return { success: false, error: "Order not found" };
+      }
+      const validStatuses = [
+        "pending",
+        "offer_accepted",
+        "inProgress",
+        "completed",
+        "canceled",
+      ];
+      if (!validStatuses.includes(status)) {
+        return { success: false, error: "Invalid status" };
+      }
+
+      const updatedOrder = await OrderRepo.updateOne(orderId, { status });
+
       if (status === "completed") {
-        const invoiceResponse = await InvoiceService.createInvoice(offerId, orderId);
+        const invoiceResponse = await InvoiceService.createInvoice(
+          offerId,
+          orderId
+        );
         if (!invoiceResponse.success) {
-          return { success: false, error: "Order status updated but failed to create invoice." };
+          return {
+            success: false,
+            error: "Order status updated but failed to create invoice.",
+          };
         }
       }
-  
-      const baseURL = "http://localhost:3002/";  
-      return {  
-        success: true,  
-        order: {  
-          ...updatedOrder.order.toObject(),  
-          photo: updatedOrder.order.photo  
-            ? `${baseURL}${updatedOrder.order.photo}`  
-            : null,  
-        },  
-      };  
-    } catch (error) {  
-      return { success: false, error: error.message };  
-    }  
+
+      const baseURL = "http://localhost:3002/";
+      return {
+        success: true,
+        order: {
+          ...updatedOrder.order.toObject(),
+          photo: updatedOrder.order.photo
+            ? `${baseURL}${updatedOrder.order.photo}`
+            : null,
+        },
+      };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
   }
 }
 module.exports = new OrderServices();
