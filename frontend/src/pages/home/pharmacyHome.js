@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-
 import Button from "@mui/material/Button/index.js";
 import Post from "../../components/Post.js";
 import { Box, Grid2, useMediaQuery } from "@mui/material";
@@ -8,23 +7,24 @@ import AddPost from "../../components/Addpost.js";
 import Popup from "reactjs-popup";
 import doctor from "../../assets/img/doctorImage2.png";
 import camera from "../../assets/img/camera.svg";
+import { useDispatch, useSelector } from 'react-redux';
 export const PharmacyHome = () => {
   // Check if the screen size is small (mobile)
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
   const [isOpen, setIsOpen] = useState(false); // State to manage popup visibility
 
-  const posts = [ 
+  const posts = [
     { id: 1, title: "Post 1", content: "Content of Post 1" },
     { id: 2, title: "Post 2", content: "Content of Post 2" },
     { id: 3, title: "Post 3", content: "Content of Post 3" },
   ];
 
+  
   return (
     <div className={` ${isOpen ? "backdrop-brightness-150 " : ""}`}>
       <div
-        className={`bg-[#f0f4f8] bg-gradient-to-tr from-[#d9e9f6] to-[#14f860] h-auto p-5 transition-all duration-300 ${
-          isOpen ? "backdrop-blur-3xl" : ""
-        }`}>
+        className={`bg-[#f0f4f8] bg-gradient-to-tr from-[#d9e9f6] to-[#14f860] h-auto p-5 transition-all duration-300 ${isOpen ? "backdrop-blur-3xl" : ""
+          }`}>
         <Box sx={{ width: "100%", height: "100%" }}>
           <Grid2
             container

@@ -2,19 +2,22 @@ import React, { useState } from 'react';
 import { FaCamera } from 'react-icons/fa';
 import { FaFileUpload } from 'react-icons/fa';
 import logo from '../styles/logo.png';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { addPostAsync } from "../pages/home/homeSlices.js"
 function AddPost() {
   const [productName, setProductName] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState(null);
   const [file, setFile] = useState(null);
   const [form, setForm] = useState({})
+
+
   const handleProductNameChange = (e) => {
     setProductName(e.target.value);
     setForm({ ...form, productName })
   };
 
-  const handleDescriptionChange = (e) => {
+  const handleDescriptionChange = (e) => {  
     setDescription(e.target.value);
     setForm({ ...form, description })
   };
@@ -56,6 +59,15 @@ function AddPost() {
       }
     }
   };
+
+
+  const dispatch = useDispatch();
+  const state = useSelector(state => state.post);
+  const SubmitOrder = () => {
+    let formData = new FormData()
+    formData = objectToFormData(formData)
+    dispatch(addPostAsync(formData))
+  }
   console.log(form)
   return (
     <div className="w-full max-w-md p-6 bg-white rounded-lg mx-auto mt-10 border border-gray-300 text-center">
@@ -106,7 +118,7 @@ function AddPost() {
             type="file"
             id="upload-photo"
             className="hidden"
-            accept="image/*,video/mp4,video/webm,video/quicktime" 
+            accept="image/*,video/mp4,video/webm,video/quicktime"
             onChange={handleImageUpload}
           />
         </div>
@@ -127,18 +139,28 @@ function AddPost() {
             type="file"
             id="upload-file"
             className="hidden"
-            accept="application/pdf" 
+            accept="application/pdf"
             onChange={handleFileUpload}
           />
         </div>
       </div>
 
       {/* Post Button */}
-      <div className="flex justify-end">
-        <button className="w-full bg-[#1a8942] text-white p-2 rounded-lg hover:bg-[#215f92] transition-colors duration-200">Post</button>
-      </div>
+      {state.loading ? <progress value={state.progress/100} /> :
+        <div className="flex justify-end">
+
+          <button className="w-full bg-[#1a8942] text-white p-2 rounded-lg hover:bg-[#215f92] transition-colors duration-200" onClick={SubmitOrder}>Post</button>
+        </div>}
     </div>
   );
 }
-
+function objectToFormData(obj) {
+  const formData = new FormData();
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      formData.append(key, obj[key]);
+    }
+  }
+  return formData;
+}
 export default AddPost;
