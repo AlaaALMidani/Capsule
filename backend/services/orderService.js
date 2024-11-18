@@ -127,7 +127,7 @@ class OrderServices {
         return { success: false, error };
       }
 
-      const user = await UserRepo.findById(userId);
+      const user = await UserRepo.findByID(userId);
       if (!user) {
         return { success: false, error: "User not found" };
       }
@@ -137,7 +137,7 @@ class OrderServices {
         orders = await OrderRepo.findAll();
         const filteredOrders = await Promise.all(
           orders.map(async (order) => {
-            const orderUser = await UserRepo.findById(order.senderId);
+            const orderUser = await UserRepo.findByID(order.senderId);
             if (orderUser && orderUser.roleID == 2) {
               return {
                 ...order.toObject(),
@@ -154,7 +154,7 @@ class OrderServices {
         orders = await OrderRepo.findAll();
         const filteredOrders = await Promise.all(
           orders.map(async (order) => {
-            const orderUser = await UserRepo.findById(order.senderId);
+            const orderUser = await UserRepo.findByID(order.senderId);
             if (orderUser && orderUser.roleID == 3) {
               return {
                 ...order.toObject(),

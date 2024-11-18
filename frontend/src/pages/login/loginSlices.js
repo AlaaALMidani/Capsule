@@ -11,6 +11,9 @@ const initialState = {
 export const login = createAsyncThunk('login/', async (data) => {
     return UserServices.login(data).then(data => data)
 })
+
+
+
 export const loginSlice = createSlice({
     name: 'login',
     initialState,
