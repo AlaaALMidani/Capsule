@@ -4,7 +4,7 @@ import { Register } from "./pages/register/register.jsx";
 import { Login } from "./pages/login/Login.jsx";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme.js";
-import Navbar from "./components/Navbar.jsx";
+import Navbar from "./components/Navbar.js";
 import { PharmacyHome } from "./pages/home/pharmacyHome.js";
 import HistoryPage  from "./pages/HistoryPage.js";
 import OfferPage from "./pages/OfferPage.js";
