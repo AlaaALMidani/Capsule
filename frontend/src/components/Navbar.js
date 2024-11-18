@@ -36,7 +36,7 @@ const NavScrollExample = () => {
               Home
             </NavLink>
             <NavLink
-              to="/customerOrders"
+              to="/orders"
               className="mx-3 text-decoration-none h5 py-2 px-3"
               style={({ isActive }) => ({
                 color: isActive ? "#1b8942" : "#103758",
@@ -72,7 +72,7 @@ const NavScrollExample = () => {
               My Posts
             </NavLink>
           </Nav>
-          <NavLink to="/notification">
+          <NavLink to="/notifications">
             <Button
               variant="outline-light"
               className="d-flex align-items-center ms-3"
