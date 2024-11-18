@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Register } from "./pages/register/register.jsx";
 import { Login } from "./pages/login/Login.jsx";
@@ -12,14 +12,14 @@ import MyPostsPage from "./pages/myPostsPage.js";
 import OrdersPage from "./pages/OrdersPage.js";
 import Notification from "./pages/Notification.js";
 function App() {
-  const [theme, colorMode] = useMode();
-  const [isSidebar, setIsSidebar] = useState(true);
+  const [theme] = useMode();
 
   return (
     <ThemeProvider theme={theme}>
-      <div className="flex ">
+      <CssBaseline /> 
+      <div className="flex">
         <div className="flex-1 overflow-y-auto">
-          <main className="">
+          <main>
             <Navbar />
             <Routes>
               <Route path="/register" element={<Register />}></Route>

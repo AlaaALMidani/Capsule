@@ -343,25 +343,72 @@ const Dashboard = () => {
 
         {/* ROW 3 */}
         <Box
-          gridColumn="span 6"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-          p="30px"
-        >
-          <Typography variant="h5" fontWeight="600">
-          ِActive & Inactive
-          </Typography>
-          <Box
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            mt="25px"
-          >
-            <ProgressCircle size="125" />
+  gridColumn="span 6"
+  gridRow="span 2"
+  backgroundColor={colors.primary[400]}
+  p="30px"
+  borderRadius="8px"
+  boxShadow="0 4px 8px rgba(0, 0, 0, 0.1)"
+>
+  {/* Title */}
+  <Typography
+    variant="h5"
+    fontWeight="600"
+    color={colors.primary[100]}
+    textAlign="center"
+  >
+    Active & Inactive
+  </Typography>
+  <Typography
+    variant="body2"
+    color={colors.grey[100]}
+    textAlign="center"
+    mt="8px"
+  >
+    Overview of active vs inactive users
+  </Typography>
 
-          </Box>
-        </Box>
-
+  {/* Content */}
+  <Box
+    display="flex"
+    flexDirection="column"
+    alignItems="center"
+    mt="25px"
+  >
+    {/* Progress Circle */}
+    <ProgressCircle size="125" progress={0.75} />
+    <Box display="flex" justifyContent="space-between" width="100%" mt="20px">
+      {/* Active Users */}
+      <Box display="flex" alignItems="center" gap="10px">
+        <Box
+          sx={{
+            width: "10px",
+            height: "10px",
+            borderRadius: "50%",
+            backgroundColor: colors.greenAccent[500],
+          }}
+        />
+        <Typography variant="body1" color={colors.primary[100]}>
+          Active Users: 75%
+        </Typography>
+      </Box>
+      {/* Inactive Users */}
+      <Box display="flex" alignItems="center" gap="10px">
+        <Box
+          sx={{
+            width: "10px",
+            height: "10px",
+            borderRadius: "50%",
+            backgroundColor: colors.grey[500],
+          }}
+        />
+        <Typography variant="body1" color={colors.primary[100]}>
+          Inactive Users: 25%
+        </Typography>
+      </Box>
+    </Box>
+  </Box>
+</Box>
 
 
 
