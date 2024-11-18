@@ -4,7 +4,7 @@ import { useState } from "react";
 import Button from "@mui/material/Button/index.js";
 import Post from "../../components/Post.js";
 import { Box, Grid2, useMediaQuery } from "@mui/material";
-import AddPost from "../../components/AddPost.js";
+import AddPost from "../../components/Addpost.js";
 import Popup from "reactjs-popup";
 import doctor from "../../assets/img/doctorImage2.png";
 import camera from "../../assets/img/camera.svg";
@@ -13,7 +13,7 @@ export const PharmacyHome = () => {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
   const [isOpen, setIsOpen] = useState(false); // State to manage popup visibility
 
-  const posts = [
+  const posts = [ 
     { id: 1, title: "Post 1", content: "Content of Post 1" },
     { id: 2, title: "Post 2", content: "Content of Post 2" },
     { id: 3, title: "Post 3", content: "Content of Post 3" },
@@ -22,7 +22,7 @@ export const PharmacyHome = () => {
   return (
     <div className={` ${isOpen ? "backdrop-brightness-150 " : ""}`}>
       <div
-        className={`bg-[#f0f4f8] bg-gradient-to-tr from-[#d9e9f6] to-[#009dff] h-auto p-5 transition-all duration-300 ${
+        className={`bg-[#f0f4f8] bg-gradient-to-tr from-[#d9e9f6] to-[#14f860] h-auto p-5 transition-all duration-300 ${
           isOpen ? "backdrop-blur-3xl" : ""
         }`}>
         <Box sx={{ width: "100%", height: "100%" }}>
@@ -134,13 +134,13 @@ export const PharmacyHome = () => {
       <div className="mt-6 m-auto">
         <Popup
           trigger={
-            <div className="flex justify-center m-8 ">
+            <div className="flex justify-center m-8  h-16">
               <img
                 src={camera}
-                className="h-20 mr-3 cursor-pointer "
+                className="mr-3 cursor-pointer "
                 alt="camera"
               />
-              <div className="sm:w-2/3 md:w-1/2 lg:w-1/3 cursor-pointer bg-indigo-900 bg-opacity-40 px-10 shadow-lg h-20  rounded-2xl flex items-center justify-center">
+              <div className="sm:w-2/3 md:w-1/2 lg:w-1/3 cursor-pointer bg-indigo-900 bg-opacity-40 px-10 shadow-lg rounded-2xl flex items-center justify-center">
                 <span className="text-white font-bold ">
                   Tell us about your product...
                 </span>
@@ -158,7 +158,7 @@ export const PharmacyHome = () => {
         </Popup>
 
         {posts.map((post) => (
-          <div className="mb-4">
+          <div className="mb-1">
             <Grid2 item xs={12} sm={6} md={4} key={post.id} spacing={2}>
               <Post title={post.title} content={post.content} />
             </Grid2>
