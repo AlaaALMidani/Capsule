@@ -34,6 +34,8 @@ export const Register = () => {
         dispatch(fetchUser(formData));
     };
 
+
+    
     if (state.data) {
         if (state.data.ok) {
             navigate('/login');
