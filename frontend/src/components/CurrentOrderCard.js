@@ -8,21 +8,20 @@ import Button from '@mui/material/Button';
 import CancelIcon from '@mui/icons-material/Cancel'; 
 import CardActions from '@mui/material/CardActions';
 
-export function CurrentOrderCard({content, currentOrderPhoto}) {
+export function CurrentOrderCard({ order }) {
   return (
-    <Card className='w-1/3'>
+    <Card className='w-full md:w-1/3'>
       <CardHeader subheader={order.createdAt} />
       <CardMedia
         component="img"
         height="194"
-        image={currentOrderPhoto}
-        alt="Roshita photo"
+        image={order.photo} 
+        alt="Order photo"
       />
       <CardContent>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-         {content}
+          {order.message} // Assuming message is part of the order object
         </Typography>
-        
       </CardContent>
       <CardActions disableSpacing sx={{ justifyContent: 'flex-end' }}>
         <Button variant="contained" color="error" startIcon={<CancelIcon />}>

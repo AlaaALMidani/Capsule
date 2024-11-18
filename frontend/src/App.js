@@ -6,7 +6,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme.js";
 import Navbar from "./components/Navbar.jsx";
 import { PharmacyHome } from "./pages/home/pharmacyHome.js";
-import { PharmacyHistory } from "./pages/history/PharmacyHistory.js";
+import HistoryPage  from "./pages/HistoryPage.js";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -22,16 +22,11 @@ function App() {
             <Routes>
               <Route path="/register" element={<Register />}></Route>
               <Route path="/login" element={<Login />}></Route>
-              <Route path="/home" element={
-                <div>home</div>}
-              >
-
-              </Route>
+              <Route path="/home" element={<div>home</div>}></Route>
               <Route path="/nav" element={<Navbar />}></Route>
               <Route path="/pharmacyHome" element={<PharmacyHome />}></Route>
-
+              <Route path="/history" element={<HistoryPage />}></Route>
             </Routes>
-
           </main>
         </div>
       </div>
