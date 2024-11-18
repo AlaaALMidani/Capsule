@@ -3,11 +3,14 @@ import { Routes, Route } from "react-router-dom";
 import { Register } from "./pages/register/register.jsx";
 import { Login } from "./pages/login/Login.jsx";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { useMode } from "./theme.js";
-import Navbar from "./components/Navbar.jsx";
+import { ColorModeContext, useMode } from "./theme.js";
+import Navbar from "./components/Navbar.js";
 import { PharmacyHome } from "./pages/home/pharmacyHome.js";
-import HistoryPage from "./pages/HistoryPage.js";
-
+import HistoryPage  from "./pages/HistoryPage.js";
+import OfferPage from "./pages/OfferPage.js";
+import MyPostsPage from "./pages/myPostsPage.js";
+import OrdersPage from "./pages/OrdersPage.js";
+import Notification from "./pages/Notification.js";
 function App() {
   const [theme] = useMode();
 
@@ -20,12 +23,16 @@ function App() {
             <Navbar />
 
             <Routes>
-              <Route path="/register" element={<Register />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/home" element={<div>Home</div>} />
-              <Route path="/nav" element={<Navbar />} />
-              <Route path="/pharmacyHome" element={<PharmacyHome />} />
-              <Route path="/history" element={<HistoryPage />} />
+              <Route path="/register" element={<Register />}></Route>
+              <Route path="/login" element={<Login />}></Route>
+              <Route path="/home" element={<div>home</div>}></Route>
+              <Route path="/nav" element={<Navbar />}></Route>
+              <Route path="/pharmacyHome" element={<PharmacyHome />}></Route>
+              <Route path="/history" element={<HistoryPage />}></Route>
+              <Route path="/offers" element={<OfferPage/>}></Route>
+              <Route path="/myPosts" element={<MyPostsPage/>}></Route>
+              <Route path="/orders" element={<OrdersPage />}></Route>
+              <Route path="/notifications" element={<Notification />}></Route>
             </Routes>
           </main>
         </div>

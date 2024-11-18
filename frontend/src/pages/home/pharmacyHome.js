@@ -22,7 +22,7 @@ export const PharmacyHome = () => {
   return (
     <div className={` ${isOpen ? "backdrop-brightness-150 " : ""}`}>
       <div
-        className={`bg-[#f0f4f8] bg-gradient-to-tr from-[#d9e9f6] to-[#14f860] h-auto p-5 transition-all duration-300 ${
+        className={`bg-[#f0f4f8] bg-gradient-to-tr from-[#d9e9f6] to-[#009dff]  p-[5%] pt-[100px] flex items-center justify-center transition-all duration-300 ${
           isOpen ? "backdrop-blur-3xl" : ""
         }`}>
         <Box sx={{ width: "100%", height: "100%" }}>
@@ -150,7 +150,7 @@ export const PharmacyHome = () => {
               </button>
             </div>
           }
-          onClose={() => setIsOpen(false)} // Close popup
+          onClose={() => setIsOpen(false)} 
           open={isOpen}
           modal
           closeOnDocumentClick>
