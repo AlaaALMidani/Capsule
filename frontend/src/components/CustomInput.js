@@ -1,4 +1,4 @@
-git config --global core.autocrlfimport React from "react";
+//git config --global core.autocrlfimport React from "react";
 export const CustomInput = ({ type, name, value, label, handleChange }) => {
     return (
         <div className="block">
