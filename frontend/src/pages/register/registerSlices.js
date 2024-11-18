@@ -28,7 +28,7 @@ export const registerSlice = createSlice({
         })
 
         builder.addCase(fetchUser.rejected, (state, action) => {
-            state.loading = false
+            state.loading = false   
             state.data = null
             state.error = 'action'
         })
