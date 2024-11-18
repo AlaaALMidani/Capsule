@@ -73,7 +73,7 @@ function AddPost() {
               <img src={image} alt="Uploaded" className="h-16 object-cover rounded-lg" />
             ) : (
               <>
-                <FaCamera className="mr-2 text-[#215f92]" /> 
+                <FaCamera className="mr-2 text-[#215f92]" /> {/* أيقونة الكاميرا */}
                 <span>Add Photo/Video</span>
               </>
             )}
