@@ -17,7 +17,7 @@ export function Offer({offerMessage}) {
       </CardContent>
       <CardActions sx={{ justifyContent: 'flex-end' }}>
         <Button variant="contained" color="success" startIcon={<CheckIcon />}>
-          Accept Order
+          Add Offer
         </Button>
       </CardActions>
     </Card>
