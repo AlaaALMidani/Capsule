@@ -94,6 +94,7 @@ const OfferPage = () => {
               {getOffersForOrder(order._id).length > 0 ? (
                 <div className="space-y-4">
                   {getOffersForOrder(order._id).map((offer) => (
+                    
                     <Offer key={offer._id} offer={offer} />
                   ))}
                 </div>
