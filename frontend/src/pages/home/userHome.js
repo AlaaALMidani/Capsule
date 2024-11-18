@@ -9,18 +9,11 @@ const UserHome = () => {
     { id: 3, title: 'Pharmacy 3', description: 'Description for pharmacy 3.' },
     { id: 4, title: 'Pharmacy 4', description: 'Description for pharmacy 4.' },
     { id: 5, title: 'Pharmacy 5', description: 'Description for pharmacy 5.' },
-  ];
+  ]; 
   return (
     <div>
-      <div id="section-1" className=" pt-16">
-
-
-        {/* Button Section */}
-        
-          <AddOrder />  
-  
-
-        {/* Image Section with Slow and Less Bounce Animation */}
+      <div id="section-1" className=" pt-16 flex justify-around">
+        <AddOrder />
 
         <img
           src="doctorImage2.png"
@@ -29,7 +22,8 @@ const UserHome = () => {
         />
 
       </div>
-      <div className="  ">
+      <div className="">
+
         {posts.map(post => (
           <Post key={post.id} title={post.title} content={post.description} />
         ))}

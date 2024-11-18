@@ -9,7 +9,7 @@ router.post('/addPost', PostServices.upload, async (req, res) => {
     const postData = req.body;
 
     const token = req.headers['authorization'];
-    const response = await PostServices.createPost(postData, token, req); // pass req here
+    const response = await PostServices.createPost(postData, token, req); 
     return res.json(response);
 
   } catch (error) {

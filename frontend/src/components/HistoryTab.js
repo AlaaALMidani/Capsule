@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tabs } from 'antd';
 
-export const HistoryTab= () => (
+export const HistoryTab = () => (
   <div style={{ display: 'flex', justifyContent: 'center' }}>
     <Tabs defaultActiveKey="2">
       {['Current Order', 'Previous Order'].map((label, i) => {

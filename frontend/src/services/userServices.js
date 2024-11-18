@@ -1,6 +1,14 @@
 const baseUrl = "http://localhost:3002/api/users/";
 const register = "register";
 const login = "login"
+
+const UserTypes = {
+    client : 'CLINT',
+    pharmacy: 'PHARMACY',
+    warehouse: 'WAREHOUSE',
+    delivery: 'DELIVERY'
+}
+export const userType = UserTypes.pharmacy
 export class UserServices {
 
     static async register(data) {
