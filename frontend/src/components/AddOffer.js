@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import CheckIcon from '@mui/icons-material/Check'; 
 
-export function Offer({offerMessage}) {
+export function AddOffer({offerMessage}) {
   return (
     <div className='flex justify-center'>
     <Card className='w-3/4'>
