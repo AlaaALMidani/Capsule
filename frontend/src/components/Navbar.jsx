@@ -17,6 +17,7 @@ const NavScrollExample = () => {
       style={{
         backdropFilter: "blur(10px)",
         boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+        padding:"0 5%"
       }}
     >
       <Container fluid>
@@ -76,14 +77,18 @@ const NavScrollExample = () => {
             >
               My Posts
             </NavLink>
+            
           </Nav>
-          <Button
+          <NavLink
+            to="/notification">
+            <Button
             variant="outline-light"
             className="d-flex align-items-center ms-3"
             style={{backgroundColor:'#1b8942' , border:'none'}}
           >
             <FiBell />
           </Button>
+            </NavLink>
         </Navbar.Collapse>
       </Container>
     </Navbar>
