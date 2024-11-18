@@ -27,6 +27,9 @@ function App() {
               <Route path="/home" element={<div>home</div>}></Route>
               <Route path="/nav" element={<Navbar />}></Route>
               <Route path="/pharmacyHome" element={<PharmacyHome />}></Route>
+              <Route path="/clintHome" element={<div>home</div>}></Route>
+              <Route path="/warehouseHome" element={<div>home</div>}></Route>
+              <Route path="/deliveryHome" element={<div>home</div>}></Route>
               <Route path="/history" element={<HistoryPage />}></Route>
               <Route path="/offers" element={<OfferPage/>}></Route>
               <Route path="/myPosts" element={<MyPostsPage/>}></Route>

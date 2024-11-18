@@ -9,6 +9,7 @@ import logo from "../styles/logo.png";
 import { NavLink } from "react-router-dom";
 
 const NavScrollExample = () => {
+  const userType = "PHARMACY";
   return (
     <Navbar
       expand="lg"
@@ -26,51 +27,94 @@ const NavScrollExample = () => {
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav className="mx-auto my-2 my-lg-0" navbarScroll>
-            <NavLink
-              to="/pharmacyHome"
-              className="mx-3 text-decoration-none h5 py-2 px-3"
-              style={({ isActive }) => ({
-                color: isActive ? "#1b8942" : "#103758",
-                fontWeight: isActive ? "bold" : "normal",
-              })}>
-              Home
-            </NavLink>
-            <NavLink
-              to="/orders"
-              className="mx-3 text-decoration-none h5 py-2 px-3"
-              style={({ isActive }) => ({
-                color: isActive ? "#1b8942" : "#103758",
-                fontWeight: isActive ? "bold" : "normal",
-              })}>
-              Customer Orders
-            </NavLink>
-            <NavLink
-              to="/offers"
-              className="mx-3 text-decoration-none h5 py-2 px-3"
-              style={({ isActive }) => ({
-                color: isActive ? "#1b8942" : "#103758",
-                fontWeight: isActive ? "bold" : "normal",
-              })}>
-              Offers
-            </NavLink>
-            <NavLink
-              to="/history"
-              className="mx-3 text-decoration-none h5 py-2 px-3"
-              style={({ isActive }) => ({
-                color: isActive ? "#1b8942" : "#103758",
-                fontWeight: isActive ? "bold" : "normal",
-              })}>
-              History
-            </NavLink>
-            <NavLink
-              to="/myPosts"
-              className="mx-3 text-decoration-none h5 py-2 px-3"
-              style={({ isActive }) => ({
-                color: isActive ? "#1b8942" : "#103758",
-                fontWeight: isActive ? "bold" : "normal",
-              })}>
-              My Posts
-            </NavLink>
+            {userType == "PHARMACY" && (
+              <NavLink
+                to="/pharmacyHome"
+                className="mx-3 text-decoration-none h5 py-2 px-3"
+                style={({ isActive }) => ({
+                  color: isActive ? "#1b8942" : "#103758",
+                  fontWeight: isActive ? "bold" : "normal",
+                })}>
+                Home
+              </NavLink>
+            )}
+            {userType == "CLINT" && (
+              <NavLink
+                to="/clintHome"
+                className="mx-3 text-decoration-none h5 py-2 px-3"
+                style={({ isActive }) => ({
+                  color: isActive ? "#1b8942" : "#103758",
+                  fontWeight: isActive ? "bold" : "normal",
+                })}>
+                Home
+              </NavLink>
+            )}
+            {userType == "WAREHOUSE" && (
+              <NavLink
+                to="/warehouseHome"
+                className="mx-3 text-decoration-none h5 py-2 px-3"
+                style={({ isActive }) => ({
+                  color: isActive ? "#1b8942" : "#103758",
+                  fontWeight: isActive ? "bold" : "normal",
+                })}>
+                Home
+              </NavLink>
+            )}
+            {userType == "DELIVERY" && (
+              <NavLink
+                to="/deliveryHome"
+                className="mx-3 text-decoration-none h5 py-2 px-3"
+                style={({ isActive }) => ({
+                  color: isActive ? "#1b8942" : "#103758",
+                  fontWeight: isActive ? "bold" : "normal",
+                })}>
+                Home
+              </NavLink>
+            )}
+            {(userType == "WAREHOUSE" || userType == "PHARMACY") && (
+              <>
+                <NavLink
+                  to="/myPosts"
+                  className="mx-3 text-decoration-none h5 py-2 px-3"
+                  style={({ isActive }) => ({
+                    color: isActive ? "#1b8942" : "#103758",
+                    fontWeight: isActive ? "bold" : "normal",
+                  })}>
+                  My Posts
+                </NavLink>
+                <NavLink
+                  to="/orders"
+                  className="mx-3 text-decoration-none h5 py-2 px-3"
+                  style={({ isActive }) => ({
+                    color: isActive ? "#1b8942" : "#103758",
+                    fontWeight: isActive ? "bold" : "normal",
+                  })}>
+                  Customer Orders
+                </NavLink>
+              </>
+            )}
+            {(userType == "CLINT" || userType == "PHARMACY") && (
+              <NavLink
+                to="/offers"
+                className="mx-3 text-decoration-none h5 py-2 px-3"
+                style={({ isActive }) => ({
+                  color: isActive ? "#1b8942" : "#103758",
+                  fontWeight: isActive ? "bold" : "normal",
+                })}>
+                Offers
+              </NavLink>
+            )}
+            {userType !== "WAREHOUSE" && (
+              <NavLink
+                to="/history"
+                className="mx-3 text-decoration-none h5 py-2 px-3"
+                style={({ isActive }) => ({
+                  color: isActive ? "#1b8942" : "#103758",
+                  fontWeight: isActive ? "bold" : "normal",
+                })}>
+                History
+              </NavLink>
+            )}
           </Nav>
           <NavLink to="/notifications">
             <Button

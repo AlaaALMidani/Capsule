@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Post } from '../../components/Post.js';
+import Post from "../../components/Post.js";
 import AddOrder from '../../components/AddOrder.js';
 
 const UserHome = () => {
