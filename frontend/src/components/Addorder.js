@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FiCamera } from 'react-icons/fi';
+import logo from '../styles/logo.png';
 
 function AddOrder() {
   const [text, setText] = useState ('');
@@ -12,6 +13,7 @@ function AddOrder() {
   const handleImageUpload = (e) => {
     setImage(URL.createObjectURL(e.target.files[0]));
   };
+
   return (
     <div className="w-96 p-6 bg-white bg-opacity-15 border border-gray-400 rounded-lg mx-auto text-center">
       {/* Logo and Title */}
