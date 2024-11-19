@@ -8,7 +8,7 @@ class InvoiceServices {
       const invoice = {
         offerID: offerID,
          orderID: orderID,
-      };
+       };
 
       const newInvoice = await InvoiceRepo.create(invoice);
       return { success: true, invoice: newInvoice };

@@ -8,12 +8,12 @@ import Navbar from "./components/Navbar.js";
 import { PharmacyHome } from "./pages/home/pharmacyHome.js";
 import HistoryPage  from "./pages/HistoryPage.js";
 import OfferPage from "./pages/OfferPage.js";
-import MyPostsPage from "./pages/myPostsPage.js";
+import MyPostsPage from "./pages/myPostsPage/myPostsPage.js";
 import OrdersPage from "./pages/OrdersPage.js";
 import Notification from "./pages/Notification.js";
 
 function App() {
-  const [theme, colorMode] = useMode();
+  const [theme, colorMode] = useMode(); 
   const [isSidebar, setIsSidebar] = useState(true);
 
   return (

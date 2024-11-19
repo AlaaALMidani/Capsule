@@ -1,9 +1,9 @@
-import { uploadProgress } from '../pages/home/homeSlices'
+import { uploadProgress } from '../slices/postSlices'
 import { token } from './userServices';
 const baseUrl = "http://localhost:3002/api/posts/";
 const addPost = "addPost";
-
-
+const myPosts = 'getOwnPosts'
+const allPosts ='getAllPosts'
 
 export class PostServices {
 
@@ -23,11 +23,40 @@ export class PostServices {
             },
         })
             .then((response) => response.json())
-            .then(data => console.log(data))
+            .then(data => data)
             .catch(error =>
                 error.message
             );
     }
 
+    static async getMyPosts() {
+
+        return fetch(`${baseUrl}${myPosts}`, {
+            method: "get",
+            headers: {
+                'authorization': `${token}`
+            },
+        })
+            .then((response) => response.json())
+            .then(data => data)
+            .catch(error =>
+                error.message
+            );
+    }
+
+    static async getAllPosts() {
+
+        return fetch(`${baseUrl}${allPosts}`, {
+            method: "get",
+            headers: {
+                'authorization': `${token}`
+            },
+        })
+            .then((response) => response.json())
+            .then(data => data)
+            .catch(error =>
+                error.message
+            );
+    }
 
 }

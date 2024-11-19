@@ -87,7 +87,7 @@ export const Register = () => {
                         <CircularProgress />
                     </Box>
                 ) : (
-                    <button
+                    <button     
                         type="submit"
                         className="w-full bg-[#1a8942] text-white p-2 rounded hover:bg-[#215f92] mt-5"
                     >

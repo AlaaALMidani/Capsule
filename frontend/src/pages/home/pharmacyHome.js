@@ -9,21 +9,21 @@ import doctor from "../../assets/img/doctorImage2.png";
 import camera from "../../assets/img/camera.svg";
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from "react";
-import AddOrder from "../../components/AddOrder"; 
+import AddOrder from "../../components/Addorder";
 
 export const PharmacyHome = () => {
-   const postSuccess = useSelector(state => state.post.success)
-   
-   useEffect(() => {
-     if (postSuccess) {
-       setIsOpen(false); 
-     }
-   }, [postSuccess]); // Add success to the dependency array
-  
+  const postSuccess = useSelector(state => state.post.success)
+
+  useEffect(() => {
+    if (postSuccess) {
+      setIsOpen(false);
+    }
+  }, [postSuccess]); // Add success to the dependency array
+
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
-  const [isOpen, setIsOpen] = useState(false); 
-  const [isAddOrderOpen, setIsAddOrderOpen] = useState(false); 
-  const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NzNiNDZiYWY4NDYwNDk0ZjE5ODRiZDkiLCJpYXQiOjE3MzE5Mzc5NzgsImV4cCI6MTczMjAyNDM3OH0.2p2hy1ug8erSlLukGneCn_VfVR3-fNgxY2c9RVPvMuc"
+  const [isOpen, setIsOpen] = useState(false);
+  const [isAddOrderOpen, setIsAddOrderOpen] = useState(false);
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NzNiNDZiYWY4NDYwNDk0ZjE5ODRiZDkiLCJpYXQiOjE3MzE5Mzc5NzgsImV4cCI6MTczMjAyNDM3OH0.2p2hy1ug8erSlLukGneCn_VfVR3-fNgxY2c9RVPvMuc"
   const posts = [
     { id: 1, title: "Post 1", content: "Content of Post 1" },
     { id: 2, title: "Post 2", content: "Content of Post 2" },
@@ -34,9 +34,8 @@ export const PharmacyHome = () => {
   return (
     <div className={`${isOpen ? "backdrop-brightness-150 " : ""}`}>
       <div
-        className={`bg-[#f0f4f8] bg-gradient-to-tr from-[#d9e9f6] to-[#009dff] p-[5%] pt-[100px] flex items-center justify-center transition-all duration-300 ${
-          isOpen ? "backdrop-blur-3xl" : ""
-        }`}
+        className={`bg-[#f0f4f8] bg-gradient-to-tr from-[#d9e9f6] to-[#009dff] p-[5%] pt-[100px] flex items-center justify-center transition-all duration-300 ${isOpen ? "backdrop-blur-3xl" : ""
+          }`}
       >
         <Box sx={{ width: "100%", height: "100%" }}>
           <Grid2
@@ -151,9 +150,10 @@ export const PharmacyHome = () => {
           </Grid2>
         </Box>
       </div>
-      
+
 
       <div className="mt-6 m-auto">
+
         <Popup
           trigger={
             <div className="flex justify-center m-8  h-16">
@@ -172,60 +172,39 @@ export const PharmacyHome = () => {
               </button>
             </div>
           }
-          onClose={() => setIsOpen(false)} 
+          onClose={() => setIsOpen(false)}
           open={isOpen}
           modal
           closeOnDocumentClick>
           {(close) => <AddPost />}
         </Popup>
-      {/* AddOrder Popup */}
-      <Popup
-        open={isAddOrderOpen}
-        onClose={() => setIsAddOrderOpen(false)}
-        modal
-        closeOnDocumentClick
-      >
-        <AddOrder onClose={() => setIsAddOrderOpen(false)} token={token} />
-      </Popup>
+      
+        {/* AddOrder Popup */}
+        <Popup
+          open={isAddOrderOpen}
+          onClose={() => setIsAddOrderOpen(false)}
+          modal
+          closeOnDocumentClick
+        >
+          <AddOrder onClose={() => setIsAddOrderOpen(false)} token={token} />
+        </Popup>
 
-      {/* Existing AddPost Popup */}
-      <Popup
-        trigger={
-          <div className="flex justify-center m-8">
-            <img
-              src={camera}
-              className="h-20 mr-3 cursor-pointer"
-              alt="camera"
-            />
-            <div className="sm:w-2/3 md:w-1/2 lg:w-1/3 cursor-pointer bg-indigo-900 bg-opacity-40 px-10 shadow-lg h-20 rounded-2xl flex items-center justify-center">
-              <span className="text-white font-bold">
-                Tell us about your product...
-              </span>
+        {/* Posts Section */}
+        <div className="mt-6 m-auto">
+          {posts.map((post) => (
+            <div className="mb-1">
+              <Grid2 item xs={12} sm={6} md={4} key={post.id} spacing={2}>
+                <Post title={post.title} content={post.content} />
+              </Grid2>
             </div>
-            <button className="px-4 py-2 bg-green-600 text-white rounded-2xl ml-3 font-bold">
-              ADD POST
-            </button>
-          </div>
-        }
-        onClose={() => setIsOpen(false)}
-        open={isOpen}
-        modal
-        closeOnDocumentClick
-      >
-        {(close) => <AddPost />}
-      </Popup>
+          ))}
+        </div>
 
-      {/* Posts Section */}
-      <div className="mt-6 m-auto">
-        {posts.map((post) => (
-          <div className="mb-1">
-            <Grid2 item xs={12} sm={6} md={4} key={post.id} spacing={2}>
-              <Post title={post.title} content={post.content} />
-            </Grid2>
-          </div>
-        ))}
+
+
       </div>
-    </div>
+
+
     </div>
   );
 }

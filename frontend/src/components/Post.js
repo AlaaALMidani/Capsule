@@ -14,20 +14,32 @@ import AddIcon from '@mui/icons-material/Add';
 import { red } from '@mui/material/colors';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-
+import { useState } from 'react';
 function Post({
-  description,          
-  profilePhoto,         
-  postPhoto,           
-  pharmacyName,        
-  postDate        
+  description,
+  profilePhoto,
+  postPhoto,
+  productName,
+  postDate,
+  video,
+  createdAt,
+  isLiked,
+  likesCount,
+  isMine = false
 }) {
-  const [liked, setLiked] = React.useState(false);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [liked, setLiked] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [likesCnt, setLikesCount] = useState(likesCount)
   const openMenu = Boolean(anchorEl);
 
   const handleLike = () => {
+   
+    if (!liked)
+      setLikesCount(likesCnt + 1);
+    else
+      setLikesCount(likesCnt - 1); 
     setLiked(!liked);
+
   };
 
   const handleMenuClick = (event) => {
@@ -65,9 +77,9 @@ function Post({
             <Avatar sx={{ bgcolor: red[500] }} aria-label="profile">
               {profilePhoto ? (
                 <img src={profilePhoto} alt="Profile" style={{ width: '100%', height: '100%', borderRadius: '50%' }} />
-              ) : (
-                'P'
-              )}
+              ) : 
+                (productName.split('')[0])
+              }
             </Avatar>
           }
           action={
@@ -75,15 +87,15 @@ function Post({
               <MoreVertIcon />
             </IconButton>
           }
-          title={pharmacyName || 'Pharmacy Name'}
-          subheader={postDate || 'September 14, 2016'}
+          title={productName || 'Pharmacy Name'}
+          subheader={(new Date(createdAt)).getDate|| 'September 14, 2016'}
         />
         <CardContent>
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
             {description || 'Post description goes here.'}
           </Typography>
         </CardContent>
-        {postPhoto && (
+        {postPhoto && ( 
           <CardMedia
             component="img"
             height="194"
@@ -91,10 +103,15 @@ function Post({
             alt="Post image"
           />
         )}
-        <CardActions disableSpacing sx={{ justifyContent: 'flex-end' }}>
-          <Button variant="contained" color="success" startIcon={<AddIcon />}>
+
+        <CardActions disableSpacing sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          {isMine ? <></> : <Button variant="contained" color="success" startIcon={<AddIcon />}>
             Order it now
-          </Button>
+          </Button>}
+          <div className='flex ml-3 items-center'>
+            <FavoriteIcon sx={{ color: 'inherit', fontSize: 20  }} />
+            <div className='pl-2 font-bold'>{likesCnt}</div>
+          </div>
           <IconButton aria-label="add to favorites" onClick={handleLike}>
             <FavoriteIcon sx={{ color: liked ? red[500] : 'inherit', fontSize: 30 }} />
           </IconButton>
