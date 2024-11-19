@@ -259,21 +259,21 @@ class PostService {
         return { success: false, error: "User not found" };
       }
       let posts;
-      if (user.roleID === 2) {
+      if (user.roleID == 2 ||user.roleID == 3) {
         posts = await PostRepo.findAll();
         const filteredPosts = await Promise.all(
           posts.map(async (post) => {
             const postUser = await UserRepo.findByID(post.userId);
-            return postUser && postUser.roleID === 3 ? post : null;
+            return postUser && postUser.roleID == 3 ? post : null;
           })
         );
         posts = filteredPosts.filter((post) => post !== null);
-      } else if (user.roleID === 3) {
+      } else if (user.roleID == 3 ||postUser.roleID == 4  ) {
         posts = await PostRepo.findAll();
         const filteredPosts = await Promise.all(
           posts.map(async (post) => {
             const postUser = await UserRepo.findByID(post.userId);
-            return postUser && postUser.roleID === 4 ? post : null;
+            return postUser && postUser.roleID == 4 ? post : null;
           })
         );
         posts = filteredPosts.filter((post) => post !== null);

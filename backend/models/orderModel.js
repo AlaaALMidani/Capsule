@@ -31,7 +31,7 @@ class OrderRepo {
   };
 
   static findBySenderId = async (senderId) => {
-    return await Order.findOne({ senderId });
+    return await Order.find({ senderId });
   };
 
   static deleteOne = async (_id) => {

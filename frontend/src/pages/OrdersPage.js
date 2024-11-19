@@ -1,5 +1,5 @@
 import React from "react";
-import { AddOffer } from "../components/AddOffer";
+import { Order } from "../components/Order";
 
 
 const fakeOrders = [
@@ -29,9 +29,8 @@ const fakeOrders = [
 const OrdersPage = () => {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center mt-10 p-[5%] pt-[100px] space-y-10">
-      <h1 className="text-3xl font-bold mb-6">My Orders</h1>
       {fakeOrders.map((order) => (
-        <AddOffer key={order.id} offerMessage={order.offerMessage} />
+        <Order key={order.id} offerMessage={order.offerMessage} />
       ))}
     </div>
   );

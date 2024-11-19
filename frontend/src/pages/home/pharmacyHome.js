@@ -84,7 +84,11 @@ export const PharmacyHome = () => {
                 textAlign: isMobile ? "center" : "left",
                 padding: isMobile ? "10px" : "150px",
                 maxWidth: isMobile ? "100%" : "60%",
+                padding: isMobile ? "10px" : "150px",
+                maxWidth: isMobile ? "100%" : "60%",
                 flexGrow: 1,
+              }}
+            >
               }}
             >
               <h1
@@ -93,6 +97,8 @@ export const PharmacyHome = () => {
                   fontWeight: "700", 
                   color: "#156096",
                   marginBottom: "16px",
+                }}
+              >
                 }}
               >
                 Welcome
@@ -107,10 +113,15 @@ export const PharmacyHome = () => {
                   marginBottom: "16px",
                 }}
               >
+                  marginBottom: "16px",
+                }}
+              >
                 We’re here to assist you with your pharmacy needs. Explore the
                 options below to add a new order or learn more about our
                 services!
               </p>
+
+              {/* Add New Order Button */}
 
               {/* Add New Order Button */}
               <Button
@@ -146,11 +157,15 @@ export const PharmacyHome = () => {
                 flexGrow: 1,
               }}
             >
+              }}
+            >
               <img
+                src={image}
                 src={image}
                 alt="Doctor"
                 style={{
                   width: isMobile ? "70%" : "100%",
+                  maxWidth: isMobile ? "200px" : "400px",
                   maxWidth: isMobile ? "200px" : "400px",
                   height: "auto",
                   borderRadius: "8px",
