@@ -6,7 +6,7 @@ import AddPost from "../../components/AddPost.js";
 import Popup from "reactjs-popup";
 import doctor from "../../assets/img/doctorImage2.png";
 import camera from "../../assets/img/camera.svg";
-import AddOrder from "../../components/AddOrder"; 
+import AddOrder from "../../components/AddOrder.js"; 
 
 export const PharmacyHome = () => {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));

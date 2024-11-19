@@ -9,7 +9,7 @@ import logo from "../styles/logo.png";
 import { NavLink } from "react-router-dom";
 
 const NavScrollExample = () => {
-  const userType = "PHARMACY";
+  const userType = "WAREHOUSE";
   return (
     <Navbar
       expand="lg"
