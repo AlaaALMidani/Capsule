@@ -44,7 +44,6 @@ export class OrderServices {
 
   static async updateOrder(orderId, data, token, file) {
     const formData = new FormData();
-
     for (let key in data) {
       formData.append(key, data[key]);
     }
