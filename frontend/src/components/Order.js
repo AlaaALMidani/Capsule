@@ -20,11 +20,11 @@ export function Order({Order}) {
           height: 'auto',
           boxShadow: '5'
         }}>
-           <CardHeader subheader={Order.createdAt} />
+           <CardHeader subheader={Order?.createdAt} />
       <CardMedia
         component="img"
         height="194"
-        image={Order.photo} 
+        image={Order?.photo} 
         alt="Order photo"
       />
         <CardContent>
@@ -32,7 +32,7 @@ export function Order({Order}) {
             color: '#103758',
             fontSize: '14px',
           }}>
-            {Order.message}
+            {Order?.message}
           </Typography>
 
         </CardContent>

@@ -7,6 +7,7 @@ import { Box, Grid2, useMediaQuery } from "@mui/material";
 import AddOrder from "../../components/AddOrder.js";
 import AddPost from "../../components/AddPost.js";
 import Popup from "reactjs-popup";
+import { AiOutlinePlus } from 'react-icons/ai'; 
 import doctor from "../../assets/img/doctorImage2.png";
 // import image from "../../assets/img/banner.png";
 // import image from "../../assets/img/10371012.png";
@@ -185,22 +186,27 @@ export const PharmacyHome = () => {
         
         <div className="w-full max-w-[1400px] mx-auto py-8">
         <div className="bg-[#b2dded] shadow-lg rounded-tl-3xl rounded-tr-3xl px-6 py-8 flex flex-col items-center -mt-32 relative z-10">
-        {/* <img
-              src={camera}
-              className="h-20 mr-3 cursor-pointer"
-              alt="camera"
-            />*/
 
-            <div className="sm:w-2/3 md:w-1/2 lg:w-1/3 cursor-pointer bg-[#103758] bg-opacity-40 px-10 shadow-lg h-20 rounded-2xl flex items-center justify-center mb-6">
-              <span className="text-white font-bold">
-                Tell us about your product...
-              </span>
-            </div> }
 
-            <button className="px-6 py-3 bg-green-600 text-white rounded-2xl ml-3 font-bold hover:bg-green-700 transition-all duration-300 mb-6">
-            
-              ADD POST
-            </button>
+
+
+            <div className="sm:w-2/3 md:w-1/2 lg:w-1/3 cursor-pointer bg-[#147023] bg-opacity-40 px-10 shadow-lg h-20 rounded-2xl flex items-center justify-center mb-6 relative">
+  <span className="text-white font-bold">
+    Tell us about your product...
+  </span>
+
+  <button
+  className="absolute top-[-30px] left-1/2 transform -translate-x-1/2 w-14 h-14 rounded-full bg-green-600 text-white flex items-center justify-center font-bold shadow-lg hover:bg-green-700 transition-all duration-300"
+  style={{
+    boxShadow: "0 9px 22px rgba(0, 0, 0, 1)", 
+  }}
+>
+  <AiOutlinePlus className="w-6 h-6" /> 
+</button>
+</div>
+
+
+
 
             <div className="w-full max-w-[1400px] mx-auto">
               {posts.map((post) => (
