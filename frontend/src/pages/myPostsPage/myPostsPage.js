@@ -10,7 +10,6 @@ const MyPostsPage = () => {
   useEffect(() => {
     dispatch(getMyPostsAsync())
   }, [dispatch]);
-  // Add success to the dependency array
   const state = useSelector(state => state.post.getMyPosts)
   console.log(state)  
   

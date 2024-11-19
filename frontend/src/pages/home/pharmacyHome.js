@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import Button from "@mui/material/Button/index.js";
 import Post from "../../components/Post.js";
@@ -18,29 +18,29 @@ import { blue } from "@mui/material/colors";
 
 import camera from "../../assets/img/camera.svg";
 import AddOrder from "../../components/AddOrders.js";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllPostsAsync } from "../../slices/postSlices.js";
+import LoadingCard from "../../components/OnLoading.js";
 
 export const PharmacyHome = () => {
   // Check if the screen size is small (mobile)
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
-  const [isOpen, setIsOpen] = useState(false);
+  const [isPostOpen, setIsPostOpen] = useState(false);
   const [isAddOrderOpen, setIsAddOrderOpen] = useState(false);
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NzNiNDZiYWY4NDYwNDk0ZjE5ODRiZDkiLCJpYXQiOjE3MzE5Mzc5NzgsImV4cCI6MTczMjAyNDM3OH0.2p2hy1ug8erSlLukGneCn_VfVR3-fNgxY2c9RVPvMuc";
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllPostsAsync())
+  }, []);
+  const state = useSelector(state => state.post.getAllPosts)
+  console.log(state)
 
 
-  const posts = [
-    { id: 1, title: "Post 1", content: "Content of Post 1" },
-    { id: 2, title: "Post 2", content: "Content of Post 2" },
-    { id: 3, title: "Post 3", content: "Content of Post 3" },
-    { id: 3, title: "Post 3", content: "Content of Post 3" },
-    { id: 3, title: "Post 3", content: "Content of Post 3" },
-    { id: 3, title: "Post 3", content: "Content of Post 3" },
-    { id: 3, title: "Post 3", content: "Content of Post 3" },
-    { id: 3, title: "Post 3", content: "Content of Post 3" },
-    { id: 3, title: "Post 3", content: "Content of Post 3" },
-  ];
+
+
   return (
-    <div className={`${isOpen ? "backdrop-brightness-150" : ""}`}
+    <div className={`${isPostOpen ? "backdrop-brightness-150" : ""}`}
       style={{
         width: '100%',
         height: '100%',
@@ -51,7 +51,7 @@ export const PharmacyHome = () => {
         backgroundColor: '#a0c9d8',
       }}>
       <div
-        className={`bg-center p-[5%] pt-[100px] flex items-center justify-center transition-all duration-300 ${isOpen ? "backdrop-blur-3xl" : ""
+        className={`bg-center p-[5%] pt-[100px] flex items-center justify-center transition-all duration-300 ${isPostOpen ? "backdrop-blur-3xl" : ""
           } animate-move-right`}
         style={{
           backgroundImage: `url(${heroBg})`,
@@ -165,6 +165,9 @@ export const PharmacyHome = () => {
       </div>
 
       <div className="mt-6 m-auto">
+
+
+
         {/* AddOrder Popup */}
         <Popup
           open={isAddOrderOpen}
@@ -172,22 +175,11 @@ export const PharmacyHome = () => {
           modal
           closeOnDocumentClick
         >
-          <AddOrder onClose={() => setIsAddOrderOpen(false)} token={token} />
+          <AddOrder onClose={() => setIsAddOrderOpen(false)} />
         </Popup>
-
-        {/* Existing AddPost Popup */}
-
-        {/* Popup Trigger */}
-
-
-
-
 
         <div className="w-full max-w-[1400px] mx-auto py-8">
           <div className="bg-[#b2dded] shadow-lg rounded-tl-3xl rounded-tr-3xl px-6 py-8 flex flex-col items-center -mt-32 relative z-10">
-
-
-
 
             <div className="sm:w-2/3 md:w-1/2 lg:w-1/3 cursor-pointer bg-[#147023] bg-opacity-40 px-10 shadow-lg h-20 rounded-2xl flex items-center justify-center mb-6 relative">
               <span className="text-white font-bold">
@@ -204,21 +196,37 @@ export const PharmacyHome = () => {
               </button>
             </div>
 
+            {state.loading ?
+
+              <div className="flex flex-col px-44 mt-20 ">
+                <LoadingCard />
+                <LoadingCard />
+                <LoadingCard />
+                <LoadingCard />
+              </div>
+              : <></>}
+
+            {state.data ?
+              <div className="w-full max-w-[1400px] mx-auto">
+                {state.data.posts.map((post) => (
+                  <div className="mb-1">
+                    <Post
+                      key={post.id}
+                      description={post.description}
+                      postPhoto={post.postPhoto}
+                      productName={post.productName}
+                      video={post.video}
+                      createdAt={post.createdAt}
+                      isLiked={post.isLiked}
+                      likesCount={post.likesCount}
+                      isMine={true}
+                    />
+                  </div>
+                ))}
+              </div> : <div></div>}
 
 
 
-            <div className="w-full max-w-[1400px] mx-auto">
-              {posts.map((post) => (
-                <div
-                  className="mb-4 w-full max-w-[1400px] mx-auto items-center"
-                  key={post.id}
-                >
-                  <Grid2 item xs={12} sm={6} md={4} spacing={2}>
-                    <Post title={post.title} content={post.content} />
-                  </Grid2>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
 
