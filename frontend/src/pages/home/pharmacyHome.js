@@ -9,11 +9,6 @@ import image from "../../assets/img/image.png";
 import camera from "../../assets/img/camera.svg";
 
 export const PharmacyHome = () => {
-  // Check if the screen size is small (mobile)
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
-  const [isOpen, setIsOpen] = useState(false); // State to manage popup visibility
-
-export const PharmacyHome = () => {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
   const [isOpen, setIsOpen] = useState(false); 
   const [isAddOrderOpen, setIsAddOrderOpen] = useState(false); 
