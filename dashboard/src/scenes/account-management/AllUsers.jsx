@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Button, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-// import axios from "axios";
 import { tokens } from "../../assets/styles/theme";
 import Header from "../../components/Header";
+import { fetchUsersData } from "../../services/fetchUsersData";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import LocalPharmacyOutlinedIcon from "@mui/icons-material/LocalPharmacyOutlined";
 import WarehouseOutlinedIcon from "@mui/icons-material/WarehouseOutlined";
 import DriveEtaOutlinedIcon from "@mui/icons-material/DriveEtaOutlined";
-import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
-import { fetchUsersData } from "../../services/fetchUsersData";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import UserDetailsDialog from "./UserDetailsDialog";
 
 
 const AllUsers = () => {
@@ -17,6 +18,19 @@ const AllUsers = () => {
   const colors = tokens(theme.palette.mode);
   const [usersData, setUsersData] = useState([]);
 
+
+  const [selectedUser, setSelectedUser] = useState(null); 
+  const [isDialogOpen, setIsDialogOpen] = useState(false); 
+
+  const openDialog = (user) => {
+    setSelectedUser(user); 
+    setIsDialogOpen(true); 
+  };
+  
+  const closeDialog = () => {
+    setSelectedUser(null); 
+    setIsDialogOpen(false);
+  };
 
 
   useEffect(() => {
@@ -28,44 +42,13 @@ const AllUsers = () => {
     fetchData();
   }, []);
 
-
-
-//   useEffect(() => {
-//     const fetchUsersData = async () => {
-//       try {
-//         const response = await fetch(`/mockUsers.json`);
-//         const data = await response.json();
-//         if (data && data.users) {
-//           const formattedData = data.users.map((item) => ({
-//             id: item._id,
-//             name: item.fullName,
-//             phone: item.phoneNumber,
-//             location: item.location,
-//             active: item.active ? "Active" : "Inactive",
-//             accessLevel:
-//               item.roleID === 1
-//                 ? "admin"
-//                 : item.roleID === 2
-//                 ? "user"
-//                 : item.roleID === 3
-//                 ? "pharmacy"
-//                 : item.roleID === 4
-//                 ? "warehouse"
-//                 : "driver",
-//           }));
-//           setUsersData(formattedData);
-//         } else {
-//           console.error("Unexpected response format:", data);
-//         }
-//       } catch (error) {
-//         console.error("Error fetching Users data:", error);
-//       }
-//     };
-  
-//     fetchUsersData();
-//   }, []);
-  
-  
+  const toggleUserStatus = (id) => {
+    setUsersData((prevData) =>
+      prevData.map((user) =>
+        user.id === id ? { ...user, active: !user.active } : user
+      )
+    );
+  };
 
   const columns = [
     { field: "id", headerName: "ID", flex: 1 },
@@ -81,51 +64,103 @@ const AllUsers = () => {
       flex: 1,
     },
     {
-      field: "location",
-      headerName: "Location",
-      flex: 1,
-    },
-    {
-      field: "active",
-      headerName: "Status",
-      flex: 1,
-    },
-    {
       field: "accessLevel",
       headerName: "Access Level",
       flex: 1,
       renderCell: ({ row: { accessLevel } }) => {
+        const getIcon = () => {
+          switch (accessLevel) {
+            case "admin":
+              return <AdminPanelSettingsOutlinedIcon />;
+            case "pharmacy":
+              return <LocalPharmacyOutlinedIcon />;
+            case "warehouse":
+              return <WarehouseOutlinedIcon />;
+            case "driver":
+              return <DriveEtaOutlinedIcon />;
+            default:
+              return null;
+          }
+        };
+
         return (
-          <Box
-            width="60%"
-            m="0 auto"
-            p="5px"
-            display="flex"
-            justifyContent="center"
-            backgroundColor={
-              accessLevel === "admin"
-                ? colors.greenAccent[600]
-                : accessLevel === "user"
-                ? colors.greenAccent[700]
-                : accessLevel === "pharmacy"
-                ? colors.blueAccent[700]
-                : accessLevel === "warehouse"
-                ? colors.orangeAccent[700]
-                : colors.redAccent[700]
-            }
-            borderRadius="4px"
-          >
-            {accessLevel === "admin" && <AdminPanelSettingsOutlinedIcon />}
-            {accessLevel === "user" && <LockOpenOutlinedIcon />}
-            {accessLevel === "pharmacy" && <LocalPharmacyOutlinedIcon />}
-            {accessLevel === "warehouse" && <WarehouseOutlinedIcon />}
-            {accessLevel === "driver" && <DriveEtaOutlinedIcon />}
-            <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
+          <Box display="flex" alignItems="center">
+            {getIcon()}
+            <Typography sx={{ ml: "5px", color: colors.grey[100] }}>
               {accessLevel}
             </Typography>
           </Box>
         );
       },
+    },
+    {
+      field: "location",
+      headerName: "Location",
+      flex: 1,
+      renderCell: ({ row }) => {
+        const [longitude, latitude] = row.location.split(",");
+        return (
+          <Button
+            variant="contained"
+            color="secondary"
+            size="small"
+            sx={{
+              textTransform: "none",
+              backgroundColor: "#4CAF50", 
+              "&:hover": { backgroundColor: "#388E3C" }, 
+            }}
+            onClick={() => {
+              const osmUrl = `https://www.openstreetmap.org/?mlat=${latitude}&mlon=${longitude}&zoom=16`;
+              window.open(osmUrl, "_blank");
+            }}
+          >
+            View on Map
+          </Button>
+        );
+      },
+    },
+    {
+      field: "active",
+      headerName: "Status",
+      flex: 1,
+      renderCell: ({ row }) => (
+        <Button
+          variant="outlined"
+          color={row.active ? "success" : "error"}
+          size="small"
+          startIcon={
+            row.active ? (
+              <CheckCircleOutlineIcon />
+            ) : (
+              <HighlightOffIcon />
+            )
+          }
+          sx={{
+            textTransform: "none",
+          }}
+          onClick={() => toggleUserStatus(row.id)}
+        >
+          {row.active ? "Active" : "Inactive"}
+        </Button>
+      ),
+    },
+    {
+      field: "action",
+      headerName: "Action",
+      flex: 1,
+      renderCell: ({ row }) => (
+        <Button
+          variant="contained"
+          color="primary"
+          size="small"
+          onClick={() => openDialog(row)}
+          sx={{
+            textTransform: "none",
+          }}
+        >
+          View Details
+        </Button>
+      ),
     },
   ];
 
@@ -161,29 +196,16 @@ const AllUsers = () => {
           },
         }}
       >
-        <DataGrid checkboxSelection rows={usersData} columns={columns} />
+        <DataGrid rows={usersData} columns={columns} />
+        <UserDetailsDialog
+  isOpen={isDialogOpen}
+  onClose={closeDialog}
+  user={selectedUser}
+/>
+
       </Box>
     </Box>
   );
 };
 
 export default AllUsers;
-
-
-
-
-
-// 1 admin
-// 2 user 
-// 3 pharmacy
-// 4 warehouse
-//  5 driver
-
-
-// fullName: { type: String, required: true },
-// phoneNumber: { type: String, required: true, unique: true },
-// password: { type: String, required: true },
-// location: { type: String, },
-// active: { type: Boolean },
-// token: { type: String },
-// roleID: { type: Number, required: true }

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import Topbar from "./scenes/global/Topbar.jsx";  // استيراد الـ Topbar
+import Topbar from "./scenes/global/Topbar.jsx"; 
 import Sidebar from "./scenes/global/Sidebar.jsx";
 import Dashboard from "./scenes/dashboard/index.jsx";
 import AllUsers from "./scenes/account-management/AllUsers.jsx";
@@ -16,7 +16,7 @@ import { ColorModeContext, useMode } from "./assets/styles/theme.js";
 
 function App() {
   const [theme, colorMode] = useMode();
-  const [isSidebar, setIsSidebar] = useState(true);
+  const [isSidebar] = useState(true);
 
   return (
     <ColorModeContext.Provider value={colorMode}>
@@ -25,7 +25,7 @@ function App() {
         <div className="flex">
           <Sidebar isSidebar={isSidebar} />
 
-          <div className="flex-1 ml-${isSidebar ? '64' : '20'} transition-all duration-150">
+          <div className="flex-1 transition-all duration-150">
             <Topbar />
             <main className="p-4">
               <Routes>

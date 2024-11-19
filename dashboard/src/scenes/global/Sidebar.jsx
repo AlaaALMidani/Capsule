@@ -1,6 +1,6 @@
-import { 
-    BarChart2, Menu, Settings, Users, ClipboardList, FileText, PieChart, 
-    UserCheck, UserPlus, ChevronDown 
+import {
+    BarChart2, Menu, Settings, Users, ClipboardList, FileText, PieChart,
+    UserCheck, UserPlus, ChevronDown
 } from "lucide-react";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -55,24 +55,28 @@ const Sidebar = ({ isSidebar }) => {
                         <div key={item.name}>
                             <div
                                 onClick={() => item.children && toggleExpand(item.name)}
-                                className="cursor-pointer flex items-center justify-between"
+                                className={`cursor-pointer flex items-center justify-between ${
+                                    item.children ? "" : "mb-2"
+                                }`}
                             >
-                                <motion.div className="flex items-center p-4 text-sm font-medium rounded-lg hover:bg-gray-700 transition-colors mb-2">
-                                    <item.icon size={20} style={{ color: item.color, minWidth: "20px" }} />
-                                    <AnimatePresence>
-                                        {isSidebarOpen && (
-                                            <motion.span
-                                                className="ml-4 whitespace-nowrap"
-                                                initial={{ opacity: 0, width: 0 }}
-                                                animate={{ opacity: 1, width: "auto" }}
-                                                exit={{ opacity: 0, width: 0 }}
-                                                transition={{ duration: 0.2, delay: 0.3 }}
-                                            >
-                                                {item.name}
-                                            </motion.span>
-                                        )}
-                                    </AnimatePresence>
-                                </motion.div>
+                                <Link to={item.href || "#"}>
+                                    <motion.div className="flex items-center p-4 text-sm font-medium rounded-lg hover:bg-gray-700 transition-colors">
+                                        <item.icon size={20} style={{ color: item.color, minWidth: "20px" }} />
+                                        <AnimatePresence>
+                                            {isSidebarOpen && (
+                                                <motion.span
+                                                    className="ml-4 whitespace-nowrap"
+                                                    initial={{ opacity: 0, width: 0 }}
+                                                    animate={{ opacity: 1, width: "auto" }}
+                                                    exit={{ opacity: 0, width: 0 }}
+                                                    transition={{ duration: 0.2, delay: 0.3 }}
+                                                >
+                                                    {item.name}
+                                                </motion.span>
+                                            )}
+                                        </AnimatePresence>
+                                    </motion.div>
+                                </Link>
                                 {item.children && isSidebarOpen && (
                                     <ChevronDown
                                         size={20}

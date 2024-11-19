@@ -150,5 +150,22 @@ class OfferServices {
       return { success: false, error: "Failed to retrieve offers" };
     }
   }
+  async getOfferById(id, token) {
+    const { success, userId, error } = await this.validateToken(token);
+    if (!success) {
+      return { success: false, error };
+    }
+    try {
+      const offer = await OfferRepo.findById(id);
+      if (!offer) {
+        return { success: false, error: "Offer not found" };
+      }
+      
+      return { success: true, offer };
+    } catch (error) {
+      return { success: false, error: "Failed to retrieve offer" };
+    }
+  }
+  
 }
 module.exports = new OfferServices();

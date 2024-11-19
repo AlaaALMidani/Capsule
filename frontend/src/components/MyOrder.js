@@ -8,25 +8,34 @@ import CardActions from '@mui/material/CardActions';
 
 export function MyOrder({ order }) {
   return (
-    <Card className="shadow-lg rounded-lg overflow-hidden">
+    <Card
+      className="shadow-lg rounded-lg overflow-hidden"
+      sx={{
+      
+       boxShadow: '10',
+      }}
+    >
       <CardHeader
-        subheader={`Created on: ${order.createdAt}`}
+        subheader={
+          <Typography sx={{ color: '#1b8942' }}>
+            Created on: {order.createdAt} 
+          </Typography>
+        }
       />
       
       <CardContent>
         <CardMedia
           component="img"
- 
           image={order.photo}
           alt="Order photo"
-          sx={{ objectFit: 'cover', height:'200px', width:'full'}}  
+          sx={{ objectFit: 'cover', height: 'auto', width: 'auto' }}  
         />
-        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+        <Typography variant="body2" sx={{ color: '#103758', fontSize: '14px' }}>
           {order.message}
         </Typography>
       </CardContent>
       <CardActions disableSpacing className="p-4">
-        <Typography variant="body2" className="font-semibold">
+        <Typography variant="body2" sx={{ color: '#2e7d32', fontSize: '14px' }}>
           Location: {order.location}
         </Typography>
       </CardActions>

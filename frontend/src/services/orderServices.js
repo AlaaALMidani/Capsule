@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const baseUrl = "http://localhost:3002/api/orders/";
 export class OrderServices {
   static async addOrder(data, token, file) {
@@ -102,3 +103,5 @@ export class OrderServices {
       .catch((error) => error.message);
   }
 }
+=======
+>>>>>>> 8dc88a190856c9f6d1661a622f3c4be3110be274
