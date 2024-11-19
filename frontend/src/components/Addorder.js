@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { FiCamera } from 'react-icons/fi';
 import logo from '../styles/logo.png';
-import { Card } from 'antd';
 
 function AddOrder() {
   const [text, setText] = useState ('');
@@ -17,14 +16,6 @@ function AddOrder() {
 
   return (
     <div className="w-96 p-6 bg-white bg-opacity-15 border border-gray-400 rounded-lg mx-auto text-center">
-      <Card sx={{
-          width: {
-            xs: '100%',
-            sm: '75%',
-            md: '50%'
-          },
-          height: 'auto'
-        }} >
       {/* Logo and Title */}
       <div className="flex flex-col items-center mb-6">
         {/* <img src={logo} alt="Logo" className="w-20 h-20 mb-2" /> */}
@@ -67,7 +58,6 @@ function AddOrder() {
 
       {/* Submit Button */}
       <button className="w-full bg-[#1a8942] text-white p-2 rounded hover:bg-[#215f92] mt-5">Submit Order</button>
-      </Card>
     </div>
   );
 }
