@@ -1,8 +1,13 @@
+
+
 import React, { useState } from 'react';
 import { FaCamera } from 'react-icons/fa';
 import { FaFileUpload } from 'react-icons/fa';
 import logo from '../styles/logo.png';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { addPostAsync } from "../slices/postSlices"
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 function AddPost() {
   const [productName, setProductName] = useState('');
   const [description, setDescription] = useState('');
