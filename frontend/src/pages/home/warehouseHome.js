@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import Button from "@mui/material/Button/index.js";
 import Post from "../../components/Post.js";
 import { Box, Grid2, useMediaQuery } from "@mui/material";
-import AddPost from "../../components/AddPost.js";
+import AddPost from "../../components/Addpost.js";
 import Popup from "reactjs-popup";
 import doctor from "../../assets/img/doctorImage2.png";
 import camera from "../../assets/img/camera.svg";
-import AddOrder from "../../components/AddOrder.js"; 
+import AddOrder from "../../components/Addorder.js"; 
 const WarehouseHome = () => { 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
   const [isOpen, setIsOpen] = useState(false); 

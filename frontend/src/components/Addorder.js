@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { FiCamera } from 'react-icons/fi';
 import logo from '../styles/logo.png';
 
-import { useDispatch, useSelector } from 'react-redux';
 function AddOrder() {
   const [text, setText] = useState ('');
   const [image, setImage] = useState(null);
