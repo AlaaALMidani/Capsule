@@ -40,12 +40,12 @@ const fakePreviousOrders = [
 
 const HistoryPage = () => {
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center mt-10p-[5%] pt-[100px] flex items-center ">
-      <h2 className="text-3xl font-semibold text-gray-800 mb-8">Order History</h2>
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center mt-10p-[5%] pt-[100px]">
+     
       <div className="w-full max-w-4xl bg-white p-6 rounded-lg shadow-md">
         <Tabs defaultActiveKey="1" centered>
           <TabPane tab="Current Order" key="1">
-            <div className="flex flex-col items-center space-y-6 py-4">
+            <div className="flex flex-col items-center space-y-6 py-4 ">
               {fakeCurrentOrders.map((order) => (
                 <CurrentOrderCard key={order._id} order={order} />
               ))}

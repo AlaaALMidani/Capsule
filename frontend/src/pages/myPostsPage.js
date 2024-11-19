@@ -1,5 +1,7 @@
 import React from 'react';
 import Post from '../components/Post'; 
+import { Grid2 } from "@mui/material";
+
 
 const fakePosts = [
   {
@@ -30,21 +32,22 @@ const fakePosts = [
 
 const MyPostsPage = () => {
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center mt-10 p-[5%] pt-[100px] flex items-center  space-y-10">
-      <h1 className="text-3xl font-bold mb-6">My Posts</h1>
-      <div className="w-full max-w-4xl space-y-6">
-        {fakePosts.map((post) => (
-          <Post
-            key={post.id}
+      <div className="w-full mt-10 mt-10p-[5%] pt-[100px] space-y-6">
+      {fakePosts.map((post) => (
+          <div className="mb-4">
+            <Grid2 item xs={12} sm={6} md={4} key={post.id} spacing={2}>
+              <Post key={post.id}
             description={post.description}
             profilePhoto={post.profilePhoto}
             postPhoto={post.postPhoto}
             pharmacyName={post.pharmacyName}
-            postDate={post.postDate}
-          />
+            postDate={post.postDate} />
+            </Grid2>
+          </div>
         ))}
+        
       </div>
-    </div>
+    
   );
 };
 

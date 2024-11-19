@@ -1,12 +1,17 @@
 import React, { useState } from "react";
-import Button from "@mui/material/Button/index.js";
+import Button from "@mui/material/Button";
 import Post from "../../components/Post.js";
 import { Box, Grid2, useMediaQuery } from "@mui/material";
 import AddPost from "../../components/AddPost.js";
 import Popup from "reactjs-popup";
-import doctor from "../../assets/img/doctorImage2.png";
+//import doctor from "../../assets/img/doctorImage2.png";
+import image from "../../assets/img/image.png";
 import camera from "../../assets/img/camera.svg";
-import AddOrder from "../../components/AddOrder.js"; 
+
+export const PharmacyHome = () => {
+  // Check if the screen size is small (mobile)
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
+  const [isOpen, setIsOpen] = useState(false); // State to manage popup visibility
 
 export const PharmacyHome = () => {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
@@ -20,9 +25,9 @@ export const PharmacyHome = () => {
   ];
 
   return (
-    <div className={`${isOpen ? "backdrop-brightness-150 " : ""}`}>
+    <div className={`${isOpen ? "backdrop-brightness-150" : ""}`}>
       <div
-        className={`bg-[#f0f4f8] bg-gradient-to-tr from-[#d9e9f6] to-[#009dff] p-[5%] pt-[100px] flex items-center justify-center transition-all duration-300 ${
+        className={`bg-[#f0f4f8] bg-gradient-to-tr from-[#d9e9f6] to-[#1b8942] p-[5%] pt-[100px] flex items-center justify-center transition-all duration-300 ${
           isOpen ? "backdrop-blur-3xl" : ""
         }`}
       >
@@ -35,6 +40,7 @@ export const PharmacyHome = () => {
               alignItems: "center",
               justifyContent: "space-between",
               flexWrap: "wrap",
+              fontFamily: "'Roboto', sans-serif",  // Setting default font to Roboto
             }}
           >
             {/* Text Section */}
@@ -47,16 +53,16 @@ export const PharmacyHome = () => {
                 flexDirection: "column",
                 justifyContent: "center",
                 textAlign: isMobile ? "center" : "left",
-                padding: isMobile ? "10px" : "20px",
-                maxWidth: isMobile ? "100%" : "33%",
+                padding: isMobile ? "10px" : "150px",
+                maxWidth: isMobile ? "100%" : "60%",
                 flexGrow: 1,
               }}
             >
               <h1
                 style={{
                   fontSize: isMobile ? "1.5rem" : "1.8rem",
-                  fontWeight: "bold",
-                  color: "#003366",
+                  fontWeight: "700", // Making the header bold
+                  color: "#156096",
                   marginBottom: "16px",
                 }}
               >
@@ -69,30 +75,15 @@ export const PharmacyHome = () => {
                   color: "#555555",
                   wordWrap: "break-word",
                   textAlign: isMobile ? "center" : "left",
+                  marginBottom: "16px",
                 }}
               >
                 We’re here to assist you with your pharmacy needs. Explore the
                 options below to add a new order or learn more about our
                 services!
               </p>
-            </Grid2>
 
-            {/* Button Section */}
-            <Grid2
-              item
-              xs={12}
-              md={4}
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                flexDirection: isMobile ? "column" : "row",
-                gap: isMobile ? "10px" : "20px",
-                padding: isMobile ? "10px" : "20px",
-                maxWidth: isMobile ? "100%" : "33%",
-                flexGrow: 1,
-              }}
-            >
+              {/* Add New Order Button */}
               <Button
                 variant="contained"
                 onClick={() => setIsAddOrderOpen(true)} // Open AddOrder popup
@@ -104,6 +95,8 @@ export const PharmacyHome = () => {
                   fontSize: isMobile ? "0.9rem" : "1rem",
                   width: isMobile ? "80%" : "auto",
                   maxWidth: "250px",
+                  margin: "0 auto",
+                  fontFamily: "'Roboto', sans-serif", // Using Roboto for the button text
                 }}
               >
                 Add New Order
@@ -125,11 +118,11 @@ export const PharmacyHome = () => {
               }}
             >
               <img
-                src={doctor}
+                src={image}
                 alt="Doctor"
                 style={{
                   width: isMobile ? "70%" : "100%",
-                  maxWidth: isMobile ? "200px" : "250px",
+                  maxWidth: isMobile ? "200px" : "400px",
                   height: "auto",
                   borderRadius: "8px",
                   margin: isMobile ? "0 auto" : "0",
@@ -140,45 +133,35 @@ export const PharmacyHome = () => {
         </Box>
       </div>
 
-      {/* AddOrder Popup */}
-      <Popup
-        open={isAddOrderOpen}
-        onClose={() => setIsAddOrderOpen(false)}
-        modal
-        closeOnDocumentClick
-      >
-        <AddOrder onClose={() => setIsAddOrderOpen(false)} token={token} />
-      </Popup>
-
-      {/* Existing AddPost Popup */}
-      <Popup
-        trigger={
-          <div className="flex justify-center m-8">
-            <img
-              src={camera}
-              className="h-20 mr-3 cursor-pointer"
-              alt="camera"
-            />
-            <div className="sm:w-2/3 md:w-1/2 lg:w-1/3 cursor-pointer bg-indigo-900 bg-opacity-40 px-10 shadow-lg h-20 rounded-2xl flex items-center justify-center">
-              <span className="text-white font-bold">
-                Tell us about your product...
-              </span>
-            </div>
-            <button className="px-4 py-2 bg-green-600 text-white rounded-2xl ml-3 font-bold">
-              ADD POST
-            </button>
-          </div>
-        }
-        onClose={() => setIsOpen(false)}
-        open={isOpen}
-        modal
-        closeOnDocumentClick
-      >
-        {(close) => <AddPost />}
-      </Popup>
-
-      {/* Posts Section */}
       <div className="mt-6 m-auto">
+        {/* Popup Trigger */}
+        <Popup
+          trigger={
+            <div className="flex justify-center m-8">
+              <img
+                src={camera}
+                className="h-20 mr-3 cursor-pointer"
+                alt="camera"
+              />
+              <div className="sm:w-2/3 md:w-1/2 lg:w-1/3 cursor-pointer bg-[#103758] bg-opacity-40 px-10 shadow-lg h-20 rounded-2xl flex items-center justify-center">
+                <span className="text-white font-bold">
+                  Tell us about your product...
+                </span>
+              </div>
+              <button className="px-4 py-2 bg-green-600 text-white rounded-2xl ml-3 font-bold">
+                ADD POST
+              </button>
+            </div>
+          }
+          onClose={() => setIsOpen(false)}
+          open={isOpen}
+          modal
+          closeOnDocumentClick
+        >
+          {(close) => <AddPost />}
+        </Popup>
+
+        {/* Display Posts */}
         {posts.map((post) => (
           <div className="mb-4" key={post.id}>
             <Grid2 item xs={12} sm={6} md={4} spacing={2}>
