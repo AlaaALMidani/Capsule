@@ -284,7 +284,7 @@ const OfferPage = () => {
       <Card
         style={{
           width: '100%',
-          maxWidth: '1200px',
+          maxWidth: '60%',
           margin: '0 auto',
         }}
         bodyStyle={{ padding: 20 }}
@@ -299,7 +299,7 @@ const OfferPage = () => {
 
               {/* Display offers related to this specific order */}
               <div className="bg-white shadow-md rounded-lg p-4 mt-4">
-                <h3 className="text-xl font-semibold mb-4">Offers for this Order:</h3>
+                <h3 className="text-xl font-semibold mb-4 text-[#103758]">Offers for this Order:</h3>
                 {getOffersForOrder(order._id).length > 0 ? (
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {getOffersForOrder(order._id).map((offer) => (

@@ -55,9 +55,9 @@ function Post({
           width: {
             xs: '100%',
             sm: '75%',
-            md: '50%'
+            md: '50%',
           },
-          height: 'auto'
+          boxShadow: 5,
         }}
       >
         <CardHeader
@@ -76,10 +76,14 @@ function Post({
             </IconButton>
           }
           title={pharmacyName || 'Pharmacy Name'}
-          subheader={postDate || 'September 14, 2016'}
+          subheader={
+            <Typography sx={{ color: '#16a34a' }}>
+              {postDate || 'September 14, 2016'}
+            </Typography>
+          }
         />
         <CardContent>
-          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+          <Typography variant="body2" sx={{ color: '#103758', fontSize: '14px' }}>
             {description || 'Post description goes here.'}
           </Typography>
         </CardContent>
@@ -99,11 +103,7 @@ function Post({
             <FavoriteIcon sx={{ color: liked ? red[500] : 'inherit', fontSize: 30 }} />
           </IconButton>
         </CardActions>
-        <Menu
-          anchorEl={anchorEl}
-          open={openMenu}
-          onClose={handleMenuClose}
-        >
+        <Menu anchorEl={anchorEl} open={openMenu} onClose={handleMenuClose}>
           <MenuItem onClick={handleEdit}>Edit</MenuItem>
           <MenuItem onClick={handleDelete}>Delete</MenuItem>
         </Menu>
@@ -111,4 +111,5 @@ function Post({
     </div>
   );
 }
+
 export default Post;

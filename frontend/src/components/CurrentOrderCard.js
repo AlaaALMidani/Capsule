@@ -10,8 +10,15 @@ import CardActions from '@mui/material/CardActions';
 
 export function CurrentOrderCard({ order }) {
   return (
-    <Card className='w-full md:w-1/3'>
-      <CardHeader subheader={order.createdAt} />
+    <Card sx={{ boxShadow: '5'
+    }}className='w-full'>
+      <CardHeader 
+        subheader={
+          <Typography sx={{ color: '#1b8942' }}>
+            {order.createdAt}  
+          </Typography>
+        }
+      />
       <CardMedia
         component="img"
         height="194"
@@ -19,8 +26,8 @@ export function CurrentOrderCard({ order }) {
         alt="Order photo"
       />
       <CardContent>
-        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          {order.message} // Assuming message is part of the order object
+        <Typography variant="body2" sx={{ color: '#103758', fontSize: '14px' }}>
+          {order.message} {/* Assuming message is part of the order object */}
         </Typography>
       </CardContent>
       <CardActions disableSpacing sx={{ justifyContent: 'flex-end' }}>
