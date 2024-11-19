@@ -3,7 +3,7 @@ import { token } from './userServices';
 const baseUrl = "http://localhost:3002/api/posts/";
 const addPost = "addPost";
 const myPosts = 'getOwnPosts'
-const allPosts ='getAllPosts'
+const allPosts = 'getAllPosts'
 
 export class PostServices {
 
@@ -30,12 +30,12 @@ export class PostServices {
     }
 
     static async getMyPosts() {
-
+        console.log('huhuhuh')
         return fetch(`${baseUrl}${myPosts}`, {
             method: "get",
             headers: {
                 'authorization': `${token}`
-            },
+            },      
         })
             .then((response) => response.json())
             .then(data => data)
@@ -44,8 +44,8 @@ export class PostServices {
             );
     }
 
-    static async getAllPosts() {
-
+    static getAllPosts = async () => {
+        console.log('wwoifjwofeijwe')
         return fetch(`${baseUrl}${allPosts}`, {
             method: "get",
             headers: {

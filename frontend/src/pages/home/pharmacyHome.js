@@ -7,11 +7,15 @@ import AddPost from "../../components/AddPost.js";
 import Popup from "reactjs-popup";
 import doctor from "../../assets/img/doctorImage2.png";
 import camera from "../../assets/img/camera.svg";
+import { getAllPostsAsync } from '../../slices/postSlices';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from "react";
-import AddOrder from "../../components/Addorder";
+import AddOrder from "../../components/AddOrders";
+import LoadingCard from "../../components/OnLoading.js";
 
 export const PharmacyHome = () => {
+
+  const dispatch = useDispatch();
   const postSuccess = useSelector(state => state.post.success)
 
   useEffect(() => {
@@ -20,17 +24,32 @@ export const PharmacyHome = () => {
     }
   }, [postSuccess]); // Add success to the dependency array
 
+  useEffect(() => {
+    dispatch(getAllPostsAsync())
+  }, [dispatch]);
+
+  // Add success to the dependency array
+  const state = useSelector(state => state.post.getAllPosts)
+  console.log(state)
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
   const [isOpen, setIsOpen] = useState(false);
   const [isAddOrderOpen, setIsAddOrderOpen] = useState(false);
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NzNiNDZiYWY4NDYwNDk0ZjE5ODRiZDkiLCJpYXQiOjE3MzE5Mzc5NzgsImV4cCI6MTczMjAyNDM3OH0.2p2hy1ug8erSlLukGneCn_VfVR3-fNgxY2c9RVPvMuc"
-  const posts = [
-    { id: 1, title: "Post 1", content: "Content of Post 1" },
-    { id: 2, title: "Post 2", content: "Content of Post 2" },
-    { id: 3, title: "Post 3", content: "Content of Post 3" },
-  ];
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NzNjOWRjY2Q2NzlmMjg4OGJmZjg5OWEiLCJpYXQiOjE3MzIwMjU4MDUsImV4cCI6MTczMjExMjIwNX0.a-Utea5cWbt-0jIpiTQieoS8A3EBC1Oi7e1-X7J3cKg"
 
 
+  if (state.loading)
+    return (
+
+      <div className="flex flex-col px-44 mt-20 ">
+        <LoadingCard />
+        <LoadingCard />
+        <LoadingCard />
+        <LoadingCard />
+      </div>
+    )
+
+  if (state.error)
+    return (<div>error</div>)
   return (
     <div className={`${isOpen ? "backdrop-brightness-150 " : ""}`}>
       <div
@@ -178,7 +197,7 @@ export const PharmacyHome = () => {
           closeOnDocumentClick>
           {(close) => <AddPost />}
         </Popup>
-      
+
         {/* AddOrder Popup */}
         <Popup
           open={isAddOrderOpen}
@@ -189,18 +208,7 @@ export const PharmacyHome = () => {
           <AddOrder onClose={() => setIsAddOrderOpen(false)} token={token} />
         </Popup>
 
-        {/* Posts Section */}
-        <div className="mt-6 m-auto">
-          {posts.map((post) => (
-            <div className="mb-1">
-              <Grid2 item xs={12} sm={6} md={4} key={post.id} spacing={2}>
-                <Post title={post.title} content={post.content} />
-              </Grid2>
-            </div>
-          ))}
-        </div>
-
-
+       
 
       </div>
 

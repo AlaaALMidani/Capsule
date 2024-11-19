@@ -1,18 +1,19 @@
 import React, { useEffect } from 'react';
 import Post from '../../components/Post';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMyPosts } from '../../slices/postSlices';
+import { getMyPostsAsync } from '../../slices/postSlices';
 import Skeleton from '@mui/material/Skeleton';
 import LoadingCard from '../../components/OnLoading';
 const MyPostsPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getMyPosts())
+    dispatch(getMyPostsAsync())
   }, [dispatch]);
   // Add success to the dependency array
-  const state = useSelector(state => state.post)
-  console.log(state)
+  const state = useSelector(state => state.post.getMyPosts)
+  console.log(state)  
+  
   if (state.loading)
     return (
 
@@ -33,7 +34,7 @@ const MyPostsPage = () => {
         <h1 className="text-3xl font-bold mb-6">My Posts</h1>
         <div className="w-full max-w-4xl space-y-6">
 
-          {state.myPosts.posts.map((post) => (
+          {state.data.posts.map((post) => (
             <Post
               key={post.id}
               description={post.description}
