@@ -3,7 +3,7 @@ import { FiCamera } from 'react-icons/fi';
 import logo from '../styles/logo.png';
 
 function AddOrder() {
-  const [message, setText] = useState ('');
+  const [text, setText] = useState ('');
   const [image, setImage] = useState(null);
 
   const handleTextChange = (e) => {
