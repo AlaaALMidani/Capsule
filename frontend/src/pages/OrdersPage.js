@@ -1,5 +1,5 @@
 import React from "react";
-import { AddOffer } from "../components/AddOffer";
+import { AddOffer } from "../components/AddOffers";
 
 
 const fakeOrders = [
