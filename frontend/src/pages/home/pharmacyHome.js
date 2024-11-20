@@ -41,13 +41,15 @@ export const PharmacyHome = () => {
 
   return (
     <div className={`${isPostOpen ? "backdrop-brightness-150" : ""}`}>
-          <HeroSection
+
+      {/* Hero Section */}
+        <HeroSection
         isMobile={isMobile}
-        imageSrc={require("../../assets/img/pharmaceutical-storage.webp")}
-        title="Welcome to Your Supplier..."
-        description="Explore the best pharmaceutical solutions and products tailored to meet your needs. We connect pharmacists with trusted suppliers to provide a reliable and secure platform for your professional needs."
-        buttonEnabled={false}
-        // buttonText="Click Me"
+        imageSrc={require("../../assets/img/image.png")}
+        title="Welcome, Trusted Pharmacist!"
+        description="As a valued pharmacist, we’re here to support you in managing your pharmacy operations efficiently. Explore tools tailored to help you handle orders, connect with distributors, and better serve your customers. Let’s work together to make healthcare more accessible and reliable."
+        buttonEnabled={true}
+        buttonText="Order Now"
         buttonAction={() => setIsAddOrderOpen(true)}
         />        
       <div className="mt-6 m-auto">

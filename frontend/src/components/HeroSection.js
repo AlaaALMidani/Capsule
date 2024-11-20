@@ -8,7 +8,7 @@ const HeroSection = ({
   title = "Welcome", 
   description = "We’re here to assist you with your pharmacy needs. Explore the options below to add a new order or learn more about our services!", 
   buttonEnabled = true, 
-  buttonText = "Add New Order", 
+  buttonText = "Click Me", 
   buttonAction = () => {}, 
   isMobile = false, 
 }) => {
@@ -126,3 +126,17 @@ const HeroSection = ({
 };
 
 export default HeroSection;
+
+
+
+
+
+{/* <HeroSection
+isMobile={isMobile}
+imageSrc={require("../../assets/img/image.png")}
+title="Welcome, Trusted Pharmacist!"
+description="As a valued pharmacist, we’re here to support you in managing your pharmacy operations efficiently. Explore tools tailored to help you handle orders, connect with distributors, and better serve your customers. Let’s work together to make healthcare more accessible and reliable."
+buttonEnabled={true}
+buttonText="Order Now"
+buttonAction={() => setIsAddOrderOpen(true)}
+/>         */}
