@@ -6,12 +6,16 @@ import AddPost from "../../components/AddPosts.js";
 import Popup from "reactjs-popup";
 import doctor from "../../assets/img/doctorImage2.png";
 import camera from "../../assets/img/camera.svg";
-import AddOrder from "../../components/AddOrders.js"; 
-const WarehouseHome = () => { 
+import AddOrder from "../../components/AddOrders.js";
+import HeroSection from "../../components/HeroSection";
+
+
+const WarehouseHome = () => {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
-  const [isOpen, setIsOpen] = useState(false); 
-  const [isAddOrderOpen, setIsAddOrderOpen] = useState(false); 
-  const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NzNiNDZiYWY4NDYwNDk0ZjE5ODRiZDkiLCJpYXQiOjE3MzE5Mzc5NzgsImV4cCI6MTczMjAyNDM3OH0.2p2hy1ug8erSlLukGneCn_VfVR3-fNgxY2c9RVPvMuc"
+  const [isOpen, setIsOpen] = useState(false);
+  const [isAddOrderOpen, setIsAddOrderOpen] = useState(false);
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NzNiNDZiYWY4NDYwNDk0ZjE5ODRiZDkiLCJpYXQiOjE3MzE5Mzc5NzgsImV4cCI6MTczMjAyNDM3OH0.2p2hy1ug8erSlLukGneCn_VfVR3-fNgxY2c9RVPvMuc";
   const posts = [
     { id: 1, title: "Post 1", content: "Content of Post 1" },
     { id: 2, title: "Post 2", content: "Content of Post 2" },
@@ -20,93 +24,18 @@ const WarehouseHome = () => {
 
   return (
     <div className={`${isOpen ? "backdrop-brightness-150 " : ""}`}>
-      <div
-        className={`bg-[#f0f4f8] bg-gradient-to-tr from-[#d9e9f6] to-[#009dff] p-[5%] pt-[100px] flex items-center justify-center transition-all duration-300 ${
-          isOpen ? "backdrop-blur-3xl" : ""
-        }`}
-      >
-        <Box sx={{ width: "100%", height: "100%" }}>
-          <Grid2
-            container
-            spacing={2}
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              flexWrap: "wrap",
-            }}
-          >
-            {/* Text Section */}
-            <Grid2
-              item
-              xs={12}
-              md={4}
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                textAlign: isMobile ? "center" : "left",
-                padding: isMobile ? "10px" : "20px",
-                maxWidth: isMobile ? "100%" : "33%",
-                flexGrow: 1,
-              }}
-            >
-              <h1
-                style={{
-                  fontSize: isMobile ? "1.5rem" : "1.8rem",
-                  fontWeight: "bold",
-                  color: "#003366",
-                  marginBottom: "16px",
-                }}
-              >
-                Welcome
-              </h1>
-              <p
-                style={{
-                  fontSize: isMobile ? "0.9rem" : "1rem",
-                  lineHeight: isMobile ? 1.4 : 1.6,
-                  color: "#555555",
-                  wordWrap: "break-word",
-                  textAlign: isMobile ? "center" : "left",
-                }}
-              >
-                We’re here to assist you with your pharmacy needs. Explore the
-                options below to add a new order or learn more about our
-                services!
-              </p>
-            </Grid2>
 
-           
-
-            {/* Image Section */}
-            <Grid2
-              item
-              xs={12}
-              md={4}
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                padding: isMobile ? "10px" : "20px",
-                maxWidth: isMobile ? "100%" : "33%",
-                flexGrow: 1,
-              }}
-            >
-              <img
-                src={doctor}
-                alt="Doctor"
-                style={{
-                  width: isMobile ? "70%" : "100%",
-                  maxWidth: isMobile ? "200px" : "250px",
-                  height: "auto",
-                  borderRadius: "8px",
-                  margin: isMobile ? "0 auto" : "0",
-                }}
-              />
-            </Grid2>
-          </Grid2>
-        </Box>
-      </div>
+    
+      {/* HeroSection Section */}
+      <HeroSection
+        isMobile={isMobile}
+        imageSrc={require("../../assets/img/pharmaceutical-storage.webp")}
+        title="Welcome to Your Supplier..."
+        description="Explore the best pharmaceutical solutions and products tailored to meet your needs. We connect pharmacists with trusted suppliers to provide a reliable and secure platform for your professional needs."
+        buttonEnabled={false}
+        // buttonText="Click Me"
+        // buttonAction={() => alert("Button Clicked!")}
+      />
 
       {/* AddOrder Popup */}
       <Popup
@@ -157,6 +86,6 @@ const WarehouseHome = () => {
       </div>
     </div>
   );
-}
+};
 
 export default WarehouseHome;

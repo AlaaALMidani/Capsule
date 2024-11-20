@@ -14,7 +14,7 @@ import bgimg from "../../assets/img/white-blue.jpg"
 import heroBg from "../../assets/img/hero-bg.png";
 import { blue } from "@mui/material/colors";
 
-// import image from "../../assets/img/doctorImage2.png";
+import HeroSection from "../../components/HeroSection";
 
 import camera from "../../assets/img/camera.svg";
 import AddOrder from "../../components/AddOrders.js";
@@ -40,130 +40,16 @@ export const PharmacyHome = () => {
 
 
   return (
-    <div className={`${isPostOpen ? "backdrop-brightness-150" : ""}`}
-      style={{
-        width: '100%',
-        height: '100%',
-        backgroundImage: `url(${bgimg})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundBlendMode: 'overlay',
-        backgroundColor: '#a0c9d8',
-      }}>
-      <div
-        className={`bg-center p-[5%] pt-[100px] flex items-center justify-center transition-all duration-300 ${isPostOpen ? "backdrop-blur-3xl" : ""
-          } animate-move-right`}
-        style={{
-          backgroundImage: `url(${heroBg})`,
-
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
-        }}
-      >
-        <Box sx={{ width: "1400px", height: "100%" }}>
-          <Grid2
-            container
-            spacing={2}
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              flexWrap: "wrap",
-              fontFamily: "'Poppins', sans-serif",
-            }}
-          >
-            {/* Text Section */}
-            <Grid2
-              item
-              xs={12}
-              md={4}
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                textAlign: isMobile ? "center" : "left",
-                padding: isMobile ? "10px" : "150px",
-                maxWidth: isMobile ? "100%" : "60%",
-                flexGrow: 1,
-              }}
-            >
-              <h1
-                style={{
-                  fontSize: isMobile ? "1.5rem" : "1.8rem",
-                  fontWeight: "700",
-                  color: "#156096",
-                  marginBottom: "16px",
-                }}
-              >
-                Welcome
-              </h1>
-              <p
-                style={{
-                  fontSize: isMobile ? "0.9rem" : "1rem",
-                  lineHeight: isMobile ? 1.4 : 1.6,
-                  color: "#555555",
-                  wordWrap: "break-word",
-                  textAlign: isMobile ? "center" : "left",
-                  marginBottom: "16px",
-                }}
-              >
-                We’re here to assist you with your pharmacy needs. Explore the
-                options below to add a new order or learn more about our
-                services!
-              </p>
-
-              {/* Add New Order Button */}
-              <Button
-                variant="contained"
-                sx={{
-                  backgroundColor: "#1b8942",
-                  "&:hover": { backgroundColor: "#082544" },
-                  color: "white",
-                  padding: isMobile ? "10px 20px" : "12px 30px",
-                  fontSize: isMobile ? "0.9rem" : "1rem",
-                  width: isMobile ? "80%" : "auto",
-                  maxWidth: "250px",
-                  margin: "0 auto",
-                  fontFamily: "'Roboto', sans-serif", // Using Roboto for the button text
-                }}
-                onClick={() => setIsAddOrderOpen(true)}
-              >
-                Add New Order
-              </Button>
-            </Grid2>
-
-            {/* Image Section */}
-            <Grid2
-              item
-              xs={12}
-              md={4}
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                padding: isMobile ? "10px" : "20px",
-                maxWidth: isMobile ? "100%" : "33%",
-                flexGrow: 1,
-              }}
-            >
-              <img
-                src={image}
-                alt="Doctor"
-                style={{
-                  width: isMobile ? "70%" : "100%",
-                  maxWidth: isMobile ? "200px" : "400px",
-                  height: "auto",
-                  borderRadius: "8px",
-                  transform: "rotate(-180deg)",
-                  // filter: "blur(5px)",
-                  margin: isMobile ? "0 auto" : "0",
-                }}
-              />
-            </Grid2>
-          </Grid2>
-        </Box>
-      </div>
-
+    <div className={`${isPostOpen ? "backdrop-brightness-150" : ""}`}>
+          <HeroSection
+        isMobile={isMobile}
+        imageSrc={require("../../assets/img/pharmaceutical-storage.webp")}
+        title="Welcome to Your Supplier..."
+        description="Explore the best pharmaceutical solutions and products tailored to meet your needs. We connect pharmacists with trusted suppliers to provide a reliable and secure platform for your professional needs."
+        buttonEnabled={false}
+        // buttonText="Click Me"
+        buttonAction={() => setIsAddOrderOpen(true)}
+        />        
       <div className="mt-6 m-auto">
 
 

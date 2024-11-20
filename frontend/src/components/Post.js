@@ -70,11 +70,20 @@ function Post({
             md: '50%',
           },
           boxShadow: 5,
+          borderRadius: '16px',
+          overflow: 'hidden',  
+          // backgroundColor: '#f9f9f9',
+          padding: "20px",
+          background: 'rgba(249, 249, 249, 0.8)', 
+          transition: 'transform 0.3s ease, box-shadow 0.3s ease', 
+          '&:hover': {
+          transform: 'scale(1.01)',} 
+        
         }}
       >
         <CardHeader
           avatar={
-            <Avatar sx={{ bgcolor: red[500] }} aria-label="profile">
+            <Avatar sx={{ bgcolor: red[500], width: 50, height: 50, }} aria-label="profile">
               {profilePhoto ? (
                 <img src={profilePhoto} alt="Profile" style={{ width: '100%', height: '100%', borderRadius: '50%' }} />
               ) : 'p'
@@ -98,13 +107,17 @@ function Post({
         {postPhoto && ( 
           <CardMedia
             component="img"
-            height="194"
+            height="200"
             image={postPhoto}
             alt="Post image"
+            sx={{
+            objectFit: 'cover',
+            borderRadius: '8px',
+          }}
           />
         )}
 
-        <CardActions disableSpacing sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <CardActions disableSpacing sx={{ display: 'flex', justifyContent: 'space-between', px:2, py:1 , borderTop: '3px solid #e0e0e0' }}>
           {isMine ? <></> : <Button variant="contained" color="success" startIcon={<AddIcon />}>
             Order it now
           </Button>}
