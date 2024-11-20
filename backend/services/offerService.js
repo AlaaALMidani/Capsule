@@ -2,7 +2,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { OrderRepo } = require("../models/orderModel");
 const { OfferRepo } = require("../models/offerModel");
-
+const orderService  = require("./orderService");
 class OfferServices {
   async validate(offer) {
     let errors = {};
@@ -131,12 +131,14 @@ class OfferServices {
     }
   }
   async getOrderOffers(token) {
+    
     const { success, error, userId } = await this.validateToken(token);
     if (!success) {
       return { success: false, error };
     }
     try {
       const ordersResponse = await orderService.getMyOrders(token);
+      console.log(ordersResponse)
       if (!ordersResponse.success) {
         return { success: false, error: "Failed to retrieve orders" };
       }
@@ -155,8 +157,6 @@ class OfferServices {
       return { success: false, error: "Failed to retrieve offers" };
     }
   }
-
-
   async getOfferById(id, token) {
     const { success, userId, error } = await this.validateToken(token);
     if (!success) {

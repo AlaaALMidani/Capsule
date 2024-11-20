@@ -5,7 +5,7 @@ const path = require("path");
 const { UserRepo } = require("../models/userModel");
 const InvoiceService = require("../services/invoiceService");
 
-class OrderServices {
+ class OrderServices {
   constructor() {
     this.storage = multer.diskStorage({
       destination: (req, file, cb) => {

@@ -105,7 +105,7 @@ export class OfferServices {
   }
 
   static async getMyOrdersWithOffers() {
-    return fetch(`${baseUrl}/orderOffers`, {
+    return fetch(`${baseUrl}orderOffers`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
