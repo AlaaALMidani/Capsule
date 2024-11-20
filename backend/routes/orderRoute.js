@@ -87,4 +87,15 @@ router.post('/addOrder', OrderServices.upload, async (req, res) => {
         return res.status(400).json({ error: response.error });
       }
   });
+
+  router.get("/myOrders", async (req, res) => {
+    const token = req.headers.authorization;
+    const result = await OrderServices.getMyOrders(token);
+    if (result.success) {
+      return res.status(200).json(result);
+    } else {
+      return res.status(400).json(result); 
+    }
+  });
+  
   module.exports = router;
