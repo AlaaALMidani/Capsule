@@ -2,8 +2,6 @@ const express = require('express');
 const router = express.Router();
 const OrderServices = require('../services/orderService');
 
-
-
 router.post('/addOrder', OrderServices.upload, async (req, res) => {
   console.log(req.body)
   const token = req.headers.authorization?.split(' ')[1];
