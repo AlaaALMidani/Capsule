@@ -99,10 +99,6 @@ class OrderServices {
       if (!success) {
         return { success: false, error };
       }
-      const currentOrders = await OrderRepo.findByStatus(userId, status);
-      if (!currentOrders || currentOrders.length === 0) {
-        return { success: false, error: `There are no ${status}  orders` };
-      }
       const validStatuses = [
         "pending",
         "offer_accepted",
@@ -110,9 +106,16 @@ class OrderServices {
         "completed",
         "canceled",
       ];
+
       if (!validStatuses.includes(status)) {
         return { success: false, error: "Invalid status provided" };
       }
+      console.log(userId + status )
+      const currentOrders = await OrderRepo.findOrdersByStatus(userId, status);
+      if (!currentOrders || currentOrders.length === 0) {
+        return { success: false, error: `There are no ${status}  orders` };
+      }
+
 
       const baseURL = "http://localhost:3002/";
       const formattedOrders = currentOrders.map((order) => ({

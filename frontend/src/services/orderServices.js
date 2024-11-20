@@ -1,3 +1,5 @@
+import { token } from "./userServices";
+
 const baseUrl = "http://localhost:3002/api/orders/";
 export class OrderServices {
   static async addOrder(data, token, file) {
@@ -53,7 +55,7 @@ export class OrderServices {
       .catch((error) => error.message);
   }
 
-  static async getAllOrders(token) {
+  static async getAllOrders() {
     return fetch(`${baseUrl}all`, {
       method: "GET",
       headers: {
@@ -88,7 +90,7 @@ export class OrderServices {
       .catch((error) => error.message);
   }
 
-  static async getOrdersByStatus(status, token) {
+  static async getOrdersByStatus(status) {
    
     return fetch(`${baseUrl}ordersByStatus`, {
       method: "GET",
@@ -99,6 +101,7 @@ export class OrderServices {
       body: JSON.stringify({ status }), 
     })
       .then((response) => response.json())
+      .then(data => data)
       .catch((error) => error.message);
   }
 }

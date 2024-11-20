@@ -200,9 +200,7 @@ export const PharmacyHome = () => {
 
               <div className="flex flex-col px-44 mt-20 ">
                 <LoadingCard />
-                <LoadingCard />
-                <LoadingCard />
-                <LoadingCard />
+               
               </div>
               : <></>}
 
