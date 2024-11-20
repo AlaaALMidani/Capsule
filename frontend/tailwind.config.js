@@ -4,7 +4,8 @@ module.exports = {
   theme: {
     extend: {
       animation: {
-        moveUpDown: 'moveUpDown 3s ease-in-out infinite',
+        moveUpDown: 'moveUpDown 3s ease-in-out infinite', 
+        'bg-animation': 'backgroundMove 0.5s ease forwards',  
       },
       keyframes: {
         moveUpDown: {
@@ -13,6 +14,17 @@ module.exports = {
           },
           '50%': {
             transform: 'translateY(-10px)', 
+          },
+        },
+        backgroundMove: {
+          '0%': {
+            backgroundPosition: 'center',
+          },
+          '50%': {
+            backgroundPosition: 'center 20%',
+          },
+          '100%': {
+            backgroundPosition: 'center', 
           },
         },
       },

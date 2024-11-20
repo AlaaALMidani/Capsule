@@ -5,6 +5,7 @@ import { getMyPostsAsync } from '../../slices/postSlices';
 import Skeleton from '@mui/material/Skeleton';
 import LoadingCard from '../../components/OnLoading';
 import NoData from '../../components/NoData';
+import HeroSection from '../../components/HeroSection';
 const MyPostsPage = () => {
   const dispatch = useDispatch();
 
@@ -16,7 +17,6 @@ const MyPostsPage = () => {
 
   if (state.loading)
     return (
-
       <div className="flex flex-col px-44 mt-20 ">
         <LoadingCard />
         <LoadingCard />
@@ -27,8 +27,9 @@ const MyPostsPage = () => {
 
   if (state.error)
     return (<div>error</div>)
-  if (state.data && !state.data.success) {
-    return (<div className='mt-32'><NoData/></div>)
+  if (state.data && !state.data.success) {<HeroSection/>
+    return (<div className='mt-32'>        
+<NoData/> </div>)
   }
   if (state.success)
     return (
