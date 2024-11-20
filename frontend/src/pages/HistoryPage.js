@@ -51,11 +51,10 @@ const HistoryPage = () => {
     dispatch(getCurrentOrdersAsync())
     dispatch(getPreviousOrdersAsync())
   }, []);
+
+
   const stateOfCurrent = useSelector(state => state.order.getCurrentOrders)
   const stateOfPrevious = useSelector(state => state.order.getPreviousOrders)
-
-  console.log(stateOfCurrent)
-  console.log(stateOfPrevious)
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center mt-10p-[5%] pt-[100px]">
@@ -74,9 +73,11 @@ const HistoryPage = () => {
           </TabPane>
           <TabPane tab="Previous Order" key="2">
             <div className="flex flex-col items-center space-y-6 py-4">
-              {fakePreviousOrders.map((order) => (
-                <PreviosOrderCard key={order._id} order={order} />
-              ))}
+              {
+                stateOfPrevious.loading || !stateOfPrevious.data ? <LoadingCard /> : !stateOfPrevious.data.success ? <NoData /> : stateOfPrevious.data.orders.map((order) => (
+                  <CurrentOrderCard key={order._id} order={order} />
+                ))
+              }
             </div>
           </TabPane>
         </Tabs>

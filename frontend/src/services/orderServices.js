@@ -92,13 +92,15 @@ export class OrderServices {
 
   static async getOrdersByStatus(status) {
    
-    return fetch(`${baseUrl}ordersByStatus`, {
+    return fetch(`${baseUrl}ordersByStatus/?status=${status}`, {
       method: "GET",
+      
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
+
       },
-      body: JSON.stringify({ status }), 
+    
     })
       .then((response) => response.json())
       .then(data => data)

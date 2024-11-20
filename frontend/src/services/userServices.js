@@ -9,7 +9,7 @@ const UserTypes = {
     delivery: 'DELIVERY'
 }
 export const userType = UserTypes.pharmacy
-export const token= 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NzNkMzk4MjJjMWYwODUyYWEwYzUxZDciLCJwaG9uZU51bWJlciI6IjA5Mzc2NTk0NTQiLCJpYXQiOjE3MzIwOTIyNTQsImV4cCI6MTczMjE3ODY1NH0.t1cLu6nlt6m7fHDr9lE1lpzwaSjAT3WNw6u6zHolyyU'
+export const token= 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NzNkMzk4MjJjMWYwODUyYWEwYzUxZDciLCJwaG9uZU51bWJlciI6IjA5Mzc2NTk0NTQiLCJpYXQiOjE3MzIwOTM2NDgsImV4cCI6MTczMjE4MDA0OH0.BL7D_83G4utFxKD05Nym75FZtX36vL_XU4-687MhLbM'
 export class UserServices {
 
     static async register(data) {

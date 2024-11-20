@@ -19,9 +19,6 @@ const MyPostsPage = () => {
 
       <div className="flex flex-col px-44 mt-20 ">
         <LoadingCard />
-        <LoadingCard />
-        <LoadingCard />
-        <LoadingCard />
       </div>
     )
 
@@ -33,6 +30,7 @@ const MyPostsPage = () => {
   if (state.success)
     return (
       <div className="min-h-screen bg-gray-100 flex flex-col items-center mt-10 p-[5%] pt-[100px] space-y-10">
+      
         <h1 className="text-3xl font-bold mb-6">My Posts</h1>
         <div className="w-full max-w-4xl space-y-6">
 
