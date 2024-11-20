@@ -34,11 +34,9 @@ router.post('/addOrder', OrderServices.upload, async (req, res) => {
     const token = req.headers.authorization?.split(' ')[1];
     const { status } = req.query;
     const result = await OrderServices.ordersByStatus(token,status);
-    if (result.success) {
+  
       return res.status(200).json(result);
-    } else {
-      return res.status(400).json(result);
-    } 
+    
   });
 
   router.get('/all', async (req, res) => {

@@ -21,7 +21,7 @@ class UserServices {
     };
 
     const options = {
-      expiresIn: "24h",
+      expiresIn: "30d",
     };
 
     try {
