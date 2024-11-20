@@ -10,10 +10,10 @@ import HeroSection from "../../components/HeroSection";
 import AddOrder from "../../components/AddOrders";
 import LoadingCard from "../../components/OnLoading";
 import { getAllPostsAsync } from "../../slices/postSlices";
+import ListContainer from "../../components/ListContainer";
 
 export const PharmacyHome = () => {
   const dispatch = useDispatch();
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
   const [isPostOpen, setIsPostOpen] = useState(false);
   const [isAddOrderOpen, setIsAddOrderOpen] = useState(false);
@@ -54,7 +54,7 @@ export const PharmacyHome = () => {
   );
 
   return (
-    <div className={isPostOpen ? "backdrop-brightness-150" : ""}>
+    <div >
       {/* Hero Section */}
       <HeroSection
         imageSrc={require("../../assets/img/image.png")}
@@ -87,7 +87,13 @@ export const PharmacyHome = () => {
         </Popup>
 
         <div className="w-full max-w-[1400px] mx-auto py-8">
-          <div className="bg-[#b2dded] shadow-lg rounded-tl-3xl rounded-tr-3xl px-6 py-8 flex flex-col items-center -mt-32 relative z-10">
+        <ListContainer
+         title="Latest Posts Offers"
+         description="Explore the newest product offers and promotions from suppliers. and Share your own deals to stand out by clicking the button below!"
+         >
+
+
+            
             {/* Add Post Button */}
             <div className="sm:w-2/3 md:w-1/2 lg:w-1/3 cursor-pointer bg-[#147023] bg-opacity-40 px-10 shadow-lg h-20 rounded-2xl flex items-center justify-center mb-6 relative">
               <span className="text-white font-bold">
@@ -104,10 +110,13 @@ export const PharmacyHome = () => {
 
             {/* Loading or Posts */}
             {loading ? renderLoadingCards() : data && renderPosts()}
+            </ListContainer>
+
           </div>
+          
         </div>
+        
       </div>
-    </div>
   );
 };
 

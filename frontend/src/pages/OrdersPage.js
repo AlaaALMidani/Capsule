@@ -1,6 +1,7 @@
 import React from "react";
 import { Order } from "../components/Order";
-
+import HeroSection from '../components/HeroSection';
+import ListContainer from "../components/ListContainer";
 
 const fakeOrders = [
   {
@@ -28,10 +29,25 @@ const fakeOrders = [
 
 const OrdersPage = () => {
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center mt-10 p-[5%] pt-[100px] space-y-10">
-      {fakeOrders.map((order) => (
-        <Order key={order.id} offerMessage={order.offerMessage} />
-      ))}
+    <div>
+
+      <HeroSection
+       title='Explore Customer Orders'
+        description='Review and manage customer requests efficiently. Stay updated with their needs and respond to orders seamlessly.'
+        imageSrc={require("../assets/img/MedicineDelivery.png")}
+        buttonEnabled={false}
+      />
+      <ListContainer
+         title="Customer Orders"
+         description="Here is a list of all Customer orders."
+         >
+        {fakeOrders.map((order) => (
+          <Order key={order.id} offerMessage={order.offerMessage} />
+        ))}
+      </ListContainer>
+
+
+
     </div>
   );
 };
