@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, useMediaQuery } from "@mui/material";
+// import { Box, useMediaQuery } from "@mui/material";
 import Popup from "reactjs-popup";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,7 +19,7 @@ export const PharmacyHome = () => {
   const [isAddOrderOpen, setIsAddOrderOpen] = useState(false);
   const [isAddPostOpen, setIsAddPostOpen] = useState(false);
 
-  const state= useSelector((state) => state.post.getAllPosts);
+  const state = useSelector((state) => state.post.getAllPosts);
 
   useEffect(() => {
     dispatch(getAllPostsAsync());
@@ -33,25 +33,6 @@ export const PharmacyHome = () => {
       <LoadingCard />
     </div>
   );
-
-  // const renderPosts = () => (
-  //   <div className="w-full max-w-[1400px] mx-auto">
-  //     {data.posts.map((post) => (
-  //       <div key={post.id} className="mb-1">
-  //         <Post
-  //           description={post.description}
-  //           postPhoto={post.postPhoto}
-  //           productName={post.productName}
-  //           video={post.video}
-  //           createdAt={post.createdAt}
-  //           isLiked={post.isLiked}
-  //           likesCount={post.likesCount}
-  //           isMine={true}
-  //         />
-  //       </div>
-  //     ))}
-  //   </div>
-  // );
 
   return (
     <div >
@@ -87,13 +68,11 @@ export const PharmacyHome = () => {
         </Popup>
 
         <div className="w-full max-w-[1400px] mx-auto py-8">
-        <ListContainer
-         title="Latest Posts Offers"
-         description="Explore the newest product offers and promotions from suppliers. and Share your own deals to stand out by clicking the button below!"
-         >
-
-
-            
+          <ListContainer
+            title="Latest Posts Offers"
+            description="Explore the newest product offers and promotions from suppliers. and Share your own deals to stand out by clicking the button below!"
+          >
+        
             {/* Add Post Button */}
             <div className="sm:w-2/3 md:w-1/2 lg:w-1/3 cursor-pointer bg-[#147023] bg-opacity-40 px-10 shadow-lg h-20 rounded-2xl flex items-center justify-center mb-6 relative">
               <span className="text-white font-bold">
@@ -108,14 +87,9 @@ export const PharmacyHome = () => {
               </button>
             </div>
 
-            {/* Loading or Posts */}
-            {loading ? renderLoadingCards() : data && renderPosts()}
-            </ListContainer>
             {state.loading ?
-
               <div className="flex flex-col px-44 mt-20 ">
                 <LoadingCard />
-               
               </div>
               : <></>}
 
@@ -137,14 +111,10 @@ export const PharmacyHome = () => {
                   </div>
                 ))}
               </div> : <div></div>}
-
-
-
-          </div>
-          
+          </ListContainer>
         </div>
-        
       </div>
+    </div>
   );
 };
 
