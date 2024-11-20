@@ -157,6 +157,7 @@ class OfferServices {
       return { success: false, error: "Failed to retrieve offers" };
     }
   }
+
   async getOfferById(id, token) {
     const { success, userId, error } = await this.validateToken(token);
     if (!success) {
