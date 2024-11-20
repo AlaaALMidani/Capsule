@@ -2,7 +2,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { OrderRepo } = require("../models/orderModel");
 const { OfferRepo } = require("../models/offerModel");
-const orderService = require("./orderService");
 
 class OfferServices {
   async validate(offer) {
@@ -131,16 +130,15 @@ class OfferServices {
       return { success: false, error: error.message };
     }
   }
-  
-  async getOrderOffers(token) {
-    const { success, error, userId } = await this.validateToken(token);
+  async getOrderOffers(token, orderID) {
+    const { success, userId, error } = await this.validateToken(token);
     if (!success) {
       return { success: false, error };
     }
     try {
-      const ordersResponse = await orderService.getMyOrders(token);
-      if (!ordersResponse.success) {
-        return { success: false, error: "Failed to retrieve orders" };
+      const order = await OrderRepo.findById(orderID);
+      if (!order) {
+        return { success: false, error: "Order not found" };
       }
       const orders = ordersResponse.orders;
       const ordersWithOffers = await Promise.all(orders.map(async (order) => {

@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Tabs } from 'antd';
 import { CurrentOrderCard } from '../components/CurrentOrderCard';
 import { PreviosOrderCard } from '../components/PreviosOrderCard';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllPostsAsync } from '../slices/postSlices';
+import { getCurrentOrdersAsync, getPreviousOrdersAsync } from '../slices/orderSlices';
+import LoadingCard from '../components/OnLoading';
+import NoData from '../components/NoData';
 
 const { TabPane } = Tabs;
 
@@ -38,24 +43,41 @@ const fakePreviousOrders = [
   },
 ];
 
+
 const HistoryPage = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCurrentOrdersAsync())
+    dispatch(getPreviousOrdersAsync())
+  }, []);
+
+
+  const stateOfCurrent = useSelector(state => state.order.getCurrentOrders)
+  const stateOfPrevious = useSelector(state => state.order.getPreviousOrders)
+
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center mt-10p-[5%] pt-[100px]">
-     
+
       <div className="w-full max-w-4xl bg-white p-6 rounded-lg shadow-md">
         <Tabs defaultActiveKey="1" centered>
           <TabPane tab="Current Order" key="1">
             <div className="flex flex-col items-center space-y-6 py-4 ">
-              {fakeCurrentOrders.map((order) => (
-                <CurrentOrderCard key={order._id} order={order} />
-              ))}
+              {
+                stateOfCurrent.loading || !stateOfCurrent.data ? <LoadingCard /> : !stateOfCurrent.data.success ? <NoData /> : stateOfCurrent.data.orders.map((order) => (
+                  <CurrentOrderCard key={order._id} order={order} />
+                ))
+              }
+
             </div>
           </TabPane>
           <TabPane tab="Previous Order" key="2">
             <div className="flex flex-col items-center space-y-6 py-4">
-              {fakePreviousOrders.map((order) => (
-                <PreviosOrderCard key={order._id} order={order} />
-              ))}
+              {
+                stateOfPrevious.loading || !stateOfPrevious.data ? <LoadingCard /> : !stateOfPrevious.data.success ? <NoData /> : stateOfPrevious.data.orders.map((order) => (
+                  <CurrentOrderCard key={order._id} order={order} />
+                ))
+              }
             </div>
           </TabPane>
         </Tabs>

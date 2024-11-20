@@ -87,6 +87,12 @@ Media.propTypes = {
 
 export default function LoadingCard() {
   return (
+    <div>
       <Media loading />
+      <Media loading />
+      <Media loading />
+      <Media loading />
+    </div>
+
   );
 }

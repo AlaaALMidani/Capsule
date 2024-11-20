@@ -19,7 +19,7 @@ export const PharmacyHome = () => {
   const [isAddOrderOpen, setIsAddOrderOpen] = useState(false);
   const [isAddPostOpen, setIsAddPostOpen] = useState(false);
 
-  const { loading, data } = useSelector((state) => state.post.getAllPosts);
+  const state= useSelector((state) => state.post.getAllPosts);
 
   useEffect(() => {
     dispatch(getAllPostsAsync());
@@ -34,24 +34,24 @@ export const PharmacyHome = () => {
     </div>
   );
 
-  const renderPosts = () => (
-    <div className="w-full max-w-[1400px] mx-auto">
-      {data.posts.map((post) => (
-        <div key={post.id} className="mb-1">
-          <Post
-            description={post.description}
-            postPhoto={post.postPhoto}
-            productName={post.productName}
-            video={post.video}
-            createdAt={post.createdAt}
-            isLiked={post.isLiked}
-            likesCount={post.likesCount}
-            isMine={true}
-          />
-        </div>
-      ))}
-    </div>
-  );
+  // const renderPosts = () => (
+  //   <div className="w-full max-w-[1400px] mx-auto">
+  //     {data.posts.map((post) => (
+  //       <div key={post.id} className="mb-1">
+  //         <Post
+  //           description={post.description}
+  //           postPhoto={post.postPhoto}
+  //           productName={post.productName}
+  //           video={post.video}
+  //           createdAt={post.createdAt}
+  //           isLiked={post.isLiked}
+  //           likesCount={post.likesCount}
+  //           isMine={true}
+  //         />
+  //       </div>
+  //     ))}
+  //   </div>
+  // );
 
   return (
     <div >
@@ -111,6 +111,34 @@ export const PharmacyHome = () => {
             {/* Loading or Posts */}
             {loading ? renderLoadingCards() : data && renderPosts()}
             </ListContainer>
+            {state.loading ?
+
+              <div className="flex flex-col px-44 mt-20 ">
+                <LoadingCard />
+               
+              </div>
+              : <></>}
+
+            {state.data ?
+              <div className="w-full max-w-[1400px] mx-auto">
+                {state.data.posts.map((post) => (
+                  <div className="mb-1">
+                    <Post
+                      key={post.id}
+                      description={post.description}
+                      postPhoto={post.postPhoto}
+                      productName={post.productName}
+                      video={post.video}
+                      createdAt={post.createdAt}
+                      isLiked={post.isLiked}
+                      likesCount={post.likesCount}
+                      isMine={true}
+                    />
+                  </div>
+                ))}
+              </div> : <div></div>}
+
+
 
           </div>
           

@@ -5,7 +5,7 @@ const path = require("path");
 const { UserRepo } = require("../models/userModel");
 const InvoiceService = require("../services/invoiceService");
 
-class OrderServices {
+ class OrderServices {
   constructor() {
     this.storage = multer.diskStorage({
       destination: (req, file, cb) => {
@@ -99,10 +99,6 @@ class OrderServices {
       if (!success) {
         return { success: false, error };
       }
-      const currentOrders = await OrderRepo.findByStatus(userId, status);
-      if (!currentOrders || currentOrders.length === 0) {
-        return { success: false, error: `There are no ${status}  orders` };
-      }
       const validStatuses = [
         "pending",
         "offer_accepted",
@@ -110,12 +106,45 @@ class OrderServices {
         "completed",
         "canceled",
       ];
+
       if (!validStatuses.includes(status)) {
         return { success: false, error: "Invalid status provided" };
       }
+      console.log(userId + status )
+      const currentOrders = await OrderRepo.findOrdersByStatus(userId, status);
+      if (!currentOrders || currentOrders.length === 0) {
+        return { success: false, error: `There are no ${status}  orders` };
+      }
+
 
       const baseURL = "http://localhost:3002/";
       const formattedOrders = currentOrders.map((order) => ({
+        ...order.toObject(),
+        photo: order.photo
+          ? `${baseURL}${order.photo.replace(/\\/g, "/")}`
+          : null,
+      }));
+
+      return { success: true, orders: formattedOrders };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
+  }
+  
+  async getMyOrders(token) {
+    try {
+      const { success, error, userId } = await this.validateToken(token);
+      if (!success) {
+        return { success: false, error };
+      }
+      const user = await UserRepo.findByID(userId);
+      if (!user) {
+        return { success: false, error: "User not found" };
+      }
+      const baseURL = "http://localhost:3002/";
+      let orders;
+      orders = await OrderRepo.findBySenderId(userId);
+      const formattedOrders = orders.map((order) => ({
         ...order.toObject(),
         photo: order.photo
           ? `${baseURL}${order.photo.replace(/\\/g, "/")}`

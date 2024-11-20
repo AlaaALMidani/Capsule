@@ -85,7 +85,11 @@ router.post('/addOrder', OrderServices.upload, async (req, res) => {
         return res.status(400).json({ error: response.error });
       }
   });
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 80b1129c6183384f4acdafbad3912d98f3d4a580
   router.get("/myOrders", async (req, res) => {
     const token = req.headers.authorization;
     const result = await OrderServices.getMyOrders(token);
