@@ -2,7 +2,7 @@ const baseUrl = "http://localhost:3002/api/users/";
 const register = "register";
 const login = "login"
 
-const UserTypes = {
+export const UserTypes = {
     client : 'CLINT',
     pharmacy: 'PHARMACY',
     warehouse: 'WAREHOUSE',

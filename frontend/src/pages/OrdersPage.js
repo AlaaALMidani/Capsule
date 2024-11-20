@@ -5,31 +5,6 @@ import { getCustomersOrdersAsync } from "../slices/orderSlices";
 import LoadingCard from "../components/OnLoading";
 import NoData from "../components/NoData";
 
-
-const fakeOrders = [
-  {
-    id: 1,
-    message: "Order for 50 units of Product A.",
-    location: "123 Main St, Cityville",
-    status: "completed",
-    offerMessage: "Get 10% off your next order!",
-  },
-  {
-    id: 2,
-    message: "Order for 30 units of Product B.",
-    location: "456 Elm St, Townsville",
-    status: "pending",
-    offerMessage: "Free shipping on orders over $100!",
-  },
-  {
-    id: 3,
-    message: "Order for 20 units of Product C.",
-    location: "789 Oak St, Villagetown",
-    status: "inProgress",
-    offerMessage: "Buy one, get one free on select items!",
-  },
-];
-
 const OrdersPage = () => {
   const dispatch = useDispatch();
 

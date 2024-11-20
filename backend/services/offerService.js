@@ -130,31 +130,33 @@ class OfferServices {
       return { success: false, error: error.message };
     }
   }
-  async getOrderOffers(token, orderID) {
-    const { success, userId, error } = await this.validateToken(token);
+  async getOrderOffers(token) {
+    const { success, error, userId } = await this.validateToken(token);
     if (!success) {
       return { success: false, error };
     }
     try {
-      const order = await OrderRepo.findById(orderID);
-      if (!order) {
-        return { success: false, error: "Order not found" };
+      const ordersResponse = await orderService.getMyOrders(token);
+      if (!ordersResponse.success) {
+        return { success: false, error: "Failed to retrieve orders" };
       }
-      if (order.receiverId !== userId) {
+      const orders = ordersResponse.orders;
+      const ordersWithOffers = await Promise.all(orders.map(async (order) => {
+        const offers = await OfferRepo.findByOrderId(order._id);
         return {
-          success: false,
-          error: "Unauthorized to view offers for this order",
+          order: {
+            ...order, 
+            offers: offers || [] 
+          }
         };
-      }
-      const offers = await OfferRepo.findByOrderId(orderID);
-      if (!offers || offers.length === 0) {
-        return { success: false, error: "No offers found for this order" };
-      }
-      return { success: true, offers };
+      }));
+      return { success: true, orders: ordersWithOffers };
     } catch (error) {
       return { success: false, error: "Failed to retrieve offers" };
     }
   }
+
+
   async getOfferById(id, token) {
     const { success, userId, error } = await this.validateToken(token);
     if (!success) {

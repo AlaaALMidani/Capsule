@@ -48,17 +48,15 @@ router.get("/myOffers", async (req, res) => {
 });
 
 
-router.get("/order/:orderID", async (req, res) => {
+router.get("/orderOffers", async (req, res) => {
   const token = req.headers["authorization"];
   if (!token) {
     return res.status(401).json({ success: false, error: "Authorization token missing" });
   }
-  const { orderID } = req.params;
-  const result = await OfferServices.getOrderOffers(token, orderID);
+  const result = await OfferServices.getOrderOffers(token);
   if (!result.success) return res.status(404).json(result);
   res.status(200).json(result);
 });
-
 router.get('/:id', async (req, res) => {  
   const { id } = req.params;  
   const token = req.headers['authorization'];   

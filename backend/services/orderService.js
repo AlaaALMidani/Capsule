@@ -130,6 +130,32 @@ class OrderServices {
       return { success: false, error: error.message };
     }
   }
+  
+  async getMyOrders(token) {
+    try {
+      const { success, error, userId } = await this.validateToken(token);
+      if (!success) {
+        return { success: false, error };
+      }
+      const user = await UserRepo.findByID(userId);
+      if (!user) {
+        return { success: false, error: "User not found" };
+      }
+      const baseURL = "http://localhost:3002/";
+      let orders;
+      orders = await OrderRepo.findBySenderId(userId);
+      const formattedOrders = orders.map((order) => ({
+        ...order.toObject(),
+        photo: order.photo
+          ? `${baseURL}${order.photo.replace(/\\/g, "/")}`
+          : null,
+      }));
+
+      return { success: true, orders: formattedOrders };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
+  }
 
   async getAllOrders(token) {
     try {

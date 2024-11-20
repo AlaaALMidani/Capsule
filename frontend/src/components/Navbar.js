@@ -7,9 +7,10 @@ import { FiBell } from "react-icons/fi";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "../styles/logo.png";
 import { NavLink } from "react-router-dom";
+import { userType } from "../services/userServices";
 
 const NavScrollExample = () => {
-  const userType = "PHARMACY";
+
   return (
     <Navbar
       expand="lg"
@@ -21,15 +22,15 @@ const NavScrollExample = () => {
         padding: "0 5%",
       }}>
       <Container fluid>
-        <Navbar.Brand as={NavLink} to="/pharmacyHome">
+        <Navbar.Brand as={NavLink} to="/home">
           <img src={logo} alt="Logo" style={{ height: "50px" }} />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav className="mx-auto my-2 my-lg-0" navbarScroll>
-            {userType == "PHARMACY" && (
+            {userType === "PHARMACY" && (
               <NavLink
-                to="/pharmacyHome"
+                to="/home"
                 className="mx-3 text-decoration-none h5 py-2 px-3"
                 style={({ isActive }) => ({
                   color: isActive ? "#1b8942" : "#103758",
@@ -38,9 +39,9 @@ const NavScrollExample = () => {
                 Home
               </NavLink>
             )}
-            {userType == "CLINT" && (
+            {userType === "CLINT" && (
               <NavLink
-                to="/clintHome"
+                to="/home"
                 className="mx-3 text-decoration-none h5 py-2 px-3"
                 style={({ isActive }) => ({
                   color: isActive ? "#1b8942" : "#103758",
@@ -49,9 +50,9 @@ const NavScrollExample = () => {
                 Home
               </NavLink>
             )}
-            {userType == "WAREHOUSE" && (
+            {userType === "WAREHOUSE" && (
               <NavLink
-                to="/warehouseHome"
+                to="/home"
                 className="mx-3 text-decoration-none h5 py-2 px-3"
                 style={({ isActive }) => ({
                   color: isActive ? "#1b8942" : "#103758",
@@ -60,7 +61,7 @@ const NavScrollExample = () => {
                 Home
               </NavLink>
             )}
-            {userType == "DELIVERY" && (
+            {userType === "DELIVERY" && (
               <NavLink
                 to="/deliveryHome"
                 className="mx-3 text-decoration-none h5 py-2 px-3"
@@ -71,7 +72,7 @@ const NavScrollExample = () => {
                 Home
               </NavLink>
             )}
-            {(userType == "WAREHOUSE" || userType == "PHARMACY") && (
+            {(userType === "WAREHOUSE" || userType === "PHARMACY") && (
               <>
                 <NavLink
                   to="/myPosts"
@@ -93,7 +94,7 @@ const NavScrollExample = () => {
                 </NavLink>
               </>
             )}
-            {(userType == "CLINT" || userType == "PHARMACY") && (
+            {(userType === "CLINT" || userType === "PHARMACY") && (
               <NavLink
                 to="/offers"
                 className="mx-3 text-decoration-none h5 py-2 px-3"
