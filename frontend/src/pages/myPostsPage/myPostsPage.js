@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getMyPostsAsync } from '../../slices/postSlices';
 import Skeleton from '@mui/material/Skeleton';
 import LoadingCard from '../../components/OnLoading';
+import NoData from '../../components/NoData';
 const MyPostsPage = () => {
   const dispatch = useDispatch();
 
@@ -11,8 +12,8 @@ const MyPostsPage = () => {
     dispatch(getMyPostsAsync())
   }, [dispatch]);
   const state = useSelector(state => state.post.getMyPosts)
-  console.log(state)  
-  
+  console.log(state)
+
   if (state.loading)
     return (
 
@@ -26,7 +27,9 @@ const MyPostsPage = () => {
 
   if (state.error)
     return (<div>error</div>)
-
+  if (state.data && !state.data.success) {
+    return (<div className='mt-32'><NoData/></div>)
+  }
   if (state.success)
     return (
       <div className="min-h-screen bg-gray-100 flex flex-col items-center mt-10 p-[5%] pt-[100px] space-y-10">
