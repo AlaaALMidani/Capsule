@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { FiCamera } from 'react-icons/fi';
 import logo from '../styles/logo.png';
+import { toast } from 'react-toastify';
 
 function AddOrder() {
-  const [text, setText] = useState ('');
+  const [text, setText] = useState('');
   const [image, setImage] = useState(null);
 
   const handleTextChange = (e) => {
@@ -13,17 +14,29 @@ function AddOrder() {
   const handleImageUpload = (e) => {
     setImage(URL.createObjectURL(e.target.files[0]));
   };
+  const handleSubmit = () => {
+    toast.success('Post sent successfully!', {
+      position: 'top-center',
+      autoClose: 3000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
+  };
 
   return (
-    <div className="w-96 p-6 bg-white bg-opacity-15 border border-gray-400 rounded-lg mx-auto text-center">
+    <div className="w-full max-w-md p-6 bg-white rounded-lg mx-auto mt-10 border border-gray-300 text-center">
+
       {/* Logo and Title */}
       <div className="flex flex-col items-center mb-6">
-        {/* <img src={logo} alt="Logo" className="w-20 h-20 mb-2" /> */}
-        <h2 className="text-[] font-semibold text-lg">ORDER</h2>
+        <img src={logo} alt="Logo" className="w-16 h-16 mb-2" />
+        <h2 className="text-[#1a8942] font-semibold text-lg">Order Now</h2>
       </div>
 
+
       {/* Form Container */}
-      <div className="flex justify-between mb-6">
+      <div className="flex justify-between mb-6 text-center">
         {/* Text Box */}
         <textarea
           className="textarea textarea-success"
@@ -57,7 +70,10 @@ function AddOrder() {
       </div>
 
       {/* Submit Button */}
-      <button className="w-full bg-[#1a8942] text-white p-2 rounded hover:bg-[#215f92] mt-5">Submit Order</button>
+      <button
+        onClick={handleSubmit}
+        className="w-full bg-[#1a8942] text-white p-2 rounded-lg hover:bg-[#215f92] transition"
+      > Submit Order </button>
     </div>
   );
 }
