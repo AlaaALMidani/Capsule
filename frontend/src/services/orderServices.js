@@ -16,15 +16,9 @@ export class OrderServices {
       },
       body: formData, 
     })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .catch((error) => error.message);
-}
-
+      .then((response) => response.json())
+      .catch((error) => error.message);
+  }
 
   static async deleteOrder(orderId, token) {
     return fetch(`${baseUrl}${orderId}`, {
@@ -33,17 +27,13 @@ export class OrderServices {
         Authorization: `Bearer ${token}`,
       },
     })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .catch((error) => error.message);
-}
+      .then((response) => response.json())
+      .catch((error) => error.message);
+  }
 
   static async updateOrder(orderId, data, token, file) {
     const formData = new FormData();
+
     for (let key in data) {
       formData.append(key, data[key]);
     }
@@ -59,15 +49,9 @@ export class OrderServices {
       },
       body: formData, 
     })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .catch((error) => error.message);
-}
-
+      .then((response) => response.json())
+      .catch((error) => error.message);
+  }
 
   static async getAllOrders(token) {
     return fetch(`${baseUrl}all`, {
@@ -76,12 +60,7 @@ export class OrderServices {
         Authorization: `Bearer ${token}`,
       },
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
+      .then((response) => response.json())
       .catch((error) => error.message);
   }
 
@@ -92,14 +71,9 @@ export class OrderServices {
         Authorization: `Bearer ${token}`,
       },
     })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .catch((error) => error.message);
-}
+      .then((response) => response.json())
+      .catch((error) => error.message);
+  }
 
   static async updateOrderStatus(orderId, status, token) {
     return fetch(`${baseUrl}${orderId}/status`, {
@@ -110,32 +84,21 @@ export class OrderServices {
       },
       body: JSON.stringify({ status }), 
     })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .catch((error) => error.message);
-}
-
+      .then((response) => response.json())
+      .catch((error) => error.message);
+  }
 
   static async getOrdersByStatus(status, token) {
-    const url = `${baseUrl}ordersByStatus?status=${encodeURIComponent(status)}`;
-    return fetch(url, {
+   
+    return fetch(`${baseUrl}ordersByStatus`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
       },
+      body: JSON.stringify({ status }), 
     })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .catch((error) => error.message);
+      .then((response) => response.json())
+      .catch((error) => error.message);
+  }
 }
-}
-  
-

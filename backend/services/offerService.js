@@ -58,6 +58,11 @@ class OfferServices {
       }
       //   let receiver=await UserRepo.findById(order.senderId)
       offerData.receiverID = order.senderId;
+      if (offerData.cost) {
+        offerData.estimatedCost = parseFloat(
+          (offerData.cost * 1.05).toFixed(2)
+        );
+      }
       const errors = await this.validate(offerData);
       if (Object.keys(errors).length > 0) {
         return { success: false, errors };
