@@ -1,42 +1,44 @@
 import React, { useState } from 'react';
-import { FiCamera } from 'react-icons/fi';
-import logo from '../styles/logo.png';
 
-function AddOffer() {
-  const [message, setMessage] = useState ('');
-  const [cost, setCost] = useState ('');
-
- 
+function AddOffer({ onClose, order }) {
+  const [message, setMessage] = useState('');
+  const [cost, setCost] = useState('');
 
   return (
-    <div className="w-96 p-6 bg-white bg-opacity-15 border border-gray-400 rounded-lg mx-auto text-center">
-      {/* Logo and Title */}
+    <div className="w-96 p-6 bg-white border border-gray-400 rounded-lg mx-auto text-center">
+      {/* Header */}
       <div className="flex flex-col items-center mb-6">
-        {/* <img src={logo} alt="Logo" className="w-20 h-20 mb-2" /> */}
-        <h2 className="text-[] font-semibold text-lg">offer</h2>
+        <h2 className="font-semibold text-lg">Add Offer</h2>
+        {order && (
+          <p className="text-gray-600 text-sm">
+            For Order: <span className="font-bold">{order.message}</span>
+          </p>
+        )}
       </div>
 
-      {/* Form Container */}
-      <div className="flex justify-between mb-6">
-        {/* Text Box */}
+      {/* Form */}
+      <div className="flex flex-col space-y-4 mb-6">
         <textarea
-          className="textarea textarea-success"
-          placeholder="Add MEDICINE NAME"
+          className="textarea textarea-success w-full"
+          placeholder="Add Medicine Name"
           value={message}
-          onChange={(e)=>setMessage(e.target.value)}
+          onChange={(e) => setMessage(e.target.value)}
         />
         <textarea
-          className="textarea textarea-success"
-          placeholder="Add MEDICINE NAME"
+          className="textarea textarea-success w-full"
+          placeholder="Add Cost"
           value={cost}
-          onChange={(e)=>setCost(e.target.value)}
+          onChange={(e) => setCost(e.target.value)}
         />
-
-       
       </div>
 
       {/* Submit Button */}
-      <button className="w-full bg-[#1a8942] text-white p-2 rounded hover:bg-[#215f92] mt-5">Submit Order</button>
+      <button
+        onClick={onClose}
+        className="w-full bg-[#1a8942] text-white p-2 rounded hover:bg-[#215f92] mt-5"
+      >
+        Submit Offer
+      </button>
     </div>
   );
 }
