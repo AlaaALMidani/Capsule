@@ -3,14 +3,22 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { FiBell } from "react-icons/fi";
+import { FiBell, FiLogOut } from "react-icons/fi";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "../styles/logo.png";
 import { NavLink } from "react-router-dom";
 import { userType, UserTypes } from "../pages/login/Login";
+import { useNavigate } from "react-router-dom";
 
 
 const NavScrollExample = () => {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userType");
+    navigate("/login");
+  };
+
   return (
     <Navbar
       expand="lg"
@@ -27,6 +35,14 @@ const NavScrollExample = () => {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
+          <Button
+            variant="outline-light"
+            className="d-flex align-items-center ms-3"
+            style={{ backgroundColor: "#1b8942", border: "none" }}
+            onClick={handleLogout}
+          >
+            <FiLogOut size={20} color="white" />
+          </Button>
           <Nav className="mx-auto my-2 my-lg-0" navbarScroll>
             {userType === UserTypes.pharmacy && (
               <NavLink
