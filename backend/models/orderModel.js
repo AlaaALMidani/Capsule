@@ -4,7 +4,7 @@ const orderSchema = new mongoose.Schema({
   senderId: { type: String, required: true },
   status: {
     type: String,
-    required: true,
+    required: true, 
     enum: ["pending","offer_accepted", "inProgress", "completed", "canceled"],
     default: "pending",
   },

@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { Register } from "./pages/register/register.jsx";
 import { Login } from "./pages/login/Login.jsx";
 import { CssBaseline, ThemeProvider } from "@mui/material";
@@ -8,7 +8,7 @@ import Navbar from "./components/Navbar.js";
 import { PharmacyHome } from "./pages/home/pharmacyHome.js";
 import HistoryPage  from "./pages/HistoryPage.js";
 import OfferPage from "./pages/OfferPage.js";
-import MyPostsPage from "./pages/myPostsPage.js";
+import MyPostsPage from "./pages/myPostsPage/myPostsPage.js";
 import OrdersPage from "./pages/OrdersPage.js";
 import Notification from "./pages/Notification.js";
 import WarehouseHome from "./pages/home/warehouseHome.js";
@@ -18,14 +18,15 @@ import { UserHome } from "./pages/home/userHome.js";
 
 function App() {
   const [theme] = useMode();
-
+  const noNavbarPaths = ["/register", "/login"];
+  const location = useLocation();
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline /> 
       <div className="flex">
         <div className="flex-1 overflow-y-auto">
           <main>
-            <Navbar />
+          {!noNavbarPaths.includes(location.pathname) && <Navbar />}
             <Routes>
               <Route path="/register" element={<Register />}></Route>
               <Route path="/login" element={<Login />}></Route>

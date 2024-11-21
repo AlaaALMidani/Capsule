@@ -106,12 +106,17 @@ class PostService {
         post: {
           ...newPost.toObject(),
           postPhoto: newPost.postPhoto
-            ? `${baseURL}${newPost.postPhoto}`
+            ? `${baseURL}${newPost.postPhoto.replace(/\\/g, "/")}`
             : null,
-          video: newPost.video ? `${baseURL}${newPost.video}` : null,
-          PDF: newPost.PDF ? `${baseURL}${newPost.PDF}` : null,
+          video: newPost.video
+            ? `${baseURL}${newPost.video.replace(/\\/g, "/")}`
+            : null,
+          PDF: newPost.PDF
+            ? `${baseURL}${newPost.PDF.replace(/\\/g, "/")}`
+            : null,
         },
       };
+      
     } catch (error) {
       return { success: false, error: error.message };
     }
@@ -142,9 +147,15 @@ class PostService {
         const isLikedByUser = post.likes.includes(userId);
         return {
           ...post.toObject(),
-          postPhoto: post.postPhoto ? `${baseURL}${post.postPhoto}` : null,
-          video: post.video ? `${baseURL}${post.video}` : null,
-          PDF: post.PDF ? `${baseURL}${post.PDF}` : null,
+          postPhoto: post.postPhoto
+            ? `${baseURL}${post.postPhoto.replace(/\\/g, "/")}`
+            : null,
+          video: post.video
+            ? `${baseURL}${post.video.replace(/\\/g, "/")}`
+            : null,
+          PDF: post.PDF
+            ? `${baseURL}${post.PDF.replace(/\\/g, "/")}`
+            : null,
           isLiked: isLikedByUser,
           likesCount: post.likes.length,
         };
@@ -242,6 +253,7 @@ class PostService {
           ? `${baseURL}${updateResult.post.PDF.replace(/\\/g, "/")}`
           : null,
       };
+      
       return { success: true, post: updatedPost };
     } catch (error) {
       return { success: false, error: error.message };
@@ -285,9 +297,15 @@ class PostService {
         const isLikedByUser = post.likes.includes(userId);
         return {
           ...post.toObject(),
-          postPhoto: post.postPhoto ? `${baseURL}${post.postPhoto}` : null,
-          video: post.video ? `${baseURL}${post.video}` : null,
-          PDF: post.PDF ? `${baseURL}${post.PDF}` : null,
+          postPhoto: post.postPhoto
+            ? `${baseURL}${post.postPhoto.replace(/\\/g, "/")}`
+            : null,
+          video: post.video
+            ? `${baseURL}${post.video.replace(/\\/g, "/")}`
+            : null,
+          PDF: post.PDF
+            ? `${baseURL}${post.PDF.replace(/\\/g, "/")}`
+            : null,
           isLiked: isLikedByUser,
           likesCount: post.likes.length,
         };
