@@ -1,4 +1,4 @@
-import { token } from "./userServices";
+import {token} from '../pages/login/Login';
 
 const baseUrl = "http://localhost:3002/api/orders/";
 export class OrderServices {
@@ -8,7 +8,7 @@ export class OrderServices {
       formData.append(key, data[key]);
     }
     if (file) {
-      formData.append('photo', file); 
+      formData.append('photo', file);
     }
 
     return fetch(`${baseUrl}addOrder`, {
@@ -16,7 +16,7 @@ export class OrderServices {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-      body: formData, 
+      body: formData,
     })
       .then((response) => response.json())
       .catch((error) => error.message);
@@ -49,7 +49,7 @@ export class OrderServices {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-      body: formData, 
+      body: formData,
     })
       .then((response) => response.json())
       .catch((error) => error.message);
@@ -63,6 +63,7 @@ export class OrderServices {
       },
     })
       .then((response) => response.json())
+      .then((data) => data)
       .catch((error) => error.message);
   }
 
@@ -84,23 +85,23 @@ export class OrderServices {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ status }), 
+      body: JSON.stringify({ status }),
     })
       .then((response) => response.json())
       .catch((error) => error.message);
   }
 
   static async getOrdersByStatus(status) {
-   
+
     return fetch(`${baseUrl}ordersByStatus/?status=${status}`, {
       method: "GET",
-      
+
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
 
       },
-    
+
     })
       .then((response) => response.json())
       .then(data => data)

@@ -1,4 +1,4 @@
-import { token } from "./userServices";
+import {token} from '../pages/login/Login';
 
 const baseUrl = "http://localhost:3002/api/offers/";
 

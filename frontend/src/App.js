@@ -13,8 +13,8 @@ import OrdersPage from "./pages/OrdersPage.js";
 import Notification from "./pages/Notification.js";
 import WarehouseHome from "./pages/home/warehouseHome.js";
 import { UserHome } from "./pages/home/userHome.js";
-import { userType } from "./services/userServices.js";
-import { UserTypes } from "./services/userServices.js";
+import { userType } from "./pages/login/Login";
+import { UserTypes } from "./pages/login/Login";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

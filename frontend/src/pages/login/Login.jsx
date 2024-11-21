@@ -12,6 +12,16 @@ import { login } from "./loginSlices";
 import logo from "../../styles/logo.png";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 
+export const UserTypes = {
+  client : 'CLINT',
+  pharmacy: 'PHARMACY',
+  warehouse: 'WAREHOUSE',
+  delivery: 'DELIVERY'
+}
+export let userType = UserTypes.pharmacy
+export let userData ={} ;
+export let token= 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NzNkMzk4MjJjMWYwODUyYWEwYzUxZDciLCJwaG9uZU51bWJlciI6IjA5Mzc2NTk0NTQiLCJpYXQiOjE3MzIwOTM2NDgsImV4cCI6MTczMjE4MDA0OH0.BL7D_83G4utFxKD05Nym75FZtX36vL_XU4-687MhLbM'
+
 export const Login = () => {
   const [formData, setFormData] = useState({
     phoneNumber: "+963 937 639 501",

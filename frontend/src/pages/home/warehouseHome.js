@@ -4,7 +4,6 @@ import Post from "../../components/Post.js";
 import { Box, Grid2, useMediaQuery } from "@mui/material";
 import AddPost from "../../components/AddPosts.js";
 import Popup from "reactjs-popup";
-import doctor from "../../assets/img/doctorImage2.png";
 import camera from "../../assets/img/camera.svg";
 import AddOrder from "../../components/AddOrders.js";
 import HeroSection from "../../components/HeroSection";
