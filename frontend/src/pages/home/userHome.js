@@ -12,7 +12,7 @@ import LoadingCard from "../../components/OnLoading";
 import { getAllPostsAsync } from "../../slices/postSlices";
 import ListContainer from "../../components/ListContainer";
 
-export const PharmacyHome = () => {
+export const UserHome = () => {
   const dispatch = useDispatch();
 
   const [isPostOpen, setIsPostOpen] = useState(false);
