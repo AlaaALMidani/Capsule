@@ -12,7 +12,7 @@ export const Register = () => {
     const [formData, setFormData] = useState({
         fullName: "alaa",
         phoneNumber: "0934552101",
-        password: "alaa@Alaa1",
+        password: "12345678",
     });
 
     const dispatch = useDispatch();

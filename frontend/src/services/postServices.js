@@ -1,5 +1,6 @@
 import { uploadProgress } from '../slices/postSlices'
-import { token } from './userServices';
+import {token} from '../pages/login/Login';
+
 const baseUrl = "http://localhost:3002/api/posts/";
 const addPost = "addPost";
 const myPosts = 'getOwnPosts'
