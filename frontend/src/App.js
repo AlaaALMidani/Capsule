@@ -15,6 +15,9 @@ import WarehouseHome from "./pages/home/warehouseHome.js";
 import { UserHome } from "./pages/home/userHome.js";
 import { userType } from "./services/userServices.js";
 import { UserTypes } from "./services/userServices.js";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 function App() {
@@ -24,6 +27,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+       <ToastContainer />
       <div className="flex">
         <div className="flex-1 overflow-y-auto">
           <main>
