@@ -1,90 +1,122 @@
-import React, { useState } from "react";
-import Button from "@mui/material/Button/index.js";
-import Post from "../../components/Post.js";
-import { Box, Grid2, useMediaQuery } from "@mui/material";
-import AddPost from "../../components/AddPosts.js";
+import React, { useEffect, useState } from "react";
+// import { Box, useMediaQuery } from "@mui/material";
 import Popup from "reactjs-popup";
-import camera from "../../assets/img/camera.svg";
-import AddOrder from "../../components/AddOrders.js";
+import { AiOutlinePlus } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
+
+import Post from "../../components/Post";
+import AddPost from "../../components/AddPosts";
 import HeroSection from "../../components/HeroSection";
 
+import LoadingCard from "../../components/OnLoading";
+import { getAllPostsAsync } from "../../slices/postSlices";
+import ListContainer from "../../components/ListContainer";
 
-const WarehouseHome = () => {
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
-  const [isOpen, setIsOpen] = useState(false);
-  const [isAddOrderOpen, setIsAddOrderOpen] = useState(false);
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NzNiNDZiYWY4NDYwNDk0ZjE5ODRiZDkiLCJpYXQiOjE3MzE5Mzc5NzgsImV4cCI6MTczMjAyNDM3OH0.2p2hy1ug8erSlLukGneCn_VfVR3-fNgxY2c9RVPvMuc";
-  const posts = [
-    { id: 1, title: "Post 1", content: "Content of Post 1" },
-    { id: 2, title: "Post 2", content: "Content of Post 2" },
-    { id: 3, title: "Post 3", content: "Content of Post 3" },
-  ];
+export const PharmacyHome = () => {
+  const dispatch = useDispatch();
+
+  const [isPostOpen, setIsPostOpen] = useState(false);
+ 
+  const [isAddPostOpen, setIsAddPostOpen] = useState(false);
+
+  const state = useSelector((state) => state.post.getAllPosts);
+
+  useEffect(() => {
+    dispatch(getAllPostsAsync());
+  }, [dispatch]);
+
+  const renderLoadingCards = () => (
+    <div className="flex flex-col px-44 mt-20">
+      <LoadingCard />
+      <LoadingCard />
+      <LoadingCard />
+      <LoadingCard />
+    </div>
+  );
 
   return (
-    <div className={`${isOpen ? "backdrop-brightness-150 " : ""}`}>
-
-    
-      {/* HeroSection Section */}
+    <div >
+      {/* Hero Section */}
       <HeroSection
-        isMobile={isMobile}
-        imageSrc={require("../../assets/img/pharmaceutical-storage.webp")}
-        title="Welcome to Your Supplier..."
-        description="Explore the best pharmaceutical solutions and products tailored to meet your needs. We connect pharmacists with trusted suppliers to provide a reliable and secure platform for your professional needs."
-        buttonEnabled={false}
-        // buttonText="Click Me"
-        // buttonAction={() => alert("Button Clicked!")}
+        imageSrc={require("../../assets/img/image.png")}
+        title="Welcome, Trusted Pharmacist!"
+        description="As a valued pharmacist, we’re here to support you in managing your pharmacy operations efficiently. Explore tools tailored to help you handle orders, connect with distributors, and better serve your customers. Let’s work together to make healthcare more accessible and reliable."
       />
 
-      {/* AddOrder Popup */}
-      <Popup
-        open={isAddOrderOpen}
-        onClose={() => setIsAddOrderOpen(false)}
-        modal
-        closeOnDocumentClick
-      >
-        <AddOrder onClose={() => setIsAddOrderOpen(false)} token={token} />
-      </Popup>
+      <div className="mt-6 m-auto">
+       
 
-      {/* Existing AddPost Popup */}
-      <Popup
-        trigger={
-          <div className="flex justify-center m-8">
-            <img
-              src={camera}
-              className="h-20 mr-3 cursor-pointer"
-              alt="camera"
-            />
-            <div className="sm:w-2/3 md:w-1/2 lg:w-1/3 cursor-pointer bg-indigo-900 bg-opacity-40 px-10 shadow-lg h-20 rounded-2xl flex items-center justify-center">
+        {/* Add Post Popup */}
+        <Popup
+          open={isAddPostOpen}
+          onClose={() => setIsAddPostOpen(false)}
+          modal
+          closeOnDocumentClick
+          contentStyle={{
+            width: '50%',
+            maxWidth: '600px',
+            background: 'white',
+            borderRadius: '8px',
+            // padding: '20px',
+            animation: 'popupAnimation 0.3s ease-out',
+          }}
+          overlayStyle={{
+            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+            animation: 'fade-in 0.3s ease-out',
+          }}
+        >
+          <AddPost onClose={() => setIsAddPostOpen(false)} />
+        </Popup>
+
+
+        <div className="w-full max-w-[1400px] mx-auto py-8">
+          <ListContainer
+            title="Latest Posts Offers"
+            description="Explore the newest product offers and promotions from suppliers. and Share your own deals to stand out by clicking the button below!"
+          >
+
+            {/* Add Post Button */}
+            <div className="sm:w-2/3 md:w-1/2 lg:w-1/3 cursor-pointer bg-[#147023] bg-opacity-40 px-10 shadow-lg h-20 rounded-2xl flex items-center justify-center mb-6 relative">
               <span className="text-white font-bold">
                 Tell us about your product...
               </span>
+              <button
+                className="absolute top-[-30px] left-1/2 transform -translate-x-1/2 w-14 h-14 rounded-full bg-green-600 text-white flex items-center justify-center font-bold shadow-lg hover:bg-green-700 transition-all duration-300"
+                style={{ boxShadow: "0 9px 22px rgba(0, 0, 0, 1)" }}
+                onClick={() => setIsAddPostOpen(true)}
+              >
+                <AiOutlinePlus className="w-6 h-6" />
+              </button>
             </div>
-            <button className="px-4 py-2 bg-green-600 text-white rounded-2xl ml-3 font-bold">
-              ADD POST
-            </button>
-          </div>
-        }
-        onClose={() => setIsOpen(false)}
-        open={isOpen}
-        modal
-        closeOnDocumentClick
-      >
-        {(close) => <AddPost />}
-      </Popup>
 
-      {/* Posts Section */}
-      <div className="mt-6 m-auto">
-        {posts.map((post) => (
-          <div className="mb-4" key={post.id}>
-            <Grid2 item xs={12} sm={6} md={4} spacing={2}>
-              <Post title={post.title} content={post.content} />
-            </Grid2>
-          </div>
-        ))}
+            {state.loading ?
+              <div className="flex flex-col px-44 mt-20 ">
+                <LoadingCard />
+              </div>
+              : <></>}
+
+            {state.data ?
+              <div className="w-full max-w-[1400px] mx-auto">
+                {state.data.posts.map((post) => (
+                  <div className="mb-1">
+                    <Post
+                      key={post.id}
+                      description={post.description}
+                      postPhoto={post.postPhoto}
+                      productName={post.productName}
+                      video={post.video}
+                      createdAt={post.createdAt}
+                      isLiked={post.isLiked}
+                      likesCount={post.likesCount}
+                      isMine={true}
+                    />
+                  </div>
+                ))}
+              </div> : <div></div>}
+          </ListContainer>
+        </div>
       </div>
     </div>
   );
 };
 
-export default WarehouseHome;
