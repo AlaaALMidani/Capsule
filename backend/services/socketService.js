@@ -30,7 +30,7 @@ class SocketService {
           callback(error, null);
         }
       });
-      
+
       socket.on('sendMessage', (message, callback) => {
         try {
           const roomId = socket.data.userId.toString(); // Get room ID from socket data

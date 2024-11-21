@@ -1,57 +1,64 @@
-import {
-  Box,
-  CircularProgress,
-  IconButton,
-  InputAdornment,
-  TextField,
-} from "@mui/material";
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { login } from "./loginSlices";
+import { Box, CircularProgress, IconButton, InputAdornment, TextField } from '@mui/material';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { login } from './loginSlices';
 import logo from "../../styles/logo.png";
+import { CustomInput } from '../../components/CustomInput';
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 
+
 export const UserTypes = {
-  client : 'CLINT',
+  client: 'CLINT',
   pharmacy: 'PHARMACY',
   warehouse: 'WAREHOUSE',
   delivery: 'DELIVERY'
 }
 export let userType = UserTypes.pharmacy
-export let userData ={} ;
-export let token= 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NzNkMzk4MjJjMWYwODUyYWEwYzUxZDciLCJwaG9uZU51bWJlciI6IjA5Mzc2NTk0NTQiLCJpYXQiOjE3MzIwOTM2NDgsImV4cCI6MTczMjE4MDA0OH0.BL7D_83G4utFxKD05Nym75FZtX36vL_XU4-687MhLbM'
+export let userData = {};
+export let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NzNkMzk4MjJjMWYwODUyYWEwYzUxZDciLCJwaG9uZU51bWJlciI6IjA5Mzc2NTk0NTQiLCJpYXQiOjE3MzIwOTM2NDgsImV4cCI6MTczMjE4MDA0OH0.BL7D_83G4utFxKD05Nym75FZtX36vL_XU4-687MhLbM'
 
 export const Login = () => {
   const [formData, setFormData] = useState({
-    phoneNumber: "+963 937 639 501",
-    password: "alaa@Alaa1",
+    phoneNumber: "0937639501",
+    password: "12345678"
   });
 
   const dispatch = useDispatch();
-  const state = useSelector((state) => state.login);
+  const state = useSelector(state => state.login);
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
+
 
   const handleChange = (event) => {
     const { name, value, type, files } = event.target;
     setFormData((prevState) => ({
       ...prevState,
-      [name]: type === "file" ? files[0] : value,
+      [name]: type === 'file' ? files[0] : value,
     }));
   };
-
-  const togglePasswordVisibility = () => {
-    setShowPassword((prevState) => !prevState);
-  };
-  
   const handleSubmit = async (event) => {
     event.preventDefault();
     dispatch(login(formData));
   };
 
   if (state.data && state.data.ok) {
-    navigate("/home");
+    userData = { ...state.data.user }
+    console.log(state.data.user)
+    token = userData.token
+    if (userData.roleID === 2) {
+      userType = UserTypes.client
+    } else if (userData.roleID === 3) {
+      userType = UserTypes.pharmacy
+    } else if (userData.roleID === 4) {
+      userType = UserTypes.warehouse
+    } else if (userData.roleID === 5) {
+      userType = UserTypes.delivery
+    }
+    navigate('/home');
   }
 
   return (
@@ -61,6 +68,7 @@ export const Login = () => {
         <img src={logo} alt="Logo" className="w-1/2 md:w-auto" />
       </div>
 
+     
       {/* Form */}
       <form
         onSubmit={handleSubmit}
@@ -102,6 +110,7 @@ export const Login = () => {
         />
 
 
+
         {/* Error Message */}
         {state.data && !state.data.ok && (
           <div className="error-message text-red-700 mt-3">
@@ -111,22 +120,24 @@ export const Login = () => {
 
         {/* Loading Spinner */}
         {state.loading ? (
-          <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <CircularProgress />
           </Box>
         ) : (
           <button
             type="submit"
-            className="w-full bg-[#1a8942] text-white p-2 rounded hover:bg-[#215f92] mt-5">
+            className="w-full bg-[#1a8942] text-white p-2 rounded hover:bg-[#215f92] mt-5"
+          >
             LOGIN
           </button>
         )}
         <div className="text-center mt-4">
-          <span className="text-gray-600">Don't have an account? </span>
+          <span className="text-gray-600">Already have an account? </span>
           <Link to="/register" className="text-blue-500 hover:underline">
             Register
           </Link>
         </div>
+
       </form>
     </div>
   );
