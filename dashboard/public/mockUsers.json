@@ -6,7 +6,7 @@
       "fullName": "alaaalmedane",
       "phoneNumber": "0934552101",
       "password": "$2a$09$L7vr/g3h0Wt2UjC981RMCuu6p7W5c4jcTDQAJcOZSl1qL/nyIAmmG",
-      "location": "-118.2437,34.0522",
+      "location": "36.297162,33.521129",
       "active": true,
       "roleID": 3,
       "__v": 0
@@ -26,7 +26,7 @@
       "fullName": "aliali",
       "phoneNumber": "0934552103",
       "password": "$2a$09$uhmL4vp5YY/RCppSdWsbpuV83BeVCwChd0HSUoKD809BtEHFmzgG2",
-      "location": "23,23",
+      "location": "33.518048,36.303012",
       "active": true,
       "roleID": 3,
       "__v": 0
