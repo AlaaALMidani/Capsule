@@ -7,10 +7,10 @@ import { FiBell } from "react-icons/fi";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "../styles/logo.png";
 import { NavLink } from "react-router-dom";
-import { userType } from "../pages/login/Login";
+import { userType, UserTypes } from "../pages/login/Login";
+
 
 const NavScrollExample = () => {
-
   return (
     <Navbar
       expand="lg"
@@ -28,7 +28,7 @@ const NavScrollExample = () => {
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav className="mx-auto my-2 my-lg-0" navbarScroll>
-            {userType === "PHARMACY" && (
+            {userType === UserTypes.pharmacy && (
               <NavLink
                 to="/home"
                 className="mx-3 text-decoration-none h5 py-2 px-3"
@@ -39,7 +39,7 @@ const NavScrollExample = () => {
                 Home
               </NavLink>
             )}
-            {userType === "CLINT" && (
+            {userType === UserTypes.client && (
               <NavLink
                 to="/home"
                 className="mx-3 text-decoration-none h5 py-2 px-3"
@@ -50,7 +50,7 @@ const NavScrollExample = () => {
                 Home
               </NavLink>
             )}
-            {userType === "WAREHOUSE" && (
+            {userType === UserTypes.warehouse && (
               <NavLink
                 to="/home"
                 className="mx-3 text-decoration-none h5 py-2 px-3"
@@ -61,7 +61,7 @@ const NavScrollExample = () => {
                 Home
               </NavLink>
             )}
-            {userType === "DELIVERY" && (
+            {userType == "DELIVERY" && (
               <NavLink
                 to="/deliveryHome"
                 className="mx-3 text-decoration-none h5 py-2 px-3"
@@ -72,7 +72,7 @@ const NavScrollExample = () => {
                 Home
               </NavLink>
             )}
-            {(userType === "WAREHOUSE" || userType === "PHARMACY") && (
+            {(userType === UserTypes.warehouse || userType === UserTypes.pharmacy) && (
               <>
                 <NavLink
                   to="/myPosts"
@@ -94,7 +94,7 @@ const NavScrollExample = () => {
                 </NavLink>
               </>
             )}
-            {(userType === "CLINT" || userType === "PHARMACY") && (
+            {(userType === UserTypes.client || userType === UserTypes.pharmacy) && (
               <NavLink
                 to="/offers"
                 className="mx-3 text-decoration-none h5 py-2 px-3"
@@ -105,7 +105,7 @@ const NavScrollExample = () => {
                 Offers
               </NavLink>
             )}
-            {userType !== "WAREHOUSE" && (
+            {userType !== UserTypes.warehouse && (
               <NavLink
                 to="/history"
                 className="mx-3 text-decoration-none h5 py-2 px-3"
