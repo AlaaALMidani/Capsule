@@ -1,10 +1,14 @@
 const express = require("express");
+const http = require('http');
 const app = express();
+const server = http.createServer(app);
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const db = require("./models/db");
 const fs = require("fs");
+const SocketService = require('./services/socketService'); 
 const path = require("path");
+const socketService = new SocketService(server,"sdwe"); 
 
 const uploadsDir = path.join(__dirname, "uploads");
 
@@ -42,11 +46,12 @@ const host = "http://localhost:";
 
 db.connect()
   .then(async () => {
-    app.listen(port, () => {
-      console.log(`Server listening on ${host}${port}`);
+    server.listen(port, () => {
+      console.log(`Server listening on port ${port}`);
     });
   })
   .catch((err) => {
     console.error("Failed to start server:", err);
     process.exit(1); // Exit with an error code
   });
+ 
