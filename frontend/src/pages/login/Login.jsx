@@ -4,8 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { login } from './loginSlices';
 import logo from "../../styles/logo.png";
-import { CustomInput } from '../../components/CustomInput';
+// import { CustomInput } from '../../components/CustomInput';
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export const UserTypes = {
@@ -58,17 +60,20 @@ export const Login = () => {
     } else if (userData.roleID === 5) {
       userType = UserTypes.delivery
     }
+    setTimeout(() => {
     navigate('/home');
+  },2000);
   }
 
   return (
+    
     <div className="flex flex-col md:flex-row items-center justify-center min-h-screen w-screen bg-white p-6 md:p-20">
       {/* Logo */}
       <div className="w-full md:w-1/3 flex justify-center mb-8 md:mb-0">
         <img src={logo} alt="Logo" className="w-1/2 md:w-auto" />
       </div>
 
-     
+  
       {/* Form */}
       <form
         onSubmit={handleSubmit}
@@ -139,6 +144,8 @@ export const Login = () => {
         </div>
 
       </form>
+      <ToastContainer />
+
     </div>
   );
 };
