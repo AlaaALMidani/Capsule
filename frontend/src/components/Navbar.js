@@ -7,7 +7,8 @@ import { FiBell } from "react-icons/fi";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "../styles/logo.png";
 import { NavLink } from "react-router-dom";
-import { userType, UserTypes } from "../services/userServices";
+import { userType, UserTypes } from "../pages/login/Login";
+
 
 const NavScrollExample = () => {
   return (
