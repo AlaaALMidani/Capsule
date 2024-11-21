@@ -18,14 +18,14 @@ export const addOrderAsync = createAsyncThunk('order/addOrder', async (data, { r
 });
 
 export const getCurrentOrdersAsync = createAsyncThunk('order/getCurrentOrders', async () => {
-    return await OrderServices.getCurrentOrders();
+    return await OrderServices.getOrdersByStatus('pending');
 });
 
 export const getPreviousOrdersAsync = createAsyncThunk('order/getPreviousOrders', async () => {
-    return await OrderServices.getPreviousOrders();
+    return await OrderServices.getOrdersByStatus('completed');
 });
 
-export const getCustomersOrdersAsync = createAsyncThunk('order/getCustomersOrdersAsync', async () => {
+export const getCustomersOrdersAsync = createAsyncThunk('order/getCustomersOrders', async () => {
     return await OrderServices.getAllOrders();
 });
 

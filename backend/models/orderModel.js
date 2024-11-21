@@ -4,8 +4,8 @@ const orderSchema = new mongoose.Schema({
   senderId: { type: String, required: true },
   status: {
     type: String,
-    required: true, 
-    enum: ["pending","offer_accepted", "inProgress", "completed", "canceled"],
+    required: true,
+    enum: ["pending", "offer_accepted", "inProgress", "completed", "canceled"],
     default: "pending",
   },
   createdAt: { type: Date, required: true, default: Date.now },
@@ -38,9 +38,9 @@ class OrderRepo {
     return await Order.findOneAndDelete({ _id });
   };
 
-  static findByStatus = async (senderId, status) => {
+  static findOrdersByStatus = async (senderId, status) => {
     return await Order.find({ senderId, status });
-  };
+  }; 
 
   static findByStatus = async (status) => {
     return await Order.find({ status });
@@ -50,9 +50,7 @@ class OrderRepo {
     return await Order.find({ senderId, status });
   };
 
-  static findCompleted = async (senderId) => {
-    return await Order.find({ senderId, status: "completed" });
-  };
+
 
   static updateOne = async (_id, updateData) => {
     try {
@@ -74,4 +72,3 @@ class OrderRepo {
 module.exports = {
   OrderRepo,
 };
-  

@@ -1,24 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Grid2 } from "@mui/material";
 import Button from "@mui/material/Button";
 import heroBg from "../assets/img/hero-bg.png";
 
 const HeroSection = ({
-  imageSrc = require("../assets/img/image.png"), 
-  title = "Welcome", 
-  description = "We’re here to assist you with your pharmacy needs. Explore the options below to add a new order or learn more about our services!", 
-  buttonEnabled = true, 
-  buttonText = "Click Me", 
-  buttonAction = () => {}, 
-  isMobile = false, 
+  imageSrc = require("../assets/img/image.png"),
+  title = "Welcome",
+  description = "We’re here to assist you with your pharmacy needs. Explore the options below to add a new order or learn more about our services!",
+  buttonEnabled = true,
+  buttonText = "Click Me",
+  buttonAction = () => { },
+  isMobile = false,
+  backgroundMovement = "translateY(-10px)",
 }) => {
+  const [animateBackground, setAnimateBackground] = useState(false);
+
+  useEffect(() => {
+    setAnimateBackground(true);
+
+    const timer = setTimeout(() => {
+      setAnimateBackground(false);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div
       className="bg-center p-[5%] pt-[100px] flex items-center justify-center transition-all duration-300"
       style={{
         backgroundImage: `url(${heroBg})`,
         backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
+        backgroundPosition: animateBackground ? "center" : backgroundMovement,
+        transition: "background-position 0.5s ease",
       }}
     >
       <Box sx={{ width: "1400px", height: "100%" }}>
@@ -110,9 +124,8 @@ const HeroSection = ({
             <img
               src={imageSrc}
               alt="Pills"
-              className={`${
-                isMobile ? "w-[70%] max-w-[200px]" : "w-full max-w-[400px]"
-              } animate-moveUpDown`}
+              className={`${isMobile ? "w-[70%] max-w-[200px]" : "w-full max-w-[400px]"
+                } animate-moveUpDown`}
               style={{
                 height: "auto",
                 margin: isMobile ? "0 auto" : "0",
@@ -127,11 +140,8 @@ const HeroSection = ({
 
 export default HeroSection;
 
-
-
-
-
-{/* <HeroSection
+{
+  /* <HeroSection
 isMobile={isMobile}
 imageSrc={require("../../assets/img/image.png")}
 title="Welcome, Trusted Pharmacist!"
@@ -139,4 +149,5 @@ description="As a valued pharmacist, we’re here to support you in managing you
 buttonEnabled={true}
 buttonText="Order Now"
 buttonAction={() => setIsAddOrderOpen(true)}
-/>         */}
+/>         */
+}

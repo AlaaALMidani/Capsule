@@ -26,6 +26,7 @@
     "react-router-dom": "^6.27.0",
     "react-scripts": "5.0.1",
     "react-spring": "^9.7.4",
+    "react-toastify": "^10.0.6",
     "reactjs-popup": "^2.0.6",
     "redux": "^5.0.1",
     "swiper": "^11.1.14",
