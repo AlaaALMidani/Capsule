@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { Register } from "./pages/register/register.jsx";
 import { Login } from "./pages/login/Login.jsx";
 import { CssBaseline, ThemeProvider } from "@mui/material";
@@ -22,7 +22,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [theme] = useMode();
-  const noNavbarPaths = ["/register", "/login"];
+  const noNavbarPaths = ["/register", "/login","/"];
   const location = useLocation();
   return (
     <ThemeProvider theme={theme}>
@@ -34,7 +34,8 @@ function App() {
           {!noNavbarPaths.includes(location.pathname) && <Navbar />}
             <Routes>
               <Route path="/register" element={<Register />}></Route>
-              <Route path="/login" element={<Login />}></Route>
+              <Route path="/login" element={<Login />} />
+              <Route path="/" element={<Navigate to="/login" replace />} />
               <Route path="/home" element={
                 userType === UserTypes.pharmacy ?
                   < PharmacyHome /> :
