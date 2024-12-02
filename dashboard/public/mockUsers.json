@@ -1,0 +1,126 @@
+{
+  "ok": true,
+  "users": [
+    {
+      "_id": "67331ce9a68d9849ba8644c7",
+      "fullName": "alaaalmedane",
+      "phoneNumber": "0934552101",
+      "password": "$2a$09$L7vr/g3h0Wt2UjC981RMCuu6p7W5c4jcTDQAJcOZSl1qL/nyIAmmG",
+      "location": "36.297162,33.521129",
+      "active": true,
+      "roleID": 3,
+      "__v": 0
+    },
+    {
+      "_id": "67335bc624faa240c8ec8453",
+      "fullName": "alaaalmedane",
+      "phoneNumber": "0934552102",
+      "password": "$2a$09$UUMIxsfp6t6orTezvxp5eenEoPvm8AjuFqlIUMF/aRpUIBTIsBZ7G",
+      "location": "-118.2437,34.0522",
+      "active": true,
+      "roleID": 3,
+      "__v": 0
+    },
+    {
+      "_id": "67335c52aab08a192936794f",
+      "fullName": "aliali",
+      "phoneNumber": "0934552103",
+      "password": "$2a$09$uhmL4vp5YY/RCppSdWsbpuV83BeVCwChd0HSUoKD809BtEHFmzgG2",
+      "location": "33.518048,36.303012",
+      "active": true,
+      "roleID": 3,
+      "__v": 0
+    },
+    {
+      "_id": "673368e0f83173e0cd056efe",
+      "fullName": "aya zeno ",
+      "phoneNumber": "0956565656",
+      "password": "$2a$09$/xmUMnLZcBREqvsPgjoo3e1bH53u3ghUTMOuGlm7Wj29ygPECbTNW",
+      "location": "23,23",
+      "active": true,
+      "roleID": 3,
+      "__v": 0
+    },
+    {
+      "_id": "6734a3eec495c3f4f550abe2",
+      "fullName": "aya zeno",
+      "phoneNumber": "0934552108",
+      "password": "$2a$09$DFcMncBWA2weCfT4uAGyxuRAC3nNqJQb9rIPn.rEk23737/GijKpe",
+      "location": "23,23",
+      "active": true,
+      "roleID": 3,
+      "__v": 0
+    },
+    {
+      "_id": "6734a731c495c3f4f550abe6",
+      "fullName": "aya midane ",
+      "phoneNumber": "0934552109",
+      "password": "$2a$09$q5oW4WwTGOgPev0IfATFvuoxerbzF54qZVqdadhROC2UdamxZ8etq",
+      "location": "23,23",
+      "active": true,
+      "roleID": 3,
+      "__v": 0
+    },
+    {
+      "_id": "6734a78fc495c3f4f550abec",
+      "fullName": "aya zeno ",
+      "phoneNumber": "0934379015",
+      "password": "$2a$09$Uas3DQxXc8qPkAmJWccSeeHNTzZ2sQTdBWz52H8tiyvpn5Blmu/wG",
+      "location": "9090909",
+      "active": true,
+      "roleID": 3,
+      "__v": 0
+    },
+    {
+      "_id": "6734a7bfc495c3f4f550abf0",
+      "fullName": "aya zeno ",
+      "phoneNumber": "0934379016",
+      "password": "$2a$09$G4HCSK9B1i66aeKmxoWsJepWDnDmK8cM/XNCv/C5lxx6CevaSimG2",
+      "location": "as",
+      "active": true,
+      "roleID": 3,
+      "__v": 0
+    },
+    {
+      "_id": "6734a8bdc495c3f4f550abf5",
+      "fullName": "aya zeno ",
+      "phoneNumber": "0934374016",
+      "password": "$2a$09$fahZ57KD.YHcJw2by6f9AOeOzrcJsfp4SryS6KZ1ycDC1SfYRIpRu",
+      "location": "as",
+      "active": true,
+      "roleID": 3,
+      "__v": 0
+    },
+    {
+      "_id": "6734c0bd55980ef5f4ea625d",
+      "fullName": "ser",
+      "phoneNumber": "0952154895",
+      "password": "$2a$09$IyEOFrHiZcbIJbmEykt.QO1U5Mm7xXwFU1pKLrsO4gT5TnAMl34Ze",
+      "location": "dfdjfldkjfkdl",
+      "active": true,
+      "roleID": 2,
+      "__v": 0
+    },
+    {
+      "_id": "67356cb833011920c5bd7193",
+      "fullName": "leen almedane",
+      "phoneNumber": "0934552105",
+      "password": "$2a$09$N7.F09AGdd0IobLCdUgEfOYixxBD14VR94no12rjK2gEnfxEbJWvS",
+      "location": "23,23",
+      "active": false,
+      "roleID": 5,
+      "__v": 0
+    },
+    {
+      "_id": "6735f34eeed4e79491a0902c",
+      "fullName": "aya midane ",
+      "phoneNumber": "0934752109",
+      "password": "$2a$09$WRKCOllcsvFEklTMih0q3.iqJte99DQhW24Tcuqep8oEfY//1BG4m",
+      "location": "23,23",
+      "active": true,
+      "roleID": 3,
+      "__v": 0
+    }
+  ]
+}
+

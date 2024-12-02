@@ -1,11 +1,17 @@
-const baseUrl = "http://localhost:3000/";
+const baseUrl = "http://localhost:3002/api/users/";
 const register = "register";
 const login = "login"
 export class UserServices {
+
     static async register(data) {
+        console.log('ri')
+        console.log(data)
         return fetch(`${baseUrl}${register}`, {
             method: "post",
-            body: data,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
         })
             .then((response) => response.json())
             .then(data => data)
